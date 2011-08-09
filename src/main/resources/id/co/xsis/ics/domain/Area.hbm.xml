@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.Area" table="AREA">
+        
+        <id name="id" type="long">
+            <column name="AREA_ID" precision="22" scale="0" />
+            <generator class="sequence">
+				<param name="sequence">AREA_ID_S</param>
+			</generator>
+        </id>
+       
+        <property name="creationDate" type="date">
+            <column name="CREATION_DATE" length="7" />
+        </property>
+       
+        <property name="createdBy" type="long">        
+            <column name="CREATED_BY" precision="22" scale="0" />
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+            <column name="LAST_UPDATED_DATE" length="7" />
+        </property>
+        
+        <property name="lastUpdatedBy" type="long">
+            <column name="LAST_UPDATED_BY" precision="22" scale="0" />
+        </property>
+        
+        <property name="desa" type="string">
+            <column name="DESA" length="150" not-null="true" />
+        </property>
+        
+        <property name="district" type="string">
+            <column name="DISTRICT" length="150" not-null="true" />
+        </property>
+        
+        <property name="subDistrict" type="string">
+            <column name="SUBDISTRICT" length="150" not-null="true" />
+        </property>
+        
+         <property name="province" type="string">
+            <column name="PROVINCE" length="150" not-null="true" />
+        </property>
+        
+        <one-to-one name="dealer" class="com.xsis.ics.domain.Dealer"/>
+	</class>
+</hibernate-mapping>

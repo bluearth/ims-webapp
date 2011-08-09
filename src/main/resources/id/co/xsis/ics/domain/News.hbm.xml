@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.News" table="NEWS">
+    	
+    	<id name="id" type="long">
+            <column name="NEWS_ID" />
+            <generator class="sequence">
+				<param name="sequence">NEWS_ID_S</param>
+			</generator>
+        </id>
+       
+        <property name="createdBy" type="long">
+        	<column name="CREATED_BY"/>
+        </property>
+        
+        <property name="creationDate" type="date">
+        	<column name="CREATION_DATE"/>
+        </property>
+       
+        <property name="lastUpdatedBy" type="long">
+        	<column name="LAST_UPDATED_BY"/>
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+        	<column name="LAST_UPDATED_DATE"/>
+        </property>
+        
+        <property name="newsDescription" type="string">
+            <column name="NEWS_DESCRIPTION" />
+        </property>
+        <property name="effectiveDate" type="date">
+        	<column name="EFFECTIVE_DATE"/>
+        </property>
+        <property name="ineffectiveDate" type="date">
+        	<column name="INEFFECTIVE_DATE"/>
+        </property>
+        <property name="newsType" type="string">
+            <column name="NEWS_TYPE" />
+        </property>
+        <property name="newsRefferenceTo" type="string">
+            <column name="NEWS_REFERENCE_TO" />
+        </property>
+        <property name="newsRefferenceId" type="long">
+        	<column name="NEWS_REFERENCE_ID"/>
+        </property>
+    </class>
+</hibernate-mapping>

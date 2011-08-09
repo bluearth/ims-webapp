@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}	
+		
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+		
+		</style>
+	
+	<window id="cvrTrackingWindow" style="" apply="${cvrRoutesTrackingComposer}" border="none" closable="true" width="auto" height="1200px"
+		sizable="true" sclass="pageWindowTitle">
+		
+		<grid>
+			<columns>
+				<column width="50%" />
+				<column width="50%"/>
+			</columns>
+			<rows>
+				<row spans="2" align="center">
+					<label value="Canvasser Management / Canvasser Tracking"/>
+				</row>
+				<row id="rowTrackingType">
+					<label value="Select tracking type : "/>
+					<radiogroup id="radGroupTrackingType">
+						<radio id="radGeneral" value="1" label="General Tracking" checked="true"/>
+						<radio id="radSpecific" value="2" label="Specific Tracking" />
+					</radiogroup>
+				</row>
+			</rows>
+		</grid>
+		
+		<grid style="margin-top:10px;">
+			<columns>
+				<column width="20%"/>
+				<column width="80%"/>
+			</columns>
+			<rows>
+				<row id="rowTeritory">
+					<label id="labelTerritory" value="Select Territory" />
+					<combobox sclass="CbRO" readonly="true" id="cbTeritoryDest" autodrop="true" >
+						<comboitem self="@{each=teritory}" value="@{teritory.id}" label="@{teritory.teritoryName}"/>
+					</combobox>
+				</row>
+				<row id="rowRegion">
+					<label id="labelRegionDest" value="Select Region" />
+					<combobox sclass="CbRO" readonly="true" id="cbRegionDest" autodrop="true" >
+						<comboitem self="@{each=region}" value="@{region.id}" label="@{region.regionName}"/>
+					</combobox>
+				</row>
+				<row id="rowSubRegion">
+					<label id="labelSubRegionDest" value="Select Subregion" />
+					<combobox sclass="CbRO" readonly="true" id="cbSubregionDest" autodrop="true" >
+						<comboitem self="@{each=subRegion}" value="@{subRegion.id}" label="@{subRegion.name}"/>
+					</combobox>
+				</row>
+				<row id="rowDepo">
+					<label id="labelDepoDest" value="Select Depo" />
+					<combobox sclass="CbRO" readonly="true" id="cbDepoDest" autodrop="true" >
+						<comboitem self="@{each=depo}" value="@{depo.id}" label="@{depo.depoName}"/>
+					</combobox>
+				</row>
+				<row id="rowDealer">
+					<label id="labelDealerDest" value="Select Dealer"/>
+					<combobox sclass="CbRO" readonly="true" id="cbDealerDest" autodrop="true">
+						<comboitem self="@{each=dealer}" value="@{dealer.id}" label="@{dealer.dealerName}"/>
+					</combobox>
+				</row>
+				<row id="startDate">
+					<label value="Start Date" width="150px" />
+						<datebox id="paramStartDate" width="150px" format="dd-MM-yyyy HH:mm:ss" />
+				</row>
+				<row id="endDate">
+					<label value="End Date" width="150px" />
+					<datebox id="paramEndDate" width="150px" format="dd-MM-yyyy HH:mm:ss" />
+				</row>
+				<row id="canvasserRoute">
+					<label value="Select Canvasser :" />
+					<columnlayout>
+						<columnchildren width="45%">
+							<panel title="Available Canvasser :" id="panelAvailableRoutes">
+								<panelchildren>
+									<hbox>
+							    		<textbox id="cvrName" width="190px"/>
+							    		<button id="btnCvrName">SEARCH</button>
+							    	</hbox>
+									<listbox id="lbAvailableRoutes"
+										multiple="true" height="300px" fixedLayout="true" checkmark="true">
+										<listhead>
+											<listheader label="Id"
+												width="25%" />
+											<listheader label="Name"
+												width="50%" />
+											<listheader label="Type"
+												width="25%" />
+										</listhead>
+									</listbox>
+									<paging id="availCvrPaging" pageSize="20"/>
+								</panelchildren>
+							</panel>
+						</columnchildren>
+						<columnchildren width="10%">
+							<panel>
+								<panelchildren style="margin: 150px 5px;">
+									<image id="arrowLeft" sclass="pointer"
+										src="/images/arrowLeft.png"
+										tooltiptext="Remove Route" height="30px" width="30px" />
+									<image id="arrowRight" sclass="pointer"
+									   	src="/images/arrowRight.png"
+										tooltiptext="Add Route" height="30px" width="30px" />
+								</panelchildren>
+							</panel>
+						</columnchildren>
+						<columnchildren width="45%">
+							<panel title="Configured Canvasser :">
+								<panelchildren>
+									<listbox id="lbAssignedRoutes"
+										multiple="true" height="350px" fixedLayout="true" checkmark="true">
+									    <listhead>
+											<listheader label="Id" width="25%" />
+											<listheader label="Name" width="50%" />
+											<listheader label="Type" width="25%" />
+										</listhead>
+									</listbox>
+								</panelchildren>
+							</panel>
+						</columnchildren>
+					</columnlayout>
+				</row>
+				<row align="left">
+					<label value="" width="150px" />
+					<button id="btnTrackCanvasser" label="Track Canvasser" width="125px" />
+				</row>
+			</rows>
+		</grid>
+						
+		<separator bar="true" />			
+
+		<iframe id="iframe" width="100%" height="600px" style="border: 1px solid gray" align="center" />
+					 	
+ 		<separator bar="true" />
+					 			
+	</window>
+</zk>

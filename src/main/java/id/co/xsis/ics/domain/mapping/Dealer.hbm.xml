@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.Dealer" table="DEALER">
+
+		<id name="id" type="long">
+			<column name="DEALER_ID" />
+			<generator class="sequence">
+				<param name="sequence">DEALER_ID_S</param>
+			</generator>
+		</id>
+
+		<property name="createdBy" type="long">
+			<column name="created_by" />
+		</property>
+
+		<property name="creationDate" type="timestamp">
+			<column name="CREATION_DATE" />
+		</property>
+
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+
+		<property name="lastUpdatedDate" type="timestamp">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+		<property name="dealerName" type="string">
+			<column name="DEALER_NAME" />
+		</property>
+
+		<property name="dealerPhone" type="string">
+			<column name="DEALER_PHONE" />
+		</property>
+
+		<property name="dealerLongitude" type="big_decimal">
+			<column name="DEALER_LONGITUDE" />
+		</property>
+
+		<property name="dealerLatitude" type="big_decimal">
+			<column name="DEALER_LATITUDE" />
+		</property>
+
+		<property name="dealerStatus" type="string">
+			<column name="DEALER_STATUS" />
+		</property>
+
+		<property name="dealerCode" type="string">
+			<column name="DEALER_CODE" />
+		</property>
+
+		<property name="dealerType" type="string">
+			<column name="DEALER_TYPE" />
+		</property>
+
+		<property name="dealerIdexStartDate" type="java.util.Date">
+			<column name="DEALER_IDEX_START_DATE" />
+		</property>
+
+		<property name="dealerIdexEndDate" type="java.util.Date">
+			<column name="DEALER_IDEX_END_DATE" />
+		</property>
+
+		<property name="dealerIdexId" type="java.lang.Long">
+			<column name="DEALER_IDEX_ID" />
+		</property>
+		
+		<property name="dealerIdexCode" type="string">
+			<column name="DEALER_IDEX_CODE" />
+		</property>		
+		
+		<many-to-one name="address" class="com.xsis.ics.domain.Address"
+			column="dealer_address" fetch="select" cascade="all" />
+
+		<many-to-one name="depo" class="com.xsis.ics.domain.Depo" fetch="select">
+			<column name="DEPO_ID" />
+		</many-to-one>
+
+		<set name="canvassers" inverse="true"  lazy="true" table="canvasser"
+			fetch="select">
+			<key>
+				<column name="DEALER_ID" length="10" not-null="true" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.Canvasser" />
+		</set>
+
+		<set name="outlets" inverse="true" lazy="true" table="OUTLET"
+			fetch="select">
+			<key>
+				<column name="DEALER_ID" precision="22" scale="0" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.Outlet" />
+		</set>
+
+		<set name="userMappings" inverse="true" lazy="true" fetch="select">
+			<key>
+				<column name="DEALER_ID" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.SecUserClusterMapping"/>
+		</set>
+	</class>
+</hibernate-mapping>

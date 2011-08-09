@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+<class name="com.xsis.ics.domain.SubRegion" table="subregion">
+		
+		<id name="id" type="long">
+            <column name="subregion_id" />
+            <generator class="sequence">
+				<param name="sequence">SUBREGION_ID_S</param>
+			</generator>
+        </id>
+        
+        <property name="name" type="string">
+        	<column name="subregion_name"/>
+        </property>
+        
+        <property name="code" type="string">
+        	<column name="SUBREGION_CODE"/>
+        </property>
+        
+        <property name="longitude" type="big_decimal">
+            <column name="SUBREGION_LONGITUDE" />
+        </property>
+        
+        <property name="latitude" type="big_decimal">
+            <column name="SUBREGION_LATITUDE" />
+        </property>
+        
+        <property name="createdBy" type="long">
+        	<column name="created_by"/>
+        </property>
+        
+        <property name="creationDate" type="date">
+        	<column name="creation_date"/>
+        </property>
+        
+        <property name="lastUpdatedBy" type="long">
+        	<column name="last_updated_by"/>
+        </property>
+        
+        <property name="lastUpdatedDate" type="date">
+        	<column name="last_updated_date"/>
+        </property> 
+        
+        <many-to-one name="region" class="com.xsis.ics.domain.Region"
+			fetch="select">
+			<column name="REGION_ID" />
+		</many-to-one>
+		
+      <set name="depos" inverse="true" lazy="true" table="DEPO" fetch="select">
+            <key>
+                <column name="SUBREGION_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.xsis.ics.domain.Depo" />
+        </set>
+        
+	</class>
+</hibernate-mapping>

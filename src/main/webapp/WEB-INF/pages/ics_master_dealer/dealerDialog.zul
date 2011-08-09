@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}	
+	</style>
+	
+
+	<window id="dealerDialogWindow"
+		apply="${dealerDialogComposer}" border="none" closable="true" width="800px" height="500px"
+		sizable="true" sclass="pageWindowTitle">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+
+		<borderlayout id="borderlayoutDealer">
+
+			<north border="none" margins="0,0,0,0">
+				<grid>
+					<columns sizable="" height="20px">
+
+						<!-- CRUD Buttons -->
+						<column align="right">
+							<hbox spacing="5px" style="padding:1px"
+								align="end">
+								<button id="btnNew" height="20"
+									tooltiptext="${c:l('btnNew.tooltiptext')}" /><!--
+								 label="${c:l('btnNew.label')}"	
+					
+								--><button id="btnEdit" height="20"
+									tooltiptext="${c:l('btnEdit.tooltiptext')}" />
+								<button id="btnDelete" height="20"
+									tooltiptext="${c:l('btnDelete.tooltiptext')}" />
+								<button id="btnSave" height="20"
+									tooltiptext="${c:l('btnSave.tooltiptext')}" />
+								<button id="btnCancel" height="20"
+									tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+								<button id="btnClose" height="20"
+									tooltiptext="${c:l('btnClose.tooltiptext')}" />
+							</hbox>
+
+						</column>
+					</columns>
+				</grid>
+			</north>
+
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterDealer">
+
+					<tabbox id="tabBoxDealer" width="100%">
+						<tabs>
+							<tab id="tab_DealerDialog_Details"
+								label="${c:l('tab_DealerDialog_Details.label')}" />
+								
+						</tabs>
+						<tabpanels>
+
+							<!-- Tab Details-->
+							<tabpanel id="tabpanel_DealerDialog_Details"
+								height="100%" width="100%" style="border: 0px">
+
+								<columnlayout>
+									<columnchildren width="50%"
+										style="padding: 5px">
+										<panel
+											id="panel_DealerDialog_Information"
+											title="${c:l('panel_DealerDialog_Information.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>	
+													<rows>
+														<row>
+															<label
+																id="label_DealerDialog_dlrId"
+																value="${c:l('label_DealerDialog_dlrId.value')}" />
+															<longbox readonly="true"
+																id="dlrId" maxlength="50" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrIdexID"
+																value="${c:l('label_DealerDialog_dlrIdexID.value')}" />
+															<longbox readonly="true"
+																id="dlrIdexID" maxlength="50" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrIdexCode"
+																value="${c:l('label_DealerDialog_dlrIdexCode.value')}" />
+															<textbox readonly="true"
+																id="dlrIdexCode" maxlength="50" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrName"
+																value="${c:l('label_DealerDialog_dlrName.value')}" />
+															<textbox
+																id="dlrName" maxlength="150" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrPhone"
+																value="${c:l('label_DealerDialog_dlrPhone.value')}" />
+															<hbox>
+																<textbox id="tbPrefixPhone" width="20px" readonly="true"/>
+																<textbox
+																id="dlrPhone" maxlength="18" width="170px" />
+															</hbox>
+															
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrStatus"
+																value="${c:l('label_DealerDialog_dlrStatus.label')}" />
+															<combobox id="cb_DealerDialog_dlrStatus" model="@{statusList}" selectedItem="@{selectedStatus}" value="@{selectedStatus.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrStatus')}" width="200px">
+																<comboitem self="@{each=status}" label="@{status.lookupDescription}" value="@{status.lookupValue}"/>
+															</combobox>
+														</row>
+														<row visible="false">
+															<label
+																id="label_DealerDialog_dlrIdexStartDate"
+																value="${c:l('label_DealerDialog_dlrIdexStartDate.value')}" />
+															<datebox
+																id="dlrIdexStartDate" width="200px" format="MM/dd/yyyy" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_DealerDialog_dlrIdexEndDate"
+																value="${c:l('label_DealerDialog_dlrIdexEndDate.value')}" />
+															<datebox
+																id="dlrIdexEndDate" width="200px" format="MM/dd/yyyy" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_DealerDialog_dlrType"
+																value="${c:l('label_DealerDialog_dlrType.value')}" />
+															<combobox id="cb_DealerDialog_dlrType" model="@{typeList}" selectedItem="@{selectedType}" value="@{selectedType.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrType')}" width="200px">
+																<comboitem self="@{each=type}" label="@{type.lookupDescription}" value="@{type.lookupValue}"/>
+															</combobox>
+														</row>														
+														<row visible="false">
+															<label
+																id="label_DealerDialog_dlrLongitude"
+																value="${c:l('label_DealerDialog_dlrLongitude.value')}" />
+															<decimalbox
+																id="dlrLongitude" maxlength="50" width="200px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_DealerDialog_dlrLatitude"
+																value="${c:l('label_DealerDialog_dlrLatitude.value')}" />
+															<decimalbox 
+																id="dlrLatitude" maxlength="50" width="200px"/>
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+										<panel
+											id="panel_DealerDialog_Address"
+											title="${c:l('panel_DealerDialog_Address.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>	
+													<rows>
+													<row>
+															<label
+																id="label_DealerDialog_dlrStreet"
+																value="${c:l('label_DealerDialog_dlrStreet.value')}" />
+															<textbox multiline="true"
+																id="dlrStreet" maxlength="200" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrVillage"
+																value="${c:l('label_DealerDialog_dlrVillage.value')}" />
+															<textbox 
+																id="dlrVillage" maxlength="150" width="200px"/>
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrSubDistrict"
+																value="${c:l('label_DealerDialog_dlrSubDistrict.value')}" />
+															<textbox 
+																id="dlrSubDistrict" maxlength="150" width="200px"/>
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrDistrict"
+																value="${c:l('label_DealerDialog_dlrDistrict.value')}" />
+															<textbox
+																id="dlrDistrict" maxlength="150" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrProvince"
+																value="${c:l('label_DealerDialog_dlrProvince.value')}" />
+															<combobox sclass="CbRO" id="cb_DealerDialog_dlrProvince" readonly="true" model="@{provinceList}" selectedItem="@{selectedProvince}" value="@{selectedProvince.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrProvince')}" width="200px">
+																<comboitem self="@{each=province}" label="@{province.lookupDescription}" value="@{province.lookupValue}"/>
+															</combobox>
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+									</columnchildren>
+									<columnchildren width="50%"
+										style="padding: 5px">
+										<panel
+											id="panel_DealerDialog_Details"
+											title="${c:l('panel_DealerDialog_Details.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>	
+													<rows>
+														<row>
+															<label 
+																id="label_DealerDialog_dlrTerritoryName"
+																value="${c:l('label_DealerDialog_dlrTerritoryName.value')}" />
+															<combobox sclass="CbRO" id="cb_DealerDialog_dlrTeritoryName" readonly="true" model="@{teritoryList}" selectedItem="@{selectedTeritory}" value="@{selectedTeritory.teritoryName}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrTeritoryName')}" width="200px">
+																<comboitem self="@{each=teritories}" label="@{teritories.teritoryName}" value="@{teritories.id}"/>
+															</combobox>		
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrRegionName"
+																value="${c:l('label_DealerDialog_dlrRegionName.label')}" />
+															<combobox sclass="CbRO" id="cb_DealerDialog_dlrRegionName" readonly="true" model="@{regionList}" selectedItem="@{selectedRegion}" value="@{selectedRegion.regionName}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrRegionName')}" width="200px">
+																<comboitem self="@{each=regions}" label="@{regions.regionName}" value="@{regions.id}"/>
+															</combobox>				
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrSubregionName"
+																value="${c:l('label_DealerDialog_dlrSubregionName.label')}" />
+															<combobox sclass="CbRO" id="cb_DealerDialog_dlrSubRegionName" readonly="true" model="@{subRegionList}" selectedItem="@{selectedSubRegion}" value="@{selectedSubRegion.name}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrSubRegionName')}" width="200px">
+																<comboitem self="@{each=subRegions}" label="@{subRegions.name}" value="@{subRegions.id}"/>
+															</combobox>				
+														</row>
+														<row>
+															<label 
+																id="label_DealerDialog_dlrDepoName"
+																value="${c:l('label_DealerDialog_dlrDepoName.value')}" />
+															<combobox sclass="CbRO" id="cb_DealerDialog_dlrDepoName" readonly="true" model="@{depoList}" selectedItem="@{selectedDepo}" value="@{selectedDepo.depoName}" autodrop="true" tooltiptext="${c:l('tooltiptext_DealerDialog_dlrDepoName')}" width="200px">
+																<comboitem self="@{each=depos}" label="@{depos.depoName}" value="@{depos.id}"/>
+															</combobox>			
+														</row>
+														<row>
+															<label
+																id="label_DealerDialog_dlrCluster"
+																value="${c:l('label_DealerDialog_dlrCluster.label')}" />
+															<textbox 
+																id="dlrCluster" readonly="true" maxlength="50" width="200px"/>				
+														</row>														
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+									</columnchildren>
+							</columnlayout>
+							</tabpanel>
+							
+						</tabpanels>
+					</tabbox>
+
+
+				</div>
+			</center>
+
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+
+		</borderlayout>
+
+
+	</window>
+</zk>

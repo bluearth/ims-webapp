@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean name="securityService" class="com.xsis.security.service.impl.SecurityServiceImpl">
+        <property name="userDAO" ref="userDAO" />
+        <property name="secUserroleDAO" ref="secUserroleDAO" />
+        <property name="secRoleDAO" ref="secRoleDAO" />
+        <property name="secRolegroupDAO" ref="secRolegroupDAO" />
+        <property name="secGrouprightDAO" ref="secGrouprightDAO" />
+        <property name="secGroupDAO" ref="secGroupDAO" />
+        <property name="secRightDAO" ref="secRightDAO" />
+        <property name="secTypDAO" ref="secTypDAO" />
+    </bean>
+    <bean name="userService" class="com.xsis.security.service.impl.UserServiceImpl">
+        <property name="userDAO" ref="userDAO" />
+        <property name="secUserroleDAO" ref="secUserroleDAO" />
+        <property name="secRoleDAO" ref="secRoleDAO" />
+        <property name="secRolegroupDAO" ref="secRolegroupDAO" />
+        <property name="secGrouprightDAO" ref="secGrouprightDAO" />
+        <property name="secGroupDAO" ref="secGroupDAO" />
+        <property name="languageDAO" ref="languageDAO" />
+        <property name="secRightDAO" ref="secRightDAO" />
+        <property name="secLookupDAO" ref="secLookupDAO" />
+        <property name="secDealerDAO" ref="secDealerDAO" />
+        <property name="secDepoDAO" ref="secDepoDAO" />
+        <property name="secSubRegionDAO" ref="secSubRegionDAO" />
+        <property name="secRegionDAO" ref="secRegionDAO" />
+        <property name="secTeritoryDAO" ref="secTeritoryDAO" />
+        <property name="secUserSigninDAO" ref="secUserSigninDAO" />
+    </bean>
+    
+    <bean name="officeService" class="com.xsis.security.service.impl.OfficeServiceImpl">
+        <property name="officeDAO" ref="officeDAO" />
+    </bean>
+
+    <bean id="userDetailsService" class="com.xsis.security.service.impl.UserDetailsServiceImpl">
+        <property name="userService" ref="userService" />
+    </bean>
+    <bean id="passwordEncoder" class="com.xsis.security.service.impl.PasswordEncoderImpl" />
+<!--    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />-->
+</beans>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.Depo" table="depo">
+		
+		<id name="id" type="long">
+            <column name="DEPO_ID" />
+            <generator class="sequence">
+				<param name="sequence">depo_id_s</param>
+			</generator>
+        </id>
+        
+        <property name="createdBy" type="long">
+        	<column name="created_by"/>
+        </property>
+       
+        <property name="creationDate" type="date">
+        	<column name="CREATION_DATE"/>
+        </property>
+        
+        <property name="lastUpdatedBy" type="long">
+        	<column name="LAST_UPDATED_BY"/>
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+        	<column name="LAST_UPDATED_DATE"/>
+        </property>		
+        
+        <property name="depoName" type="string">
+        	<column name="DEPO_NAME"/>
+        </property>
+
+        <property name="depoLongitude" type="big_decimal">
+            <column name="depo_longitude" />
+        </property>
+        
+        <property name="depoLatitude" type="big_decimal">
+            <column name="depo_latitude" />
+        </property>
+        
+        <property name="depoCode" type="string">
+        	<column name="DEPO_CODE"/>
+        </property>
+        
+<!--        <one-to-one name="depoTrxSummary" class="com.xsis.ics.domain.DepoTrxSummary"/>-->
+        
+        <many-to-one name="subRegion" class="com.xsis.ics.domain.SubRegion" fetch="select">
+			<column name="SUBREGION_ID" />
+		</many-to-one>
+		
+        <set name="dealers" inverse="true" lazy="true" table="DEALER" fetch="select">
+            <key>
+                <column name="DEPO_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.xsis.ics.domain.Dealer" />
+        </set>
+        
+	</class>
+</hibernate-mapping>

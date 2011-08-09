@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<script charset="UTF-8" src="../Charts/FusionCharts.js"/>
+<script charset="UTF-8" src="../json/FusionCharts2.js"/>
+<n:script type="text/javascript" defer="true"><![CDATA[
+	//FusionCharts.debugMode.enabled(true);
+	//FusionCharts.debugMode.enabled(console.log, 'verbose');
+	// top10Chart, mSalesChart, wSalesChart
+	//         territory/region/subregion/depo/dealer/canvasser
+	// channel/vp/gm/rsom/am/dealer
+	
+	var mKpiVpWeekly = null;
+	
+	var updateChart = function(chart, url) {
+		var uChart = FusionCharts(chart);
+		uChart.setJSONUrl(url);
+	}
+
+	var switchToV3 = function(chart, url) {
+		alert("V3");
+		FusionCharts(chart).dispose();
+		var name = chart+"Container";
+		var myChart = new FusionCharts2( "../Charts/MSStackedColumn2D.swf", 
+					 chart, "500", "400", "0", "0" );
+		myChart.setDataURL(url);
+		myChart.render(name);
+	}		
+
+	var switchToV32 = function(chart, url) {
+		alert("V32");
+		var name = chart+"Container";
+		document.getElementById(name).removeChild(
+			document.getElementById(chart)
+		);
+		var myChart = new FusionCharts( "../Charts/MSBar2D.swf", 
+					 chart, "500", "400", "0", "0" );
+		myChart.setJSONUrl(url);
+		myChart.render(name);
+	}	
+]]>
+</n:script>
+
+<zscript><![CDATA[
+	void changeChartV3() {
+		Clients.evalJavaScript("switchToV3(\"kpiVpWeekly\", \"../json/kpiSpMonthly_canvasser.txt\")");
+	}
+
+	void changeChartV32() {
+		Clients.evalJavaScript("switchToV32(\"kpiVpWeekly\", \"../json/kpiSpMonthly_dealer.txt\")");
+	}
+
+]]></zscript>
+
+	<h:div id="kpiVpWeeklyContainer">
+		<attribute w:name="onBind">
+				  //var myChart = new FusionCharts2( "../Charts/MSStackedColumn2D.swf", "kpiVpWeekly", "500", "400", "0", "0" );
+				  //myChart.setDataURL("../json/kpiSpMonthly_canvasser.txt");
+				  //myChart.render("kpiVpWeeklyContainer");
+
+				  var myChart = new FusionCharts( "../Charts/Pie3D.swf", "kpiVpWeekly", "500", "400", "0", "0" );
+				  myChart.setJSONUrl("../json/salesMonthly_channel.txt");
+				  myChart.render("kpiVpWeeklyContainer");
+
+		</attribute>
+	</h:div>
+	<button label="V30" mold="trendy" autodisable="self" onClick="changeChartV3()" />
+	<button label="V32" mold="trendy" autodisable="self"  onClick="changeChartV32()" />
+
+</zk>

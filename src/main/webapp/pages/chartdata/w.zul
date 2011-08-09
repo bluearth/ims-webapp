@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<zscript><![CDATA[
+import java.io.*;
+
+javax.servlet.ServletRequest request = null; 
+javax.servlet.ServletResponse response = null; 
+Object obj1 = Executions.getCurrent().getNativeRequest(); 
+if(obj1 != null) request = (javax.servlet.ServletRequest)obj1; 
+
+Object obj2 =Executions.getCurrent().getNativeResponse(); 
+if(obj2 != null) response = (javax.servlet.ServletResponse)obj2; 
+
+javax.servlet.http.HttpSession sess = (javax.servlet.http.HttpSession) Executions.getCurrent().getDesktop().getSession().getNativeSession();
+
+String chart = request.getParameter("chart");
+String data = request.getParameter("data");
+String pid   = request.getParameter("pid");
+String id   = request.getParameter("id");
+String cap   = request.getParameter("cap");
+
+Object ob = sess.getAttribute(chart); 
+if(ob==null){
+	sess.setAttribute(chart,new HashMap());
+}
+HashMap curChart = (HashMap)ob;
+
+String userType = icsDashboardHelper.getUserWorkspace().getUserType();
+if(data==null){
+	curChart.remove("history");
+	if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_CHANNEL)||userType.equals(com.xsis.ics.common.Constant.USERTYPE_SUPERADMIN)){
+		data = "territory";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_VICEPRESIDENT)){
+		data = "region";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_GENERALMANAGER)){
+		data = "subregion";
+	}
+	else if (userType.equals(com.xsis.ics.common.Constant.USERTYPE_REGIONALSALESOPERATOR)) {
+		data = "depo";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_AREAMANAGER)){
+		data = "dealer";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_DEALER)){
+		data = "canvasser";
+	}
+}
+
+if(pid==null){
+	pid = String.valueOf(icsDashboardHelper.getUserWorkspace().getUserOwner());
+}
+pid 	= pid==null||pid.equals("null")?null:pid;
+id 		= id==null||id.equals("null")?null:id;
+
+String outFile(String cjson) {
+	String urlp = "/home/mobileapp/apache-tomcat-5.5.31/webapps/ICS2/pages/json/"+cjson;
+	StringBuilder contents = new StringBuilder();
+ 	try {
+      BufferedReader input =  new BufferedReader(new FileReader(urlp));
+      try {
+        String line = null;
+        while (( line = input.readLine()) != null){
+          contents.append(line);
+          contents.append(System.getProperty("line.separator"));
+        }
+      } finally {
+        input.close();
+      }
+    } catch (IOException ex){
+      ex.printStackTrace();
+    }
+    
+    return contents.toString();
+}
+
+try{
+	if (chart.equals("mSalesChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesMonthly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesMonthly_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesMonthly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesMonthly_subregion.txt")); 
+			}			
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesMonthly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesMonthly_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesMonthly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesMonthly_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesMonthly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesMonthly_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("salesMonthly_canvasser.txt")); 
+		}
+	}
+
+	if (chart.equals("wSalesChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesWeekly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesWeekly_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesWeekly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesWeekly_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesWeekly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesWeekly_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesWeekly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesWeekly_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("salesWeekly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("salesWeekly_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("salesWeekly_canvasser.txt")); 
+		}
+	}
+	
+	if (chart.equals("stockSpChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockSP_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockSP_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockSP_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockSP_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockSP_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockSP_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockSP_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockSP_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockSP_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockSP_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("stockSP_canvasser.txt")); 
+		}
+	}
+	
+	if (chart.equals("stockPvChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockPV_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockPV_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockPV_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockPV_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockPV_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockPV_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockPV_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockPV_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("stockPV_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("stockPV_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("stockPV_canvasser.txt")); 
+		}
+	}
+	
+	if (chart.equals("mKpiSpMonthlyChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpMonthly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpMonthly_region.txt")); 
+			}
+
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpMonthly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpMonthly_subregion.txt")); 
+			}
+
+			
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpMonthly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpMonthly_depo.txt")); 
+			}
+
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpMonthly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpMonthly_dealer.txt")); 
+			}
+			
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpMonthly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpMonthly_canvasser.txt")); 
+			}
+
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("kpiSpMonthly_canvasser.txt")); 
+		}
+	}
+	
+	if (chart.equals("mKpiVpMonthlyChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpMonthly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpMonthly_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpMonthly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpMonthly_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpMonthly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpMonthly_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpMonthly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpMonthly_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpMonthly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpMonthly_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("kpiVpMonthly_canvasser.txt")); 
+		}
+	}
+	
+	
+	if (chart.equals("mKpiSpWeeklyChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpWeekly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpWeekly_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpWeekly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpWeekly_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpWeekly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpWeekly_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpWeekly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpWeekly_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiSpWeekly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiSpWeekly_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("kpiSpWeekly_canvasser.txt")); 
+		}
+	}
+	
+	if (chart.equals("mKpiVpWeeklyChart")) {
+		if(data.equals("territory")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpWeekly_channel.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpWeekly_region.txt")); 
+			}
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpWeekly_region.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpWeekly_subregion.txt")); 
+			}
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpWeekly_subregion.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpWeekly_depo.txt")); 
+			}
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpWeekly_depo.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpWeekly_dealer.txt")); 
+			}
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			if (cap==null||cap.equals("null")) {
+				request.setAttribute("data", outFile("kpiVpWeekly_dealer.txt")); 
+			} else {
+				request.setAttribute("data", outFile("kpiVpWeekly_canvasser.txt")); 
+			}
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", outFile("kpiVpWeekly_canvasser.txt")); 
+		}
+	}
+}catch(Exception e){
+	
+}
+
+StringBuffer urlx = request.getRequestURL();
+if (request.getQueryString() != null) {
+  urlx.append('?');
+  urlx.append(request.getQueryString());
+}
+
+curChart.put("data",data);
+curChart.put("pid",pid);
+curChart.put("id",id);
+curChart.put("cap",cap);
+curChart.put("url",urlx.toString());
+
+sess.setAttribute(chart,curChart);
+
+request.getRequestDispatcher("e.jsp").forward(request, response); 
+]]></zscript>
+</zk>

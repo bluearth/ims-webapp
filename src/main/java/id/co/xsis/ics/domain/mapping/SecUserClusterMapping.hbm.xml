@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.SecUserClusterMapping" table="SEC_USER_CLUSTER_MAPPING">
+        <id name="id" type="long">
+            <column name="MAPPING_ID" precision="8" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">USR_CLUSTER_MAPPING_SEQ</param>
+            </generator>
+        </id>
+        <many-to-one name="user" class="com.xsis.security.model.SecUser" fetch="select">
+			<column name="USR_ID" />
+		</many-to-one> 
+		<many-to-one name="dealer" class="com.xsis.ics.domain.Dealer" fetch="select">
+			<column name="dealer_id" />
+		</many-to-one>
+    </class>
+</hibernate-mapping>

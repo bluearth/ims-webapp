@@ -1,0 +1,10 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<zk>
+<window id="pieChartWin" border="none" apply="com.valuequest.ics.webui.composer.dashboard.PieChartComposer" >
+<vbox>
+	<chart id="pieChart" title="${c:l('pie.chart')}" 
+		   width="500" height="250" type="pie" threeD="true" fgAlpha="128" model="@{pieChartWinCpsr.pieModel}"/>
+</vbox>
+</window>
+</zk>

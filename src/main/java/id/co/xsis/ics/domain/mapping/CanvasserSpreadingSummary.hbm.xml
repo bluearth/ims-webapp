@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.CanvasserSpreadingSummary" table="CANVASSER_SPREADING_SUMMARY">		
+
+		<id name="canvasserId" type="long">
+			<column name="CANVASSER_ID" />
+		</id>
+		
+		<property name="summaryPeriodWeek" type="integer">
+			<column name="SUMMARY_PERIOD_WEEK"/>
+		</property>
+
+		<property name="summaryPeriodYear" type="integer">
+			<column name="SUMMARY_PERIOD_YEAR"/>
+		</property>
+		
+		<property name="summaryOutletLevel" type="string">
+			<column name="SUMMARY_OUTLET_LEVEL"/>
+		</property>
+
+		<property name="summaryDPAmount" type="big_decimal">
+			<column name="SUMMARY_DP_AMOUNT"/>
+		</property>
+
+		<property name="summaryPVAmount" type="big_decimal">
+			<column name="SUMMARY_PV_AMOUNT"/>
+		</property>
+
+		<property name="summarySPAmount" type="big_decimal">
+			<column name="SUMMARY_SP_AMOUNT" />
+		</property>		
+		
+		<many-to-one name="canvasser" column="CANVASSER_ID" class="com.xsis.ics.domain.Canvasser" insert="false" update="false" fetch="select"/>
+
+	</class>
+</hibernate-mapping>

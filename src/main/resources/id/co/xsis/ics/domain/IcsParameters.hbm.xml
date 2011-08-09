@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.IcsParameters" table="ICS_PARAMETERS">
+        <id name="id" type="java.lang.Long">
+            <column name="PARAMETER_ID" />
+            <generator class="sequence">
+				<param name="sequence">PARAMETER_ID_S</param>
+			</generator>
+        </id>
+        <property name="createdBy" type="java.lang.Long">
+        	<column name="created_by"/>
+        </property>
+        <property name="creationDate" type="java.util.Date">
+        	<column name="creation_date"/>
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+        	<column name="last_updated_by"/>
+        </property>
+        <property name="lastUpdatedDate" type="java.util.Date">
+        	<column name="last_updated_date"/>
+        </property>
+        <property name="parameterKey" type="string">
+            <column name="PARAMETER_KEY" length="150" />
+        </property>
+        <property name="parameterValue" type="string">
+            <column name="PARAMETER_VALUE" length="300" />
+        </property>
+    </class>
+</hibernate-mapping>

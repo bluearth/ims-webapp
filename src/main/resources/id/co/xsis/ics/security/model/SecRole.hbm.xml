@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.security.model.SecRole" table="sec_role">
+
+		<id name="id" type="long">
+			<column name="rol_id" />
+			<generator class="sequence">
+				<param name="sequence">ROL_ID_SEQ</param>
+			</generator>
+		</id>
+
+		<version name="version" column="VERS" type="integer" />
+
+		<property name="rolShortdescription" type="string">
+			<column name="rol_shortdescription" length="30" not-null="true"
+				unique="true" />
+		</property>
+		<property name="rolLongdescription" type="string">
+			<column name="rol_longdescription" length="1000" />
+		</property>
+		<set name="secUserroles" inverse="true">
+			<key>
+				<column name="rol_id" />
+			</key>
+			<one-to-many class="com.xsis.security.model.SecUserrole" />
+		</set>
+		<set name="secRolegroups" inverse="true">
+			<key>
+				<column name="rol_id" />
+			</key>
+			<one-to-many class="com.xsis.security.model.SecRolegroup" />
+		</set>
+	</class>
+</hibernate-mapping>

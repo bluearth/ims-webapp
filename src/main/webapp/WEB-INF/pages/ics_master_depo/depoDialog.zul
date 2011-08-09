@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}	
+	</style>
+
+	<window id="depoDialogWindow"
+		border="none"
+		apply="${depoDialogComposer}" closable="true" width="400px" height="250px"
+		sizable="true" sclass="pageWindowTitle">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+
+		<borderlayout id="borderlayoutdepo">
+
+			<north border="none" margins="0,0,0,0">
+				<grid>
+					<columns sizable="" height="20px">
+
+					
+
+						<!-- CRUD Buttons -->
+						<column align="right">
+							<hbox spacing="5px" style="padding:1px"
+								align="end">
+								<button id="btnNew" height="20"
+									tooltiptext="${c:l('btnNew.tooltiptext')}" /><!--
+								 label="${c:l('btnNew.label')}"	
+					
+								--><button id="btnEdit" height="20"
+									tooltiptext="${c:l('btnEdit.tooltiptext')}" />
+								<button id="btnDelete" height="20"
+									tooltiptext="${c:l('btnDelete.tooltiptext')}" />
+								<button id="btnSave" height="20"
+									tooltiptext="${c:l('btnSave.tooltiptext')}" />
+								<button id="btnCancel" height="20"
+									tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+								<button id="btnClose" height="20"
+									tooltiptext="${c:l('btnClose.tooltiptext')}" />
+							</hbox>
+
+						</column>
+					</columns>
+				</grid>
+			</north>
+
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterdepo">
+
+					<tabbox id="tabBoxdepo" width="100%">
+						<tabs>
+							<tab id="tab_depoDialog_Details"
+								label="${c:l('tab_depoDialog_Details.label')}" />
+								
+						</tabs>
+						<tabpanels>
+
+							<!-- Tab Details-->
+							<tabpanel id="tabpanel_depoDialog_Details"
+								height="100%" width="100%" style="border: 0px">
+
+								<columnlayout>
+									<columnchildren width="100%"
+										style="padding: 5px">
+										<panel
+											id="panel_depoDialog_Status"
+											title="${c:l('panel_depoDialog_AccountDetails.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_depoDialog_dpCode"
+																value="${c:l('label_depoDialog_dpCode.value')}" />
+															<textbox
+																id="dpCode" maxlength="50" width="150px" />
+														</row>
+														<row>
+															<label
+																id="label_depoDialog_dpName"
+																value="${c:l('label_depoDialog_dpName.value')}" />
+															<textbox
+																id="dpName" maxlength="150" width="150px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_depoDialog_dpLongitude"
+																value="${c:l('label_depoDialog_dpLongitude.value')}" />
+															<decimalbox
+																id="dpLongitude" maxlength="50" width="150px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_depoDialog_dpLatitude"
+																value="${c:l('label_depoDialog_dpLatitude.value')}" />
+															<decimalbox 
+																id="dpLatitude" maxlength="50" width="150px"/>
+														</row>
+														<row>
+															<separator
+																bar="true">
+															</separator>
+															<separator
+																bar="true">
+															</separator>
+														</row>
+														<row>
+															<label 
+																id="label_depoDialog_dpSubRegionName"
+																value="${c:l('label_depoDialog_dpSubRegionName.value')}" />
+															<combobox sclass="CbRO" id="cb_depoDialog_dpSubRegionName" model="@{subRegionsList}" readonly="true" selectedItem="@{selectedSubRegion}" value="@{selectedSubRegion.name}" autodrop="true" tooltiptext="${c:l('tooltiptext_depoDialog_dpRegionName')}">
+																<comboitem self="@{each=subRegions}" label="@{subRegions.name}" value="@{subRegions.id}"/>
+															</combobox>
+															
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+									
+									</columnchildren>
+
+
+								</columnlayout>
+
+
+							</tabpanel>
+							
+						</tabpanels>
+					</tabbox>
+
+
+				</div>
+			</center>
+
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+
+		</borderlayout>
+
+
+	</window>
+</zk>
+
+

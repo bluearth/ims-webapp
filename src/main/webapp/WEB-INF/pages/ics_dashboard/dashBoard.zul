@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	<script charset="UTF-8" src="./Charts/FusionCharts.js"/>
+
+	<n:script type="text/javascript" defer="true"><![CDATA[
+		//FusionCharts.debugMode.enabled(true);
+		//FusionCharts.debugMode.enabled(console.log, 'verbose');
+		// top10Chart, mSalesChart, wSalesChart
+		//         territory/region/subregion/depo/dealer/canvasser
+		// channel/vp/gm/rsom/am/dealer
+		FusionCharts.debugMode.enabled(true);
+		var mSales = null;
+		var wSales = null;
+		var top10 = null;		
+		var mKpiVpWeekly = null;
+		var mKpiSpWeekly = null;
+		var mKpiVpMonthly = null;
+		var mKpiSpMonthly = null;
+		var stockPv = null;
+		var stockSp = null;
+		var mapUrl = "https://202.152.224.190/mapguide/mapviewerajax/?WEBLAYOUT=Library://Layouts/cpn_indo.WebLayout&amp;LOCALE=en";
+		
+		var updateChart = function(chart, url) {
+			var uChart = FusionCharts(chart);
+			uChart.set(url);
+		}		
+		
+		var updateMap = function(level, lid) {
+			//<territory_id>, <region_id>,<subregion_id>,<depo_id>,<dealer_id>
+			//alert(level+" "+lid);
+			
+			//xMapUrl = mapUrl + "&" + level + "id=" + lid;
+			//document.getElementById('z_d__c3').src = xMapUrl;
+		}
+		
+		function queryString( xurl, key )
+		{
+			var re = new RegExp( "[?&]" + key + "=([^&$]*)", "i" );
+			var offset = xurl.search( re );
+			if ( offset == -1 ) return null;
+			return RegExp.$1;
+		}
+		
+		var linkMapOpener = function(eventObject, argumentsObject) {
+			var xurl = argumentsObject.item.args.dataSource;
+			var data = queryString(xurl, "data");
+			var pid = queryString(xurl, "pid");
+			updateMap(data, pid);			
+		}
+
+	]]>
+	</n:script>
+	<zscript><![CDATA[
+		String gUrl1 = "/ValueQuest/pages/chartdata/";  
+		String gUrl2 = gUrl1+"e.zul?chart=";
+		String gUrl3 = gUrl1+"e.zul?chart=";
+		String userType = icsDashboardHelper.getUserWorkspace().getUserType();
+		String mapUrl = "https://202.152.224.190/mapguide/mapviewerajax/?WEBLAYOUT=Library://Layouts/cpn_indo.WebLayout&amp;LOCALE=en";
+				
+		String userDataChartType = "MSBar2D.swf";
+		String chCanvasserLevel = "4";
+		
+	    String xOwnerId = String.valueOf(icsDashboardHelper.getUserWorkspace().getUserOwner());
+	    String xUserId = String.valueOf(icsDashboardHelper.getUserWorkspace().getUserId());
+		
+		List llx = null;
+		ListModel initCbMod1 = null;
+		ListModel initCbMod2 = null;
+		ListModel initCbMod3 = null;
+		ListModel initCbMod4 = null;
+		ListModel initCbMod5 = null;
+		if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_CHANNEL)||userType.equals(com.xsis.ics.common.Constant.USERTYPE_SUPERADMIN)){
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO";
+			llx = icsDashboardHelper.getAreaMgtService().findAllRealTerritories();
+			initCbMod1 = new SimpleListModel(llx);
+		}
+		else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_VICEPRESIDENT)){
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO&teritoryid="+xOwnerId;
+			chCanvasserLevel = "3";
+			llx = icsDashboardHelper.getAreaMgtService().findAllRegionBaseOnTeritoryId(Long.parseLong(xOwnerId));
+			initCbMod2 = new SimpleListModel(llx);
+		}
+		else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_GENERALMANAGER)){
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO&regionid="+xOwnerId;
+			chCanvasserLevel = "2";
+			llx = icsDashboardHelper.getAreaMgtService().findAllSubReginoBaseOnRegionId(Long.parseLong(xOwnerId));
+			initCbMod3 = new SimpleListModel(llx);
+		}
+		else if (userType.equals(com.xsis.ics.common.Constant.USERTYPE_REGIONALSALESOPERATOR)) {
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO&subregionid="+xOwnerId;
+			chCanvasserLevel = "1";
+			llx = icsDashboardHelper.getAreaMgtService().findAllDepoBaseOnSubRegionId(Long.parseLong(xOwnerId));
+			initCbMod4 = new SimpleListModel(llx);
+		}
+		else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_AREAMANAGER)){
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO&depoid="+xOwnerId;
+			chCanvasserLevel = "0";
+			llx = icsDashboardHelper.getAreaMgtService().findAllDealersBaseOnDepoId(Long.parseLong(xOwnerId));
+			initCbMod5 = new SimpleListModel(llx);
+		}
+		else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_DEALER)){
+			mapUrl = mapUrl+"&userid="+xUserId+"&code=VCO&dealerid="+xOwnerId;
+			userDataChartType = "ScrollColumn2D.swf";
+		}
+		
+		void backChart(String chart) {
+			javax.servlet.http.HttpSession sess = (javax.servlet.http.HttpSession) Executions.getCurrent().getDesktop().getSession().getNativeSession();
+			Object o = sess.getAttribute(chart);
+			if(o!=null){
+				HashMap dChart = (HashMap)o;
+				if(dChart.get("history")!=null && ((ArrayList)dChart.get("history")).size() > 0){
+					ArrayList lst = (ArrayList)dChart.get("history");
+					Clients.evalJavaScript("updateChart(\""+chart+"\", \""+lst.remove(lst.size()-1)+"\")");
+				}
+			}
+		}
+		
+		ListitemRenderer renderer = new ListitemRenderer() {
+        public void render(Listitem item, Object obj) throws Exception {
+			if(obj instanceof com.xsis.ics.domain.Teritory){
+				item.setValue(((com.xsis.ics.domain.Teritory)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Teritory)obj).getTeritoryName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Region){
+				item.setValue(((com.xsis.ics.domain.Region)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Region)obj).getRegionName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.SubRegion){
+				item.setValue(((com.xsis.ics.domain.SubRegion)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.SubRegion)obj).getName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Depo){
+				item.setValue(((com.xsis.ics.domain.Depo)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Depo)obj).getDepoName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Dealer){
+				item.setValue(((com.xsis.ics.domain.Dealer)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Dealer)obj).getDealerName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Canvasser){
+				item.setValue(((com.xsis.ics.domain.Canvasser)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Canvasser)obj).getCanvasserName());
+			}
+        }
+    };
+    String curChart = "mSalesChart";
+	
+	ComboitemRenderer cbRenderer = new ComboitemRenderer() {
+        public void render(Comboitem item, Object obj) throws Exception {
+			if(obj instanceof com.xsis.ics.domain.Teritory){
+				item.setValue(((com.xsis.ics.domain.Teritory)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Teritory)obj).getTeritoryName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Region){
+				item.setValue(((com.xsis.ics.domain.Region)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Region)obj).getRegionName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.SubRegion){
+				item.setValue(((com.xsis.ics.domain.SubRegion)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.SubRegion)obj).getName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Depo){
+				item.setValue(((com.xsis.ics.domain.Depo)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Depo)obj).getDepoName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Dealer){
+				item.setValue(((com.xsis.ics.domain.Dealer)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Dealer)obj).getDealerName());
+			}else
+			if(obj instanceof com.xsis.ics.domain.Canvasser){
+				item.setValue(((com.xsis.ics.domain.Canvasser)obj).getId().toString());
+				item.setLabel(((com.xsis.ics.domain.Canvasser)obj).getCanvasserName());
+			}
+        }
+    };
+	public void fillCb(Combobox cb1, Combobox cb2){
+		Event evt = new Event("onPSel", cb2,cb1.getSelectedItem()); Events.sendEvent(evt);
+	}
+	]]></zscript>
+	<window title="Selection Window" width="400px" border="normal" id="rwin" closable="false" visible="false">
+		<attribute name="onBeforeView"><![CDATA[
+			//alert("ada disini");
+			javax.servlet.http.HttpSession sess = (javax.servlet.http.HttpSession) Executions.getCurrent().getDesktop().getSession().getNativeSession();
+			curChart = event.getData();
+			//alert("chart-data:"+curChart);
+			//alert("sess:"+sess+"\n dChart:"+sess.getAttribute(curChart));
+			//return;
+			HashMap dChart = (HashMap)sess.getAttribute(curChart);
+			String data = dChart.get("data");
+			String pid = dChart.get("pid");
+
+			List items = null;
+			if(data.equals("territory")){
+				items = icsDashboardHelper.getAreaMgtService().findAllRealTerritories();
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+				rwin.doModal();
+				rwin.setTitle("Territory Selection");
+			}else
+			if(data.equals("region")){
+				items = icsDashboardHelper.getAreaMgtService().findAllRegionBaseOnTeritoryId(Long.parseLong(pid));
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+				rwin.doModal();
+				rwin.setTitle("Region Selection");
+			}else if(data.equals("subregion")){
+				items = icsDashboardHelper.getAreaMgtService().findAllSubReginoBaseOnRegionId(Long.parseLong(pid));
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+				rwin.doModal();
+				rwin.setTitle("Sub Region Selection");
+			}else if(data.equals("depo")){
+				items = icsDashboardHelper.getAreaMgtService().findAllDepoBaseOnSubRegionId(Long.parseLong(pid));
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+				rwin.doModal();
+				rwin.setTitle("Depo Selection");
+			}else if(data.equals("dealer")){
+				items = icsDashboardHelper.getAreaMgtService().findAllDealersBaseOnDepoId(Long.parseLong(pid));
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+				rwin.doModal();
+				rwin.setTitle("Dealer Selection");
+			}/*else if(data.equals("canvasser")){ //blom diimplement dulu hehehehe, mestinya nampilin list canvasser
+				items = icsDashboardHelper.getAreaMgtService().findAllDealersBaseOnDepoId(Long.parseLong(pid));
+				ListModel strset = new SimpleListModel(items);
+				itemBox.setModel(strset);
+			rwin.doModal();
+				rwin.setTitle("Canvasser Selection");
+			}*/
+    ]]></attribute>
+    <listbox id="itemBox" multiple="false" checkmark="true" rows="10" itemRenderer="${renderer}">
+		<listhead><listheader label="Name" /></listhead>
+		</listbox>
+		<zscript><![CDATA[
+			public void selectItem(Listbox iBox){
+				Listitem s = iBox.getSelectedItem();
+				if (s == null) {
+					Messagebox.show("Select an item first");
+				} else {
+					javax.servlet.http.HttpSession sess = (javax.servlet.http.HttpSession) Executions.getCurrent().getDesktop().getSession().getNativeSession();
+			 		HashMap dChart = (HashMap)sess.getAttribute(curChart);
+					String data = dChart.get("data");
+					String pid = dChart.get("pid");
+					String id = dChart.get("id");
+					String cap = dChart.get("cap");
+					
+					Object o = dChart.get("history");
+					if(o==null){
+						dChart.put("history",new ArrayList());
+					}
+					
+					ArrayList histList = (ArrayList)dChart.get("history");
+					StringBuilder sb = new StringBuilder(gUrl2+curChart);
+					if(dChart.get("url")!=null){
+						histList.add(dChart.get("url"));
+					}
+					
+					String sCap = s.getLabel();
+					sb.append("&data=").append(data);
+  					sb.append("&pid=").append(pid);
+  					sb.append("&id=").append(s.getValue());
+    				sb.append("&cap=").append(sCap);
+    				
+					Clients.evalJavaScript("updateChart(\""+curChart+"\", \""+sb.toString()+"\")");
+					//Clients.evalJavaScript("updateMap(\""+data+"\", \""+s.getValue()+"\")");
+					//FusionCharts("mKpiSpMonthlyChart").addEventListener ("LinkedItemOpened" , linkMapOpener );
+					rwin.visible=false;
+					
+				}	
+			}
+		]]></zscript>
+		<button label="Select" mold="trendy" onClick="selectItem(itemBox)"/>
+		<button label="Close" mold="trendy" onClick='rwin.visible=false'/> 
+	</window>
+
+	
+	<window id="dashBoardWindow" 
+		border="none" height="100%" width="100%" sizable="true">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+		</style>
+		<panel id="dashBoardPanel" />
+		<borderlayout id="borderLayout_dashBoard" height="900px">
+			<north title="MAP" height="550px" border="normal" collapsible="true">
+				<div align="center" height="550px">
+					<iframe id="iframeContainer" src="${mapUrl}" width="100%" height="520px" 
+						style="border: 1px solid gray" align="center" />
+				</div>
+			</north>
+			<center title="CHARTS" border="normal" flex="true">
+				<tabbox>
+					<tabs>
+						<tab label="Sales"/>
+						<tab label="Stocks" />
+						<tab id="tabCanvasserKpi" label="KPI Sales" />
+						<tab label="KPI Visit" />
+						<tab label="Top 10 Sales SP"/>
+						<tab label="Top 10 Sales Voucher" />
+					</tabs>
+					<tabpanels>
+						<tabpanel style="overflow:auto">
+						<hbox>
+							<div width="490px">
+							<button label="Select Area" mold="trendy" autodisable="self" 
+								onClick='Event evt = new Event("onBeforeView", rwin,"mSalesChart"); Events.sendEvent(evt);'/>
+							<button label="Back" mold="trendy" autodisable="self" id="mSalesBtnBack" onClick='backChart("mSalesChart")'/>
+
+							<h:div id="salesMonthlyContainer">
+								<attribute w:name="onBind">
+									  mSales = FusionCharts.render( "./Charts/Pie3D.swf", "mSalesChart",  "490", "260", 
+											"salesMonthlyContainer", "${gUrl2}mSalesChart" , "jsonurl" );
+								</attribute>
+							</h:div>
+							</div>
+							<div width="490px">
+							<button label="Select Area" mold="trendy" autodisable="self" 
+								onClick='Event evt = new Event("onBeforeView", rwin,"wSalesChart"); Events.sendEvent(evt);'/>
+							<button label="Back" mold="trendy" autodisable="self" onClick='backChart("wSalesChart")'/>
+
+							<h:div id="salesWeeklyContainer">
+								<attribute w:name="onBind">
+									  wSales = FusionCharts.render( "./Charts/MSCombiDY2D.swf", "wSalesChart",  "490", "260", 
+											"salesWeeklyContainer", "${gUrl2}wSalesChart" , "jsonurl" );
+								</attribute>
+							</h:div>
+							</div>
+						</hbox>
+						</tabpanel>
+						<tabpanel style="overflow:auto">
+						<hbox>
+							<div width="490px">
+
+							<button label="Select Area" mold="trendy" autodisable="self" 
+								onClick='Event evt = new Event("onBeforeView", rwin,"stockSpChartTRD"); Events.sendEvent(evt);'/>
+							<button label="Back" mold="trendy" autodisable="self" onClick='backChart("stockSpChartTRD")'/>
+
+							<h:div id="stockSpContainerTraditional">
+								<attribute w:name="onBind">
+									  stockSpChartTRD = FusionCharts.render( "./Charts/Pie3D.swf", "stockSpChartTRD",  "450", "260", 
+											"stockSpContainerTraditional", "${gUrl2}stockSpChartTRD" , "jsonurl" );
+								</attribute>
+							</h:div>
+							</div>
+							<div width="490px">
+							<button label="Select Area" mold="trendy" autodisable="self" 
+								onClick='Event evt = new Event("onBeforeView", rwin,"stockSpChartMDS"); Events.sendEvent(evt);'/>
+							<button label="Back" mold="trendy" autodisable="self" onClick='backChart("stockSpChartMDS")'/>
+
+							<h:div id="stockSpContainerMDS">
+								<attribute w:name="onBind">
+									  stockSpChartMDS = FusionCharts.render( "./Charts/Pie3D.swf", "stockSpChartMDS",  "450", "260", 
+											"stockSpContainerMDS", "${gUrl2}stockSpChartMDS" , "jsonurl" );
+								</attribute>
+							</h:div>
+							</div>
+						</hbox>
+						<!--
+						<hbox>
+							<div width="490px">
+							<button label="Select Area" mold="trendy" autodisable="self" 
+								onClick='Event evt = new Event("onBeforeView", rwin,"stockPvChart"); Events.sendEvent(evt);'/>
+							<button label="Back" mold="trendy" autodisable="self" onClick='backChart("stockPvChart")'/>
+
+							<h:div id="stockPvContainer">
+								<attribute w:name="onBind">
+									  stockPv = FusionCharts.render( "./Charts/Pie3D.swf", "stockPvChart",  "450", "260", 
+											"stockPvContainer", "${gUrl2}stockPvChart" , "jsonurl" );
+								</attribute>
+							</h:div>
+							</div>
+						</hbox>-->
+						</tabpanel>
+						<tabpanel style="overflow:auto">
+							<h:div id="mKpiSpMonthlyChartContainer">
+								<attribute w:name="onBind">
+								  mKpiSpMonthly = FusionCharts.render( "./Charts/${userDataChartType}", "mKpiSpMonthlyChart",  "680", "280", 
+										"mKpiSpMonthlyChartContainer", "${gUrl1}f-sp.zul" , "jsonurl" );
+								  FusionCharts("mKpiSpMonthlyChart").configureLink ( { swfUrl : "./Charts/ScrollColumn2D.swf" }, ${chCanvasserLevel} );
+								</attribute>
+							</h:div>
+							
+							<h:br/><h:br/> 
+							<h:div id="mKpiVpMonthlyChartContainer">
+								<attribute w:name="onBind">
+								  mKpiVpMonthly = FusionCharts.render( "./Charts/${userDataChartType}", "mKpiVpMonthlyChart",  "680", "280", 
+										"mKpiVpMonthlyChartContainer", "${gUrl1}f-pv.zul" , "jsonurl" );
+								  FusionCharts("mKpiVpMonthlyChart").configureLink ( { swfUrl : "./Charts/ScrollColumn2D.swf" }, ${chCanvasserLevel} );
+								</attribute>
+							</h:div>
+	
+							<h:br/><h:br/>
+							<h:div id="mKpiSpWeeklyChartContainer">
+								<attribute w:name="onBind">
+								  mKpiSpWeekly = FusionCharts.render( "./Charts/${userDataChartType}", "mKpiSpWeeklyChart",  "680", "280", 
+										"mKpiSpWeeklyChartContainer", "${gUrl1}g-sp.zul" , "jsonurl" );
+									FusionCharts("mKpiSpWeeklyChart").configureLink ( { swfUrl : "./Charts/ScrollColumn2D.swf" }, ${chCanvasserLevel} );
+								</attribute>
+							</h:div>
+	
+							<h:br/><h:br/>
+							<h:div id="mKpiVpWeeklyChartContainer">
+								<attribute w:name="onBind">
+								  mKpiVpWeekly = FusionCharts.render( "./Charts/${userDataChartType}", "mKpiVpWeeklyChart",  "680", "280", 
+										"mKpiVpWeeklyChartContainer", "${gUrl1}g-pv.zul" , "jsonurl" );
+										
+									FusionCharts("mKpiVpWeeklyChart").configureLink ( { swfUrl : "./Charts/ScrollColumn2D.swf" }, ${chCanvasserLevel} );
+								</attribute>
+							</h:div>
+	
+						</tabpanel>
+						<tabpanel style="overflow:auto">
+							<hbox>
+							<div id="dv1" visible="${initCbMod1!=null}">
+								<div>Teritory :</div>
+								<div>
+								<combobox id="arbox1"  model="${initCbMod1}" itemRenderer="${cbRenderer}">
+									<attribute name="onSelect">
+										fillCb(arbox1, arbox2);
+									</attribute>
+								</combobox>
+								</div>
+							</div>
+							<div id="dv2" visible="${initCbMod2!=null}">
+								<div>Region :</div>
+								<div>
+								<combobox id="arbox2"  model="${initCbMod2}" itemRenderer="${cbRenderer}">
+									<attribute name="onPSel">
+										if(event.getData()!=null){
+											List llx = icsDashboardHelper.getAreaMgtService().findAllRegionBaseOnTeritoryId(Long.parseLong(event.getData().getValue()));
+											arbox2.setModel(new SimpleListModel(llx));
+											arbox2.setSelectedIndex(-1);
+											arbox3.setSelectedIndex(-1);
+											arbox4.setSelectedIndex(-1);
+											arbox5.setSelectedIndex(-1);
+										}
+										dv2.visible = true;
+									</attribute>
+									<attribute name="onSelect">
+										fillCb(arbox2, arbox3);
+									</attribute>
+								</combobox>
+								</div>
+							</div>
+							<div id="dv3" visible="${initCbMod3!=null}">
+								<div>Sub Region :</div>
+								<div>
+								<combobox id="arbox3"  model="${initCbMod3}" itemRenderer="${cbRenderer}">
+									<attribute name="onPSel">
+										if(event.getData()!=null){
+											List llx = icsDashboardHelper.getAreaMgtService().findAllSubReginoBaseOnRegionId(Long.parseLong(event.getData().getValue()));
+											arbox3.setModel(new SimpleListModel(llx));
+											arbox3.setSelectedIndex(-1);
+											arbox4.setSelectedIndex(-1);
+											arbox5.setSelectedIndex(-1);
+										}
+										dv3.visible = true;
+									</attribute>
+									<attribute name="onSelect">
+										fillCb(arbox3, arbox4);
+									</attribute>
+								</combobox>
+								</div>
+							</div>
+							<div id="dv4" visible="${initCbMod4!=null}">
+								<div>Depo :</div>
+								<div>
+								<combobox id="arbox4"  model="${initCbMod4}" itemRenderer="${cbRenderer}">
+									<attribute name="onPSel">
+										if(event.getData()!=null){
+											List llx = icsDashboardHelper.getAreaMgtService().findAllDepoBaseOnSubRegionId(Long.parseLong(event.getData().getValue()));
+											arbox4.setModel(new SimpleListModel(llx));
+											arbox4.setSelectedIndex(-1);
+											arbox5.setSelectedIndex(-1);
+										}
+										dv4.visible = true;
+									</attribute>
+									<attribute name="onSelect">
+										fillCb(arbox4, arbox5);
+									</attribute>
+								</combobox>
+								</div>
+							</div>
+							<div id="dv5" visible="${initCbMod5!=null}">
+								<div>Dealer :</div>
+								<div>
+								<combobox id="arbox5"  model="${initCbMod5}" itemRenderer="${cbRenderer}">
+									<attribute name="onPSel">
+										if(event.getData()!=null){
+											List llx = icsDashboardHelper.getAreaMgtService().findAllDealersBaseOnDepoId(Long.parseLong(event.getData().getValue()));
+											arbox5.setModel(new SimpleListModel(llx));
+											arbox5.setSelectedIndex(-1);
+										}
+										dv5.visible = true;
+									</attribute>
+									<attribute name="onSelect">
+										Clients.evalJavaScript("updateChart(\"mVisitMChart\", \""+gUrl1+"j.zul?chart=mVisitMChart&amp;id="+arbox5.getSelectedItem().getValue()+"&amp;name="+arbox5.getSelectedItem().getLabel()+"\")");
+										Clients.evalJavaScript("updateChart(\"mVisitWChart\", \""+gUrl1+"j.zul?chart=mVisitWChart&amp;id="+arbox5.getSelectedItem().getValue()+"&amp;name="+arbox5.getSelectedItem().getLabel()+"\")");
+									</attribute>
+								</combobox>
+								</div>
+							</div>
+							</hbox>
+							<h:br/><h:br/> 
+							<h:div id="mVisitMContainer" >
+								<attribute w:name="onBind">
+									  mMVisit = FusionCharts.render( "./Charts/MSStackedColumn2D.swf", "mVisitMChart",  "970", "400", 
+											"mVisitMContainer", "${gUrl1}j.zul?chart=mVisitMChart" , "jsonurl" );
+								</attribute>
+							</h:div>								
+							<h:br/><h:br/> 
+							<h:div id="mVisitWContainer" >
+								<attribute w:name="onBind">
+									  mWVisit = FusionCharts.render( "./Charts/MSStackedColumn2D.swf", "mVisitWChart",  "970", "400", 
+											"mVisitWContainer", "${gUrl1}j.zul?chart=mVisitWChart" , "jsonurl" );
+								</attribute>
+							</h:div>								
+
+						</tabpanel>
+						<tabpanel style="overflow:auto">
+							<hbox spacing="30px">								
+								<h:div id="top10ContainerTraditional" >
+									<attribute w:name="onBind">
+										  top10trad = FusionCharts.render( "./Charts/Column2D.swf", "top10Chart",  "500", "250", 
+												"top10ContainerTraditional", "${gUrl1}d.zul?canvasserType=TRADITIONAL" , "jsonurl" );
+									</attribute>
+								</h:div>
+								<h:div id="top10ContainerMDS" >								
+									<attribute w:name="onBind">
+										  top10mds = FusionCharts.render( "./Charts/Column2D.swf", "top10Chart",  "500", "250", 
+												"top10ContainerMDS", "${gUrl1}d.zul?canvasserType=MDS" , "jsonurl" );
+									</attribute>							
+								</h:div>
+							</hbox>							
+						</tabpanel>
+						<tabpanel style="overflow:auto">
+							<h:div id="top10ContainerVoucherContainer" >
+								<attribute w:name="onBind">
+									  top10 = FusionCharts.render( "./Charts/Column2D.swf", "top10ChartVoucher",  "680", "280", 
+											"top10ContainerVoucherContainer", "${gUrl1}m.zul" , "jsonurl" );
+								</attribute>
+							</h:div>
+
+						</tabpanel>
+					</tabpanels>
+				</tabbox>
+			</center>
+		</borderlayout>	
+	</window>
+</zk>

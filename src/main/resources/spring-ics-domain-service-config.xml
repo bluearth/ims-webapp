@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd"> 
+   
+    <bean id="canvasserService" class="com.xsis.ics.service.impl.CanvasserServiceImpl">
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="icsUserDao" ref="icsUserDao"/>
+    </bean>
+    
+    <bean id="dealerService" class="com.xsis.ics.service.impl.DealerServiceImpl">
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="territoryDao" ref="teritoryDao"/>    	
+    </bean>
+    <bean id="depoService" class="com.xsis.ics.service.impl.DepoServiceImpl">
+    	<property name="depoDao" ref="depoDao"/>
+    </bean>
+    <bean id="outletService" class="com.xsis.ics.service.impl.OutletServiceImpl">
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    </bean>
+    <bean id="teritoryService" class="com.xsis.ics.service.impl.TeritoryServiceImpl">
+    	<property name="teritoryDao" ref="teritoryDao"/>
+    </bean>
+    <bean id="subRegionService" class="com.xsis.ics.service.impl.SubRegionServiceImpl">
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    </bean>
+     <bean id="regionService" class="com.xsis.ics.service.impl.RegionServiceImpl">
+    	<property name="regionDao" ref="regionDao"/>
+    </bean>
+    
+    <bean id="manualInputService" class="com.xsis.ics.service.impl.ManualInputServiceImpl">
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="canvasserVisitDao" ref="canvasserVisitDao"/>	
+    </bean>
+    
+    <bean id="surveyResultService" class="com.xsis.ics.service.impl.SurveyResultServiceImpl">
+    	<property name="surveyResultDao" ref="surveyResultDao"/>
+    </bean>
+    
+    <bean id="canvasserTrackingService" class="com.xsis.ics.service.impl.CanvasserTrackingServiceImpl">
+    	<property name="teritoryDao" ref="teritoryDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    </bean>
+    
+    <!-- Start of Report Service -->
+    
+    <bean id="routeMasterPlanReportService" class="com.xsis.ics.report.service.impl.RouteMasterPlanReportServiceImpl">
+    	<property name="routeMasterPlanReportDao" ref="routeMasterPlanReportDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+    <bean id="canvasserVisitReportService" class="com.xsis.ics.report.service.impl.CanvasserVisitReportServiceImpl">
+    	<property name="canvasserVisitReportDao" ref="canvasserVisitReportDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+     <bean id="surveyResultReportService" class="com.xsis.ics.report.service.impl.SurveyResultReportServiceImpl">
+    	<property name="surveyResultReportDao" ref="surveyResultReportDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="surveyDao" ref="surveyDao"/>
+    </bean>
+    
+    
+    <bean id="transactionReportService" class="com.xsis.ics.report.service.impl.TransactionReportServiceImpl">
+    	<property name="transactionReportDao" ref="transactionReportDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+    <bean id="stockAvailabilityReportService" class="com.xsis.ics.report.service.impl.StockAvailabilityReportServiceImpl">
+    	<property name="stockAvailabilityReportDao" ref="stockAvailabilityReportDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+        <property name="lookupDao" ref="lookupDao"/>
+    </bean>
+    
+    <bean id="dealerDashboardReportService" class="com.xsis.ics.report.service.impl.DealerDashboardReportServiceImpl">
+    	<property name="dealerDashboardReportDao" ref="dealerDashboardReportDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+    <bean id="AMDashboardReportService" class="com.xsis.ics.report.service.impl.AMDashboardReportServiceImpl">
+    	<property name="AMDashboardReportDao" ref="AMDashboardReportDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	   	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="regionDao" ref="regionDao"/>    	
+    	<property name="teritoryDao" ref="teritoryDao"/>
+    </bean>
+    
+     <bean id="RSOMDashboardReportService" class="com.xsis.ics.report.service.impl.RSOMDashboardReportServiceImpl">
+    	<property name="RSOMDashboardReportDao" ref="RSOMDashboardReportDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+    <bean id="GMDashboardReportService" class="com.xsis.ics.report.service.impl.GMDashboardReportServiceImpl">
+    	<property name="GMDashboardReportDao" ref="GMDashboardReportDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+	   	<property name="dealerDao" ref="dealerDao"/>
+        <property name="lookupDao" ref="lookupDao"/>
+        <property name="depoDao" ref="depoDao"/>
+    </bean>
+    
+    <bean id="dealerMasterReportService" class="com.xsis.ics.report.service.impl.DealerMasterReportServiceImpl">
+    	<property name="dealerMasterReportDao" ref="dealerMasterReportDao"/>
+    	<property name="teritoryDao" ref="teritoryDao"/>  
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/> 
+    	<property name="dealerDao" ref="dealerDao"/>     	   	
+    </bean>
+    
+    <bean id="canvasserMasterReportService" class="com.xsis.ics.report.service.impl.CanvasserMasterReportServiceImpl">
+    	<property name="canvasserMasterReportDao" ref="canvasserMasterReportDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    </bean>
+    
+    <bean id="outletMasterReportService" class="com.xsis.ics.report.service.impl.OutletMasterReportServiceImpl">
+    	<property name="outletMasterReportDao" ref="outletMasterReportDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="teritoryDao" ref="teritoryDao"/>  
+    	<property name="canvasserDao" ref="canvasserDao"/>  	
+    </bean>
+    
+    <bean id="transactionMasterReportService" class="com.xsis.ics.report.service.impl.TransactionMasterReportServiceImpl">
+    	<property name="transactionMasterReportDao" ref="transactionMasterReportDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    </bean>
+    
+    <bean id="brandingReportService" class="com.xsis.ics.report.service.impl.BrandingReportServiceImpl">
+    	<property name="brandingReportDao" ref="brandingReportDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    </bean>
+    
+    <bean id="canvasserProductivityReportService" class="com.xsis.ics.report.service.impl.CanvasserProductivityReportServiceImpl">
+    	<property name="canvasserProductivityReportDao" ref="canvasserProductivityReportDao"/>  	
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="paramDao" ref="parameterDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="depoDao" ref="depoDao"/>  
+    </bean> 
+    
+    <bean id="canvasserSummaryPerformanceReportService" class="com.xsis.ics.report.service.impl.CanvasserSummaryPerformanceReportServiceImpl">
+    	<property name="canvasserSummaryPerformanceReportDao" ref="canvasserSummaryPerformanceReportDao"/>  	
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="canvasserTrxSummaryDao" ref="canvasserTrxSummaryDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    </bean> 
+    
+     <bean id="weeklyCanvasserSpreadingReportService" class="com.xsis.ics.report.service.impl.WeeklyCanvasserSpreadingReportServiceImpl">
+    	<property name="weeklyCanvasserSpreadingReportDao" ref="weeklyCanvasserSpreadingReportDao"/>  	
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="canvasserTrxSummaryDao" ref="canvasserTrxSummaryDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    </bean> 
+    
+
+    <!-- End of Report Service -->
+    
+    <bean id="canvasserRoutesService" class="com.xsis.ics.service.impl.CanvasserRoutesServiceImpl" p:cvrRouteDetailDao-ref="canvasserRouteDetailDao">
+    	<property name="cvrRouteDao" ref="canvasserRoutesDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    </bean>
+    
+    <bean id="routesTemplateService" class="com.xsis.ics.service.impl.RoutesTemplateServiceImpl">
+    	<property name="routeTemplateDao" ref="routeTemplateDao"/>
+    </bean>
+    
+    <bean id="canvasserRouteDetailService" class="com.xsis.ics.service.impl.CanvasserRouteDetailServiceImpl" p:routeDetailDao-ref="canvasserRouteDetailDao"/>
+
+<!-- DASHBOARD CONFIGURATION -->
+	<bean id="pieChartService" class="com.xsis.ics.service.impl.PieChartServiceImplementation">
+		<property name="stockDashboardService" ref="stockDashboardService" />
+		<property name="salesDashboardService" ref="salesDashboardService" />
+
+	</bean>
+
+	<bean id="stockDashboardService" class="com.xsis.ics.service.impl.StockDashboardServiceImpl">
+		<property name="stockDashboardDao" ref="stockDashboardDao" />
+	</bean>
+
+	<bean id="salesDashboardService" class="com.xsis.ics.service.impl.SalesDashboardServiceImpl">
+		<property name="canvasserTrxSummaryDao" ref="canvasserTrxSummaryDao" />
+		<property name="canvasserVisitDaoImpl" ref="canvasserVisitDao" ></property>
+	</bean>
+
+	<bean id="areaManagementService" class="com.xsis.ics.service.impl.AreaManagementServiceImpl" 
+    	p:dealerDao-ref="dealerDao"
+    	p:depoDao-ref="depoDao"
+    	p:subRegionDao-ref="subRegionDao"
+    	p:regionDao-ref="regionDao"
+    	p:teritoryDao-ref="teritoryDao"
+    	p:outletDao-ref="outletDao"/>
+    	
+    <bean id="routeTemplateService" class="com.xsis.ics.service.impl.RouteTemplateServiceImpl"
+    	p:templateDao-ref="routeTemplateDao"
+    	p:canvasserDao-ref="canvasserDao"
+    	p:templateDetailDao-ref="routeTemplateDetailDao"
+    	p:outletDao-ref="outletDao"
+    	/>
+    
+    <bean id="dealerTargetAssignmentService" class="com.xsis.ics.service.impl.DealerTargetAssignmentServiceImpl">
+    	<property name="dealerTargetDao" ref="dealerTargetDao"/>
+    	<property name="teritoryDao" ref="teritoryDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>	
+    </bean>
+    
+    <bean id="batchInputService" class="com.xsis.ics.service.impl.BatchInputServiceImpl">
+    	<property name="canvasserVisitDao" ref="canvasserVisitDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    </bean>
+    
+   <bean id="batchSurveyInputService" class="com.xsis.ics.service.impl.BatchSurveyInputServiceImpl">
+    	<property name="canvasserVisitDao" ref="canvasserVisitDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="outletDao" ref="outletDao"/>
+    	<property name="surveyDao" ref="surveyDao"/>
+    	<property name="surveyResultDao" ref="surveyResultDao"/>
+    	<property name="surveyDetailDao" ref="surveyDetailDao"/>
+    	<property name="lookupDao" ref="lookupDao"/>
+    </bean>
+    
+    <bean id="passKeyService" class="com.xsis.ics.service.impl.PassKeyServiceImpl"
+    	p:userRoleDao-ref="secUserroleDAO"
+    	p:roleDao-ref="secRoleDAO">
+  		<property name="outletDao" ref="outletDao"/>  		
+  		<property name="passKeyDao" ref="passKeyDao"/>
+  	</bean>
+  	
+  	<bean id="passKeyAllService" class="com.xsis.ics.service.impl.PassKeyAllServiceImpl"
+  		p:roleDao-ref="secRoleDAO"
+  		p:userRoleDao-ref="secUserroleDAO">
+  		<property name="outletDao" ref="outletDao"/>
+  		<property name="passKeyDao" ref="passKeyDao"/>  		
+  	</bean>
+  	
+    <bean id="canvasserKpiDashboardService" class="com.xsis.ics.service.impl.CanvasserKpiDashboardImpl">
+    	<property name="canvasserTrxSummaryDao" ref="canvasserTrxSummaryDao" />
+    	<property name="dealerTrxSummaryDao" ref="dealerTrxSummaryDao"/>
+    	<property name="depoTrxSummaryDao" ref="depoTrxSummarryDao"/>
+    	<property name="subRegionTrxSummaryDao" ref="subRegionTrxSummaryDao"/>
+    	<property name="regionTrxSummaryDao" ref="regionTrxSummaryDao"/>
+    	<property name="territoryTrxSummaryDao" ref="territoryTrxSummaryDao"/>
+    	<property name="canvasserDao" ref="canvasserDao"/>
+    	<property name="dealerDao" ref="dealerDao"/>
+    	<property name="depoDao" ref="depoDao"/>
+    	<property name="subRegionDao" ref="subRegionDao"/>
+    	<property name="regionDao" ref="regionDao"/>
+    	<property name="teritoryDao" ref="teritoryDao"/>
+    	<property name="canvasserVisitDao" ref="canvasserVisitDao"/>
+    </bean>
+    
+    <!-- Sofyan Start  -->
+    <bean id="canvasserTopTenDashboardService" class="com.xsis.ics.service.impl.CanvasserTopTenDashboardServiceImpl" >
+    	<property name="depoTrxSummaryDaoImpl" ref="depoTrxSummarryDao" ></property>
+    	<property name="canvasserTrxSummaryImpl" ref="canvasserTrxSummaryDao"></property>
+    	<property name="dealerTrxSummaryDaoImpl" ref="dealerTrxSummaryDao" ></property>
+    	<property name="regionTrxSummaryDaoImpl" ref="regionTrxSummaryDao" ></property>
+    	<property name="subRegionTrxSummaryDaoImpl" ref="subRegionTrxSummaryDao"></property>
+    	<property name="territoryTrxSummaryDaoImpl" ref="territoryTrxSummaryDao" ></property>
+    </bean>
+    <!-- Sofyan End  -->
+    
+    <bean id="canvasserTargetAssignmentService" class="com.xsis.ics.service.impl.CvrTargetAssignmentServiceImpl"
+    	 p:canvasserTargetDao-ref="canvasserTargetDao"
+    	 p:lookupDao-ref="lookupDao"
+    	 p:canvasserDao-ref="canvasserDao"
+    	 p:dealerTargetDao-ref="dealerTargetDao"
+    	 p:dealerDao-ref="dealerDao"
+    />
+    
+    <bean id="batchInputCvrTargetAssingmentService" class="com.xsis.ics.service.impl.BatchInputCvrTargetServiceImpl"
+    	p:cvrTargetDao-ref="canvasserTargetDao"
+    	p:canvasserDao-ref="canvasserDao"/>
+    	
+    <bean id="batchInputCvrRouteAssingmentService" class="com.xsis.ics.service.impl.BatchInputCvrRouteServiceImpl"
+    	p:routesDao-ref="canvasserRoutesDao"
+    	p:outletDao-ref="outletDao"
+    	p:canvasserDao-ref="canvasserDao"
+    	p:routeDetailDao-ref="canvasserRouteDetailDao"/>
+    	
+    <bean id="secUserClusterMappingService" class="com.xsis.ics.service.impl.SecUserClusterMappingServiceImpl"
+    	p:dealerDao-ref="dealerDao" 
+    	p:secUserClusterMappingDao-ref="secUserClusterMappingDao"
+    	/>
+    
+    <bean id="surveyService" class="com.xsis.ics.service.impl.SurveyServiceImpl" 
+    	p:surveyDao-ref="surveyDao"
+    	/>
+    	
+    <bean id="surveyDetailService" class="com.xsis.ics.service.impl.SurveyDetailServiceImpl" 
+    	p:surveyDetailDao-ref="surveyDetailDao"
+    	/>
+    
+    <bean id="lookupService" class="com.xsis.ics.service.impl.LookupServiceImpl" 
+    	p:lookupDao-ref="lookupDao"
+    	/>
+</beans>

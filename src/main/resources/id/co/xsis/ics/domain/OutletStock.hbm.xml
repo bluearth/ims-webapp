@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.OutletStock" table="OUTLET_STOCK">
+       <id name="id" type="java.lang.Long">
+            <column name="outlet_stock_id" />
+            <generator class="sequence">
+				<param name="sequence">OUTLET_STOCK_ID_S</param>
+			</generator>
+        </id>
+        <property name="createdBy" type="java.lang.Long">
+        	<column name="created_by"/>
+        </property>
+        <property name="creationDate" type="java.util.Date">
+        	<column name="creation_date"/>
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+        	<column name="last_updated_by"/>
+        </property>
+        <property name="lastUpdatedDate" type="java.util.Date">
+        	<column name="last_updated_date"/>
+        </property>
+        <many-to-one name="canvasserVisit" class="com.xsis.ics.domain.CanvasserVisit" fetch="select">
+            <column name="CANVASSER_VISIT_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="stockSpXl" type="big_decimal">
+            <column name="STOCK_SP_XL" precision="22" scale="0" />
+        </property>
+        <property name="stockSpIsat" type="big_decimal">
+            <column name="STOCK_SP_ISAT" precision="22" scale="0" />
+        </property>
+        <property name="stockSpTsel" type="big_decimal">
+            <column name="STOCK_SP_TSEL" precision="22" scale="0" />
+        </property>
+        <property name="stockSpLain" type="big_decimal">
+            <column name="STOCK_SP_LAIN" length="200" />
+        </property>
+        <property name="stockPv10Xl" type="big_decimal">
+            <column name="STOCK_PV10_XL" precision="22" scale="0" />
+        </property>
+        <property name="stockPv50Xl" type="big_decimal">
+            <column name="STOCK_PV50_XL" precision="22" scale="0" />
+        </property>
+        <property name="stockPvIsat" type="big_decimal">
+            <column name="STOCK_PV_ISAT" precision="22" scale="0" />
+        </property>
+        <property name="stockPvTsel" type="big_decimal">
+            <column name="STOCK_PV_TSEL" precision="22" scale="0" />
+        </property>
+        <property name="stockPvLain" type="big_decimal">
+            <column name="STOCK_PV_LAIN" length="200" />
+        </property>
+    </class>
+</hibernate-mapping>

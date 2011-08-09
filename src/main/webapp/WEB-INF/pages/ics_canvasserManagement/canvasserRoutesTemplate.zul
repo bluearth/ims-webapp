@@ -1,0 +1,199 @@
+<?page contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<window id="cvrRoutesTemplateWindow" apply="${cvrRoutesTemplateComposer}" 
+	border="none" sizable="true" sclass="pageWindowTitle" title="Route Template" closable="true" width="1024px" height="600px">
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+		
+		<toolbar height="25px">
+			<button id="btnSave"
+				image="/images/icons/btn_save2_16x16.gif"
+				tooltiptext="${c:l('btnSave.tooltiptext')}" height="20px"/>
+			<button id="btnDelete"
+				image="/images/icons/btn_delete2_16x16.gif"
+				tooltiptext="${c:l('btnDelete.tooltiptext')}" height="20px"/>
+		</toolbar>
+		
+	<borderlayout id="borderlayoutTemplateDialog">
+			<north border="none" margins="0,0,0,0">
+			<grid fixedLayout="true" style="border:0px">
+				<columns>
+					<column width="20%"/>
+					<column width="80%"/>
+				</columns>
+					<rows>
+<!--						<row>-->
+<!--							<label value="Canvasser" />-->
+<!--							<combobox id="cbCanvassers" model="@{canvassers}" autodrop="true" selectedItem="@{selectedCanvasser}" value="@{selectedCanvasser.canvasserName}">-->
+<!--								<comboitem self="@{each=canvasser}" value="@{canvasser.id}" label="@{canvasser.canvasserName}"/>-->
+<!--							</combobox>-->
+<!--						</row>-->
+						<row>
+							<label value="Template Name" />
+							<textbox id="tbTemplateName" maxlength="50"/>
+						</row>
+						<row>
+							<label value="Template Status" />
+							<radiogroup id="rgStatus" >
+								<radio id="rStatusActive" label="Active" value="Y"/>
+								<radio id="rStatusInactive" label="Inactive" value="N"/>
+							</radiogroup>
+						</row>
+					</rows>
+				</grid>
+			</north>
+			
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterTemplate">
+<!--									<panel id="panelTemplateDetails"-->
+<!--										title="${c:l('routeTemplate.label.createTemplate')}"-->
+<!--										style="margin-bottom:10px" border="normal">-->
+<!--									<panelchildren>-->
+										<grid fixedLayout="true" style="border:0px">
+										<columns>
+											<column	width="30%" />
+<!--											<column	width="10%" />-->
+											<column	width="10%" />
+											<column	width="10%" />
+											<column	width="10%" />
+											<column	width="10%" />
+											<column	width="10%" />
+											<column	width="10%" />
+											<column	width="10%" />
+										</columns>
+										<rows>		
+											<row align="center">
+											<label value="Add to: "/>
+												<button id="btnMon" label="${c:l('canvasserManagement.routePlan.byWeek.btnMonday')}" height="20" width="80px"/>
+												<button id="btnTues" label="${c:l('canvasserManagement.routePlan.byWeek.btnTuesday')}" height="20" width="80px"/>
+												<button id="btnWed" label="${c:l('canvasserManagement.routePlan.byWeek.btnWednesday')}" height="20" width="80px"/>
+												<button id="btnThrs" label="${c:l('canvasserManagement.routePlan.byWeek.btnThursday')}" height="20" width="80px"/>
+												<button id="btnFri" label="${c:l('canvasserManagement.routePlan.byWeek.btnFriday')}" height="20" width="80px"/>
+												<button id="btnSat" label="${c:l('canvasserManagement.routePlan.byWeek.btnSaturday')}" height="20" width="80px"/>
+												<button id="btnSun" label="${c:l('canvasserManagement.routePlan.byWeek.btnSunday')}" height="20" width="80px"/>
+											</row>				
+											<row>
+												<panel title="Available Routes:" id="panelAvailableRoutes">
+													<panelchildren>
+														<hbox>
+							    							<textbox id="txtBoxSearchOutlet" width="200px"/>
+							    							<button id="btnSearch" label="Search"/>
+							    						</hbox>	
+														<listbox id="lbAvailableCvrRoutes" multiple="true"
+																height="260px" oddRowSclass="non-odd"
+																checkmark="true">
+														</listbox>
+														<paging id="pagingAvailableRoutes" pageSize="13"/>
+														<!--<listbox id="lbAvailableCvrRoutes" multiple="true"
+																height="280px" oddRowSclass="non-odd" mold="paging" pageSize="13"
+																checkmark="true">
+														</listbox>
+													--></panelchildren>
+												</panel>
+<!--												<groupbox height="280px">-->
+<!--													<caption label="Add to" />-->
+<!--														<button id="btnMon" label="${c:l('canvasserManagement.routePlan.byWeek.btnMonday')}" height="20" width="80px"/>-->
+<!--														<button id="btnTues" label="${c:l('canvasserManagement.routePlan.byWeek.btnTuesday')}" height="20" width="80px"/>-->
+<!--														<button id="btnWed" label="${c:l('canvasserManagement.routePlan.byWeek.btnWednesday')}" height="20" width="80px"/>-->
+<!--														<button id="btnThrs" label="${c:l('canvasserManagement.routePlan.byWeek.btnThursday')}" height="20" width="80px"/>-->
+<!--														<button id="btnFri" label="${c:l('canvasserManagement.routePlan.byWeek.btnFriday')}" height="20" width="80px"/>-->
+<!--														<button id="btnSat" label="${c:l('canvasserManagement.routePlan.byWeek.btnSaturday')}" height="20" width="80px"/>-->
+<!--														<button id="btnSun" label="${c:l('canvasserManagement.routePlan.byWeek.btnSunday')}" height="20" width="80px"/>-->
+<!--												</groupbox>-->
+<!--												<panel title="Add to">-->
+<!--													<panelchildren style="margin: 10px 10px;">-->
+<!--														-->
+<!--													</panelchildren>-->
+<!--												</panel>-->
+												<panel>
+													<panelchildren>
+														<listbox id="lbAssignedMonday" multiple="true"
+																height="280px" oddRowSclass="non-odd" fixedLayout="true"
+																checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel>
+													<panelchildren>
+														<listbox id="lbAssignedTuesday" multiple="true"
+																height="280px" oddRowSclass="non-odd" fixedLayout="true"
+																checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel >
+													<panelchildren>
+														<listbox id="lbAssignedWednesday" multiple="true"
+															height="280px" oddRowSclass="non-odd" fixedLayout="true"
+															checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel >
+													<panelchildren>
+														<listbox id="lbAssignedThursday" multiple="true"
+															height="280px" oddRowSclass="non-odd" fixedLayout="true"
+															checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel>
+													<panelchildren>
+														<listbox id="lbAssignedFriday" multiple="true"
+																height="280px" oddRowSclass="non-odd" fixedLayout="true"
+																checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel>
+													<panelchildren>
+														<listbox id="lbAssignedSaturday" multiple="true"
+																height="280px" oddRowSclass="non-odd" fixedLayout="true"
+																checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+												<panel>
+													<panelchildren>
+														<listbox id="lbAssignedSunday" multiple="true"
+																height="280px" oddRowSclass="non-odd" fixedLayout="true"
+																checkmark="true">
+														</listbox>
+													</panelchildren>
+												</panel>
+											</row>
+											<row>
+<!--												<label/>-->
+												<label/>
+												<button id="btnRemMon" label="Remove" height="20" width="80px"/>
+												<button id="btnRemTues" label="Remove" height="20" width="80px"/>
+												<button id="btnRemWed" label="Remove" height="20" width="80px"/>
+												<button id="btnRemThrs" label="Remove" height="20" width="80px"/>
+												<button id="btnRemFri" label="Remove" height="20" width="80px"/>
+												<button id="btnRemSat" label="Remove" height="20" width="80px"/>
+												<button id="btnRemSun" label="Remove" height="20" width="80px"/>
+											</row>	
+										</rows>
+									</grid>
+<!--									</panelchildren>-->
+<!--								</panel>			-->
+				</div>
+			</center>
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+		</borderlayout>
+</window>
+</zk>

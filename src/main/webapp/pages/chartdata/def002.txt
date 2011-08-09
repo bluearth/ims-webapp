@@ -1,0 +1,54 @@
+{
+  "chart": {
+    "caption": "Canvasser KPI Visit - Monthly",  "showSum":"0",  "labelDisplay":"Rotate", "slantLabels":"1",
+     "plotbordercolor": "FFFFFF", "plotGradientColor": "", "showvalues":"0", "palette": "2",
+  	"chartLeftMargin": "3", "chartTopMargin": "5", "chartRightMargin": "8", "chartBottomMargin": "5",
+  	"captionPadding":"3", "paletteColors":"FF0000,0000FF"
+  },
+  "categories": [
+    {
+      "font": "Arial",
+      "fontsize": "12",
+      "fontcolor": "000000",
+      "category": []
+    }
+  ],
+  "dataset": [
+    {
+      "dataset": [
+        {
+          "seriesname": "Target Visit Dompul",
+          "data": []
+        },
+        {
+          "seriesname": "Target Visit Multichip",
+          "data": []
+        }
+      ]
+    },
+	{
+      "dataset": [
+        {
+          "seriesname": "Effective Visit Dompul",
+          "data": []
+        },
+        {
+          "seriesname": "Effective Visit Multichip",
+          "data": []
+        }
+      ]
+    },
+	{
+      "dataset": [
+        {
+          "seriesname": "Effective Call Dompul",
+          "data": []
+        },
+        {
+          "seriesname": "Effective Call Multichip",
+          "data": []
+        }
+      ]
+    }
+  ]
+}

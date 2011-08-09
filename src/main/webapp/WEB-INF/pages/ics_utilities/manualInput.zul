@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}
+		.Db .z-datebox-readonly, .z-datebox-text-disd {	
+			background: white;
+		}
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+		padding on right and left */ }
+		
+		.z-paging-inp{width:50px;}
+	</style>
+	
+	<window id="manualInputWindow" apply="${manualInputComposer}">
+	<toolbar>
+		<button id="btnSave" height="20"
+		image="/images/icons/btn_save2_16x16.gif"
+			tooltiptext="${c:l('btnSave.tooltiptext')}" />
+		<separator orient="vertical" />
+		<button id="btnCancel" height="20"
+		image="/images/icons/btn_cancel2_16x16.gif"
+			tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+	</toolbar>
+	
+	<panel id="panelAssign"
+		title="${c:l('utilities.manualInput.panel.Assign')}"
+		style="margin-bottom:10px" border="normal">
+		<panelchildren>
+			<groupbox mold="3d" width="99%">
+				<grid fixedLayout="true">
+					<columns>
+						<column width="300px" />
+						<column width="100%" />
+					</columns>
+					<rows>
+						<row>
+							<label
+								value="${c:l('utilities.manualInput.label.canvasserName')}" />
+							<bandbox id="bdCanvasser">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="tbCanvasserName" width="275px"/>
+							    		<button id="btnCanvasserNameSearch" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="canvasserNameList" width="348px">
+							        <listhead>
+								        <listheader label="Id" width="10%" />
+									    <listheader label="Name" width="65%" />
+									    <listheader label="Type" width="25%"/>
+							        </listhead>
+							        </listbox>							        
+							        <paging id="canvasserNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+							<!--<combobox sclass="CbRO" id="cbCanvassers"
+								model="@{canvasserList}" autodrop="true" tooltiptext="" readonly="true">
+								<comboitem self="@{each=canvassers}"
+									label="@{canvassers.canvasserName}" value="@{canvassers.id}" />
+							</combobox>
+						--></row>
+						<row>
+							<label
+								value="${c:l('utilities.manualInput.label.visitDate')}" />
+							<hbox>
+								<datebox sclass="Db" id="dbVisit" width="158px" format="dd/MM/yyyy"/>
+								<label value="(DD/MM/YYYY)" />
+								<!--<listbox
+									onSelect="dbVisit.setFormat(self.selectedItem.value)" mold="select"
+									rows="1">
+									<listitem label="Default" value="MM/dd/yyyy" />
+									<listitem label="MM/dd/yyyy hh:mm a"
+									value="MM/dd/yyyy hh:mm a" />
+									<listitem label="MM/dd/yyyy hh:mm:ss"
+									value="MM/dd/yyyy hh:mm:ss" />
+									<listitem label="MM/dd/yyyy"
+									value="MM/dd/yyyy" />
+									<listitem label="MM-dd-yy" value="MM-dd-yy" />
+									</listbox>-->
+							</hbox>
+						</row>
+						<row>
+							<label value="${c:l('utilities.manualInput.label.visitTime')}"/>
+							<hbox>
+							<combobox sclass="Db" id="cbHHDates" autodrop="true" width="40px"
+								tooltiptext="" readonly="false" model="@{hhList}">
+								<comboitem self="@{each=hhs}"
+									label="@{hhs}" value="@{hhs}" />
+							</combobox>
+							<label value=" : " />
+							<combobox sclass="Db" id="cbMMDates" autodrop="true" width="40px"
+								tooltiptext="" readonly="false" model="@{mmAndSSList}">
+								<comboitem self="@{each=mms}"
+									label="@{mms}" value="@{mms}" />
+							</combobox>
+							<label value=" : " />
+							<combobox sclass="Db" id="cbSSDates" autodrop="true" width="40px"
+								tooltiptext="" readonly="false" model="@{mmAndSSList}">
+								<comboitem self="@{each=sss}"
+									label="@{sss}" value="@{sss}" />
+							</combobox>
+							<label value="(HH:MM:SS)" />
+							</hbox>
+						</row>
+						<row>
+							<label value="${c:l('utilities.manualInput.label.outletName')}" />
+							<bandbox id="bdOutlet">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch" width="275px"/>
+							    		<button id="outletNameButton" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList" width="348px">
+							        <listhead>
+							        	<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							        </listbox>							        
+							        <paging id="outletNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+							<!--<combobox sclass="CbRO" id="cbOutlets" autodrop="true"
+								tooltiptext="" readonly="true" width="200px">
+								
+								<comboitem self="@{each=outlets}"
+									label="@{outlets.outletName}" value="@{outlets.id}" />
+							</combobox>-->
+						</row>
+						<row>
+							<label></label>
+							<button id="btnCheck"
+								image="/images/icons/import_16x16.gif"
+								tooltiptext="${c:l('utilities.manualInput.btnCheck.tooltiptext')}" />
+						</row>
+					</rows>
+				</grid>
+			</groupbox>
+		</panelchildren>
+	</panel>
+
+<panel id="panelVisit"
+		title="${c:l('utilities.manualInput.panel.Visit')}"
+		style="margin-bottom:10px" border="normal">
+<panelchildren>
+	<groupbox mold="3d" width="99%">
+					<grid fixedLayout="true">
+					<columns>
+					<column width="300px" />
+					<column width="100%" />
+				</columns>
+						<rows>
+							<row>
+								<label value="${c:l('utilities.manualInput.label.visitFlag')}" />
+								<radiogroup id="rbVisit">
+									<radio id="rVisitYes" label="YES"
+										value="Y" checked="true"/>
+									<radio id="rVisitNo"
+										label="NO" value="N" />
+								</radiogroup>
+							</row>
+							<row>
+								<label value="${c:l('utilities.manualInput.label.visitNotes')}" />
+								<textbox id="visitNotes" width="90%" maxlength="250" multiline="true" height="100px" />
+							</row>
+							<row>
+								<label id="lblTrip" value="${c:l('utilities.manualInput.label.tripLength')}" />
+								<decimalbox id="tripLength" width="300px" maxlength="50" />
+							</row>
+							<row visible="false">
+								<label id="lblCount" value="${c:l('utilities.manualInput.label.countKPI')}" />
+								<radiogroup id="rbCount">
+									<radio id="rCountYes" label="YES"
+										value="Y" checked="true" />
+									<radio id="rCountNo" label="NO" 
+										value="N" />
+								</radiogroup>
+							</row>		
+						</rows>
+					</grid>
+					</groupbox>
+	</panelchildren>
+</panel>		
+
+		<tabbox id="tabBoxManualInput">
+			<tabs>
+				<!--<tab id="tab_ManualInput_Visit" label="${c:l('utilities.manualInput.tab.Visit')}"/>-->
+				<tab id="tab_ManualInput_Transaction" label="${c:l('utilities.manualInput.tab.Transaction')}"/>
+				<tab id="tab_ManualInput_Branding" label="${c:l('utilities.manualInput.tab.Branding')}"/>
+				<tab id="tab_ManualInput_Stock" label="${c:l('utilities.manualInput.tab.Stock')}"/>
+				<tab id="tab_ManualInput_Questionnaire" label="${c:l('utilities.manualInput.tab.Questionnaire')}"/>
+				<!--<tab id="tab_ManualInput_Answer" label="${c:l('utilities.manualInput.tab.Answer')}"/>-->
+			</tabs>
+			<tabpanels>
+				<!--<tabpanel id="tabpanel_ManualInput_Visit" height="99%" width="99%" style="border: 0px">
+				
+				</tabpanel>	
+			--><tabpanel id="tabpanel_ManualInput_Transaction" height="99%" width="99%" style="border: 0px">
+				<groupbox mold="3d" width="99%">
+					<grid fixedLayout="true">
+					<columns>
+					<column width="300px" />
+					<column width="100%" />
+				</columns>
+							<rows>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionFlag')}" />
+									
+									<radiogroup id="rbTransaction">
+										<radio id="rTransactionYes" label="YES"
+											value="Y" checked="true" />
+										<radio id="rTransactionNo" label="NO"
+											value="N" />
+									</radiogroup>
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionSP')}" />
+									<longbox id="transactionSP" width="300px" maxlength="50"/>
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionPV10')}" />
+									<longbox id="transactionPV10" width="300px" maxlength="50"/>
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionPV50')}" />
+									<longbox id="transactionPV50" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionDPRupiah')}" />
+									<longbox id="transactionDPRupiah" width="300px" maxlength="50" format="#,##0"/>
+									<!--<decimalbox format="###.##"
+										value="0.00" width="300px" />
+								--></row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionDP1')}" />
+									<longbox id="transactionDP1" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionDP5')}" />
+									<longbox id="transactionDP5" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.transactionDP10')}" />
+									<longbox id="transactionDP10" width="300px" maxlength="50"/>
+								</row>
+							</rows>
+						</grid>
+						</groupbox>
+			</tabpanel>
+			
+		<tabpanel id="tabpanel_ManualInput_Branding" height="99%" width="99%" style="border: 0px">
+			<groupbox mold="3d" width="99%">
+					<grid fixedLayout="true">
+					<columns>
+					<column width="300px" />
+					<column width="100%" />
+				</columns>
+							<rows>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.brandingPaintedXL')}" />
+									<combobox sclass="CbRO" id="cbbrandingPaintedXL" width="50px" selectedItem="@{selectedBranding}" readonly="true">
+										<comboitem label="NO" value="N" />
+										<comboitem label="YES" value="Y" />
+									</combobox>
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.PosterXL')}" />
+									<longbox id="PosterXL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.PosterTsel')}" />
+									<longbox id="PosterTsel" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.PosterIsat')}" />
+									<longbox id="PosterIsat" width="300px" maxlength="50" />
+								</row>
+									<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.NeonBoxXL')}" />
+									<longbox id="NeonBoxXL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.NeonBoxTsel')}" />
+									<longbox id="NeonBoxTsel" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.NeonBoxIsat')}" />
+									<longbox id="NeonBoxIsat" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.ShopblindXL')}" />
+									<longbox id="ShopblindXL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.ShopBlindTsel')}" />
+									<longbox id="ShopBlindTsel" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.ShopBlindIsat')}" />
+									<longbox id="ShopBlindIsat" width="300px" maxlength="50" />
+								</row>					
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.FlyerXL')}" />
+									<longbox id="FlyerXL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.FlyerTsel')}" />
+									<longbox id="FlyerTsel" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.FlyerIsat')}" />
+									<longbox id="FlyerIsat" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.branding.Others')}" />
+									<longbox id="BrandingsOthers" width="300px" maxlength="50" />
+								</row>						
+							</rows>
+						</grid>
+						</groupbox>
+				</tabpanel>
+	
+		<tabpanel id="tabpanel_ManualInput_Stock" height="99%" width="99%" style="border: 0px">
+				<groupbox mold="3d" width="99%">
+					<grid fixedLayout="true">
+					<columns>
+					<column width="300px" />
+					<column width="100%" />
+				</columns>
+							<rows>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSPXL')}" />
+									<longbox id="stockSPXL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSpIsatMtr')}" />
+									<longbox id="stockSpIsatMtr" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSpIsatIm3')}" />
+									<longbox id="stockSpIsatIm3" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSpTselSmp')}" />
+									<longbox id="stockSpTselSmp" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSpTselAs')}" />
+									<longbox id="stockSpTselAs" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockSpOther')}" />
+									<longbox id="stockSpOther" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockPv10XL')}" />
+									<longbox id="stockPv10XL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockPv50XL')}" />
+									<longbox id="stockPv50XL" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockPvIsat')}" />
+									<longbox id="stockPvIsat" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockPvTsel')}" />
+									<longbox id="stockPvTsel" width="300px" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.stockPvOther')}" />
+									<longbox id="stockPvOther" width="300px" maxlength="50" />
+								</row>
+							</rows>
+						</grid>
+						</groupbox>
+				</tabpanel>
+		
+			<tabpanel id="tabpanel_ManualInput_Questionnaire" height="99%" width="99%" style="border: 0px">
+				<groupbox mold="3d" width="99%">
+					<grid fixedLayout="true">
+					<columns>
+					<column width="300px" />
+					<column width="100%" />
+				</columns>
+					<rows>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire1')}" />
+									<textbox id="questionnaire1" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer1')}" />
+									<textbox id="answer1" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire2')}" />
+									<textbox id="questionnaire2" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer2')}" />
+									<textbox id="answer2" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire3')}" />
+									<textbox id="questionnaire3" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer3')}" />
+									<textbox id="answer3" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire4')}" />
+									<textbox id="questionnaire4" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer4')}" />
+									<textbox id="answer4" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire5')}" />
+									<textbox id="questionnaire5" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer5')}" />
+									<textbox id="answer5" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire6')}" />
+									<textbox id="questionnaire6" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer6')}" />
+									<textbox id="answer6" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire7')}" />
+									<textbox id="questionnaire7" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer7')}" />
+									<textbox id="answer7" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire8')}" />
+									<textbox id="questionnaire8" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer8')}" />
+									<textbox id="answer8" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire9')}" />
+									<textbox id="questionnaire9" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer9')}" />
+									<textbox id="answer9" width="99%" maxlength="150" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.questionnaire10')}" />
+									<textbox id="questionnaire10" width="99%" maxlength="50" />
+								</row>
+								<row>
+									<label
+										value="${c:l('utilities.manualInput.label.answer10')}" />
+									<textbox id="answer10" width="99%" maxlength="150" />
+								</row>
+							</rows>
+					</grid>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox><!--
+		
+				<row align="center">
+					<button id="add"
+						label="${c:l('utilities.manualInput.button.save')}" />
+				</row>
+				<row>
+					<textbox>
+						<attribute name="onChange">
+	if (!self.value.equals("good")) {
+		self.value = "try again";
+		throw new WrongValueException(self, "Not a good answer!");
+	}
+</attribute>
+					</textbox>
+				</row>
+		
+	--></window>
+</zk>
+<!--
+	
+	End by Uke
+-->

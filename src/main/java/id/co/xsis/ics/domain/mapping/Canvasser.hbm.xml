@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.Canvasser" table="CANVASSER">
+	
+		<id name="id" type="long">
+			<column name="CANVASSER_ID" />
+			<generator class="sequence">
+				<param name="sequence">CANVASSER_ID_S</param>
+			</generator>
+		</id>
+		
+
+		<property name="createdBy" type="long">
+			<column name="CREATED_BY" />
+		</property>
+
+		<property name="creationDate" type="date">
+			<column name="CREATION_DATE" />
+		</property>
+
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+
+		<property name="lastUpdatedDate" type="date">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+		<property name="canvasserName" type="string">
+			<column name="CANVASSER_NAME" />
+		</property>
+
+		<property name="canvasserPhone" type="string">
+			<column name="CANVASSER_PHONE" />
+		</property>
+
+		<property name="canvasserLongitude" type="big_decimal">
+			<column name="CANVASSER_LONGITUDE" />
+		</property>
+
+		<property name="canvasserLatitude" type="big_decimal">
+			<column name="CANVASSER_LATITUDE" />
+		</property>
+
+		<property name="canvasserTime" type="date">
+			<column name="CANVASSER_TIME" />
+		</property>
+
+		<property name="canvasserStatus" type="string">
+			<column name="CANVASSER_STATUS" />
+		</property>
+
+		<property name="canvasserImei" type="string">
+			<column name="CANVASSER_IMEI" />
+		</property>
+		
+		<property name="canvasserSn" type="string">
+			<column name="CANVASSER_SN" />
+		</property>
+		
+		<property name="canvasserBattSn1" type="string">
+			<column name="CANVASSER_BATTERY_SN1" />
+		</property>
+		
+		<property name="canvasserBattSn2" type="string">
+			<column name="CANVASSER_BATTERY_SN2" />
+		</property>
+		
+		<property name="canvasserSex" type="string">
+			<column name="SEX" />
+		</property>
+		
+		<property name="canvasserBirthDate" type="date">
+			<column name="BIRTHDATE" />
+		</property>
+		
+		<property name="canvasserSalary" type="long">
+			<column name="SALARY" />
+		</property>
+		
+		<property name="canvasserCommision" type="long">
+			<column name="COMMISSION" />
+		</property>
+		
+		<property name="canvasserLogin" type="string">
+			<column name="CANVASSER_LOGIN" />
+		</property>
+		
+		<property name="canvasserPassword" type="string">
+			<column name="CANVASSER_PASSWORD" />
+		</property>
+		
+		<property name="canvasserType" type="string">
+			<column name="CANVASSER_TYPE" length="50"/>
+		</property>
+		
+		
+		<many-to-one name="address" class="com.xsis.ics.domain.Address"
+			column="CANVASSER_ADDRESS" fetch="select" cascade="all"/>
+
+		<many-to-one name="dealer" class="com.xsis.ics.domain.Dealer"
+			fetch="select">
+			<column name="DEALER_ID" />
+		</many-to-one>
+		
+		<set name="outlets" inverse="true" lazy="true" table="OUTLET" fetch="select">
+			<key>
+				<column name="CANVASSER_ID" precision="22" scale="0" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.Outlet" />
+		</set>
+
+<!--		<one-to-one name="canvasserTrxSummary" class="com.xsis.ics.domain.CanvasserTrxSummary" />-->
+		
+		<set name="canvasserRouteses" inverse="true" lazy="true" table="CANVASSER_ROUTES" fetch="select">
+			<key>
+				<column name="CANVASSER_ID" precision="22" scale="0"
+					not-null="true" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.CanvasserRoutes" />
+		</set>
+
+		<set name="canvasserTargets" inverse="true" lazy="true" table="CANVASSER_TARGET" fetch="select">
+			<key>
+				<column name="CANVASSER_ID" precision="22" scale="0" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.CanvasserTarget" />
+		</set>
+
+		<set name="canvasserTracks" inverse="true" lazy="true" table="CANVASSER_TRACK" fetch="select">
+			<key>
+				<column name="CANVASSER_ID" precision="22" scale="0" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.CanvasserTrack" />
+		</set>
+
+		<set name="canvasserVisits" inverse="true" lazy="true" table="CANVASSER_VISIT" fetch="select">
+			<key>
+				<column name="CANVASSER_ID" precision="22" scale="0" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.CanvasserVisit" />
+		</set>
+
+		<property name="canvasserJoinDate" type="date">
+			<column name="CANVASSER_JOIN_DATE" />
+		</property>
+
+	</class>
+</hibernate-mapping>

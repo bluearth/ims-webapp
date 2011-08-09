@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.SurveyDetail" table="SURVEY_DETAIL">
+        <composite-id>
+        	<key-many-to-one name="survey" class="com.xsis.ics.domain.Survey">
+        		<column name="survey_id"></column>
+        	</key-many-to-one>
+        	<key-property name="questionNo" type="integer">
+        		<column name="QUESTION_NO" precision="3"/>
+        	</key-property>
+        </composite-id>
+                
+        <property name="questionDescription" type="string">
+            <column name="QUESTION_DESCRIPTION" length="50" />
+        </property>
+       
+        <property name="questionValidation" type="string">
+            <column name="QUESTION_VALIDATION" length="150" />
+        </property>
+        
+        <property name="invalidMessage" type="string">
+            <column name="INVALID_MESSAGE" length="150" />
+        </property>
+        
+        <property name="mandatoryFlag" type="string">
+            <column name="MANDATORY_FLAG" length="50" />
+        </property>
+       
+        <property name="lookupType" type="string">
+            <column name="LOOKUP_TYPE" length="50" />
+        </property>
+                
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+
+	<style dynamic="true">
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+			
+		.GridLayoutNoBorder tr.z-row td.z-row-inner, tr.z-row .z-cell, div.z-grid {
+			border: none;
+			overflow: hidden;
+			zoom: 1;
+			background: white; 
+			border-top: none;
+			border-left: none;
+			border-right: none;
+			border-bottom: none;
+			padding:0;
+		}
+	    .z-paging-inp{width:50px;}
+		</style>
+		
+	<window id="passKeyWindow" apply="${passKeyComposer}">
+
+		<toolbar>
+		
+			<button id="btnSave" height="20"
+				label="${c:l('utilities.passKeyAll.sendpasskey.label')}"
+				tooltiptext="${c:l('utilities.passKeyAll.sendpasskey.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="btnCancel" height="20"
+			image="/images/icons/btn_cancel2_16x16.gif"
+			tooltiptext="${c:l('btnCancel.tooltiptext')}" />			
+		</toolbar>
+
+		<groupbox mold="3d" width="99%">
+			<grid fixedLayout="true" sclass="GridLayoutNoBorder">
+				<columns>
+					<column width="200px" label="${c:l('utilities.passKey.label.OutletName')}"/>
+					<column width="150px" label="${c:l('utilities.passKey.label.MSISDN')}"/>
+					<column width="50px" />
+					<column width="100%" label="${c:l('utilities.passKey.label.passKey')}" />
+				</columns>
+				<rows>
+					<row id="row">						
+						<bandbox id="bdOutlet">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch" width="175px"/>
+							    		<button id="outletNameButton" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList" width="345px">
+							        <listhead>
+							     		<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							    </listbox>						        
+							        <paging id="outletNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+						</bandbox>
+						<label id="lblMSISDN"/>
+						<button id="btnAdd" image="/images/icons/btn_new2_16x16.gif"/>
+						<label id="lblPassKey"/>
+					</row>
+					<row id="row2">
+						<bandbox id="bdOutlet2">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch2" width="175px"/>
+							    		<button id="outletNameButton2" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList2" width="345px" >
+							     <listhead>
+							     		<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							    </listbox>							        
+							        <paging id="outletNamePaging2" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+							<label id="lblMSISDN2"/>
+						<button id="btnAdd2" image="/images/icons/btn_new2_16x16.gif"/>
+						<label id="lblPassKey2"/>
+					</row>
+					<row id="row3">						
+						<bandbox id="bdOutlet3">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch3" width="175px"/>
+							    		<button id="outletNameButton3" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList3" width="345px">
+							     <listhead>
+							     		<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							    </listbox>						        
+							        <paging id="outletNamePaging3" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+						<label id="lblMSISDN3"/>
+						<button id="btnAdd3" image="/images/icons/btn_new2_16x16.gif"/>
+						<label id="lblPassKey3"/>
+					</row>
+					<row id="row4">					
+						<bandbox id="bdOutlet4">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch4" width="175px"/>
+							    		<button id="outletNameButton4" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList4" width="345px">
+							     <listhead>
+							     		<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							    </listbox>						        
+							        <paging id="outletNamePaging4" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+						<label id="lblMSISDN4"/>
+						<button id="btnAdd4" image="/images/icons/btn_new2_16x16.gif"/>
+						<label id="lblPassKey4"/>
+					</row>
+					<row id="row5">						
+						<bandbox id="bdOutlet5">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch5" width="175px"/>
+							    		<button id="outletNameButton5" label="SEARCH"/>
+							    	</hbox>						       							        
+							        <listbox id="outletNameList5" width="345px">
+							     <listhead>
+							     		<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							    </listbox>						        
+							        <paging id="outletNamePaging5" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+						<label id="lblMSISDN5"/>
+						<label/>
+						<label id="lblPassKey5"/>
+					</row>					
+					<row>
+					<button id="btnGenerate" label="${c:l('utilities.passKey.button.generate')}"/>
+					</row>
+					
+				</rows>
+				
+			</grid>
+		</groupbox>
+
+	</window>
+</zk>

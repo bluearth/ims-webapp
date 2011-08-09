@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.CanvasserRoutes" table="canvasser_routes">
+    	<id name="id" type="java.lang.Long">
+            <column name="route_id" />
+            <generator class="sequence">
+				<param name="sequence">CANVASSER_ROUTES_ID_S</param>
+			</generator>
+        </id>
+        <property name="createdBy" type="java.lang.Long">
+        	<column name="created_by"/>
+        </property>
+        <property name="creationDate" type="java.util.Date">
+        	<column name="creation_date"/>
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+        	<column name="last_updated_by"/>
+        </property>
+        <property name="lastUpdatedDate" type="java.util.Date">
+        	<column name="last_updated_date"/>
+        </property>
+		<many-to-one name="canvasser" class="com.xsis.ics.domain.Canvasser" fetch="select">
+			<column name="CANVASSER_ID"/>
+		</many-to-one> 
+		<property name="effectiveDate" type="java.util.Date">
+			<column name="EFFECTIVE_DATE"/>
+		</property>
+		<property name="ineffectiveDate" type="java.util.Date">
+			<column name="INEFFECTIVE_DATE"/>
+		</property>
+		<set name="canvasserRouteDetails" inverse="true" table="CANVASSER_ROUTE_DETAIL" fetch="select" cascade="all,delete-orphan">
+            <key>
+                <column name="ROUTE_ID" precision="22" scale="0"/>
+            </key>
+            <one-to-many class="com.xsis.ics.domain.CanvasserRouteDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

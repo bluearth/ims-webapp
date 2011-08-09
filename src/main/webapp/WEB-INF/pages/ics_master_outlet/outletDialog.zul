@@ -1,0 +1,357 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}
+			
+	</style>
+	
+<window id="outletDialogWindow"
+		apply="${outletDialogComposer}" 
+		border="none" closable="true" width="800px" height="500px"
+		sizable="true" sclass="pageWindowTitle">
+		
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+		
+		<borderlayout id="borderlayoutDialog">
+
+			<north border="none" margins="0,0,0,0">
+				<grid>
+					<columns sizable="" height="25px">
+						<!-- CRUD Buttons -->
+						<column align="right">
+							<hbox spacing="5px" style="padding:1px"
+								align="end">
+								<button id="btnNew" height="20px"
+									tooltiptext="${c:l('btnNew.tooltiptext')}" />
+								<!-- label="${c:l('btnNew.label')}"	 -->
+								<button id="btnEdit" height="20px"
+									tooltiptext="${c:l('btnEdit.tooltiptext')}" />
+								<button id="btnDelete" height="20px"
+									tooltiptext="${c:l('btnDelete.tooltiptext')}" />
+								<button id="btnSave" height="20px"
+									tooltiptext="${c:l('btnSave.tooltiptext')}" />
+								<button id="btnCancel" height="20px"
+									tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+								<button id="btnClose" height="20px"
+									tooltiptext="${c:l('btnClose.tooltiptext')}" />
+							</hbox>
+
+						</column>
+					</columns>
+				</grid>
+			</north>
+
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterDialog">
+
+					<tabbox id="tabBoxDialog" width="100%">
+						<tabs>
+							<tab id="tab_OutletDialog_Details"
+								label="${c:l('master.outlet.label.tab_OutletDialog_Details')}" />
+						</tabs>
+						<tabpanels>
+
+							<!-- Tab Details-->
+							<tabpanel id="tabpanel_OutletDialog_Details"
+								height="100%" style="border: 0px">
+								<columnlayout>
+									<columnchildren width="50%"	style="padding: 5px">
+										<panel id="panel_OutletDialog_OutletInformation"
+											title="${c:l('master.outlet.label.panel_OutletDialog_OutletInformation')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label id="label_OutletDialog_outletDealer"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletDealer')}" />
+															<combobox width="200px" sclass="CbRO" id="cbDealers" model="@{dealerList}" autodrop="true" selectedItem="@{selectedDealer}" value="@{selectedDealer.dealerName}">
+																<comboitem self="@{each=dealer}" value="@{dealer.id}" label="@{dealer.dealerName}"/>
+															</combobox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletCanvassers"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletCanvassers')}" />
+															<combobox sclass="CbRO" id="cbCanvassers" model="@{canvasserList}" autodrop="true" selectedItem="@{selectedCanvasser}" value="@{selectedCanvasser.canvasserName}" width="200px">
+																<comboitem self="@{each=canvasser}" value="@{canvasser.id}" label="@{canvasser.canvasserName}"/>
+															</combobox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletName"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletName')}"  />
+															<textbox
+																id="outletName" maxlength="150" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletOwner"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletOwner')}" />
+															<textbox
+																id="outletOwner" maxlength="150"
+																width="200px" />
+														</row>
+														<row>
+															<label																
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletOwnerId')}" />
+															<textbox
+																id="outletOwnerId" maxlength="50"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletLevel"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletLevel')}" />
+															<combobox sclass="CbRO" id="cb_OutletDialog_outLevel" model="@{levelList}" selectedItem="@{selectedLevel}" value="@{selectedLevel.lookupDescription}" readonly="true" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outLevel')}" width="200px">
+																<comboitem self="@{each=level}" label="@{level.lookupDescription}" value="@{level.lookupValue}"/>
+															</combobox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletSize"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletSize')}" />
+															<combobox sclass="CbRO" id="cb_OutletDialog_outSize" model="@{sizeList}" selectedItem="@{selectedSize}" value="@{selectedSize.lookupDescription}" readonly="true" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outSize')}" width="200px">
+																<comboitem self="@{each=size}" label="@{size.lookupDescription}" value="@{size.lookupValue}"/>
+															</combobox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletPhone"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletPhone')}" />
+															<hbox>
+															<textbox id="tbPhonePrefiks" width="20px" readonly="true" />
+															<textbox
+																id="outletPhone" maxlength="28"
+																width="170px" />
+															</hbox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_status"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.salesCount.status')}" />
+															<combobox id="cb_OutletDialog_outStatus" model="@{statusList}" selectedItem="@{selectedStatus}" value="@{selectedStatus.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outStatus')}" width="200px">
+																<comboitem self="@{each=status}" label="@{status.lookupDescription}" value="@{status.lookupValue}"/>
+															</combobox>
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+										<panel id="panel_OutletDialog_OutletAddress"
+											title="${c:l('master.outlet.label.panel_OutletDialog_OutletAddress')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+													<row>
+															<label
+																id="label_OutletDialog_addressStreet"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.addressStreet')}" />
+															<textbox
+																id="addressStreet" maxlength="200"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_addressVillage"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.addressVillage')}" />
+															<textbox
+																id="addressVillage" maxlength="150"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_addressSubDistrict"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.addressSubdistrict')}" />
+															<textbox
+																id="addressSubdistrict" maxlength="150"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_addressDistrict"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.addressDistrict')}" />
+															<textbox
+																id="addressDistrict" maxlength="150"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_addressProvince"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.addressProvince')}" />
+															<combobox sclass="CbRO" id="cb_OutletDialog_outProvince" model="@{provinceList}" selectedItem="@{selectedProvince}" value="@{selectedProvince.lookupDescription}" readonly="true" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outProvince')}" width="200px">
+																<comboitem self="@{each=province}" label="@{province.lookupDescription}" value="@{province.lookupValue}"/>
+															</combobox>
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+										</columnchildren>
+										<columnchildren width="50%"
+										style="padding: 5px">
+										<panel
+											id="panel_OutletDialog_OutletDetails" title="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_OutletDialog_outletType"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletType')}" />
+															<combobox sclass="CbRO" id="cb_OutletDialog_outType" model="@{typeList}" selectedItem="@{selectedType}" value="@{selectedType.lookupDescription}" readonly="true" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outType')}" width="200px">
+																<comboitem self="@{each=type}" label="@{type.lookupDescription}" value="@{type.lookupValue}"/>
+															</combobox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_outletMsisdn"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletMsisdn')}" />
+															<hbox>
+															<textbox id="tbPrefixMsisdn" readonly="true" width="20px"/>
+															<textbox id="outletMsisdn" maxlength="28"
+																width="170px" readonly="true"/>
+															</hbox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_salesCount"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.salesCount')}" />
+															<longbox 
+																id="salesCount" maxlength="10"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_picPhone"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.picPhone')}" />
+															<hbox>
+														    <textbox id="tbPrefixPicPhone" readonly="true" width="20px"/>
+															<textbox id="picPhone" maxlength="28"
+																width="170px" />
+															</hbox>
+														</row>
+														<row>
+															<label
+																id="label_OutletDialog_picName"
+																value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.picName')}" />
+															<textbox 
+																id="picName" maxlength="150"
+																width="200px" />
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+										<panel id="panel_OutletDialog_OutletLocation" title="${c:l('master.outlet.label.panel_OutletDialog_OutletLocation')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+											<grid fixedLayout="true"
+												style="border:0px">
+												<columns>
+													<column	width="150px" />
+													<column	width="100%" />
+												</columns>
+												<rows>
+													<row>
+														<label
+															id="label_OutletDialog_outletLongitude"
+															value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletLongitude')}" />
+														<decimalbox readonly="true"
+															id="outletLongitude" maxlength="50" format="###.#####"
+															width="200px" />
+													</row>
+													<row>
+														<label
+															id="label_OutletDialog_outletLatitude"
+															value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletLatitude')}" />
+														<decimalbox readonly="true"
+															id="outletLatitude" maxlength="50" format="###.#####"
+															width="200px" />
+													</row>
+													<row>
+													<label
+														id="label_OutletDialog_outletLocation"
+														value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletLocation')}" />
+													<combobox sclass="CbRO" id="cb_OutletDialog_outLocation" model="@{locationList}" selectedItem="@{selectedLocation}" value="@{selectedLocation.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outLocation')}" width="200px">
+														<comboitem self="@{each=location}" label="@{location.lookupDescription}" value="@{location.lookupValue}"/>
+													</combobox>
+													</row>
+													<row>
+													<label
+														id="label_OutletDialog_outletMallName"
+														value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletMallName')}" />
+													<textbox id="outletMallName" maxlength="150" width="200px" />
+													</row>
+													<row>
+														<label
+															id="label_OutletDialog_outletMallFloor"
+															value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletMallFloor')}" />
+														<decimalbox readonly="true"
+															id="outletMallFloor" maxlength="2" format="##"
+															width="200px" />
+													</row>
+													<row>
+														<label	id="label_OutletDialog_outletMallCategory"	value="${c:l('master.outlet.label.panel_OutletDialog_OutletDetails.outletMallCategory')}" />
+														<combobox sclass="CbRO" id="cb_OutletDialog_outMallCategory" model="@{categoryList}" selectedItem="@{selectedCategory}" value="@{selectedCategory.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_OutletDialog_outCategory')}" width="200px">
+														<comboitem self="@{each=category}" label="@{category.lookupDescription}" value="@{category.lookupValue}"/>
+														</combobox>
+													</row>
+												</rows>
+											</grid>
+											</panelchildren>
+										</panel>	
+										</columnchildren>
+									</columnlayout>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</div>
+			</center>
+
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+
+		</borderlayout>
+</window>
+</zk>

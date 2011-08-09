@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}	
+	</style>
+
+	<window id="canvasserDialogWindow"
+		border="none"
+		apply="${canvasserDialogCtrl}" closable="true" width="800px" height="500px"
+		sizable="true" sclass="pageWindowTitle">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+
+		<borderlayout id="borderlayoutCanvasser">
+
+			<north border="none" margins="0,0,0,0">
+				<grid>
+					<columns sizable="" height="25px">
+						<!-- CRUD Buttons -->
+						<column align="right">
+							<hbox spacing="5px" style="padding:1px"
+								align="end">
+								<button id="btnNew" height="20px"
+									tooltiptext="${c:l('btnNew.tooltiptext')}" /><!--
+								 label="${c:l('btnNew.label')}"	
+					
+								--><button id="btnEdit" height="20px"
+									tooltiptext="${c:l('btnEdit.tooltiptext')}" />
+								<button id="btnDelete" height="20px"
+									tooltiptext="${c:l('btnDelete.tooltiptext')}" />
+								<button id="btnSave" height="20px"
+									tooltiptext="${c:l('btnSave.tooltiptext')}" />
+								<button id="btnCancel" height="20px"
+									tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+								<button id="btnClose" height="20px"
+									tooltiptext="${c:l('btnClose.tooltiptext')}" />
+							</hbox>
+
+						</column>
+					</columns>
+				</grid>
+			</north>
+
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterCanvasser">
+
+					<tabbox id="tabBoxCanvasser" width="100%">
+						<tabs>
+							<tab id="tab_CanvasserDialog_Details"
+								label="${c:l('tab_CanvasserDialog_Details.label')}" />
+								
+						</tabs>
+						<tabpanels>
+
+							<!-- Tab Details-->
+							<tabpanel id="tabpanel_CanvasserDialog_Details"
+								height="100%" width="100%" style="border: 0px">
+
+								<columnlayout>
+									<columnchildren width="50%"
+										style="padding: 5px">
+										<panel
+											id="panel_CanvasserDialog_Status"
+											title="${c:l('panel_CanvasserDialog_AccountDetails.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsDealer"
+																value="${c:l('label_CanvasserDialog_cvsDealer.value')}" />
+															<combobox width="200px" sclass="CbRO" id="cb_CanvasserDialog_cvsDealerName" model="@{dealerList}" selectedItem="@{selectedDealer}" value="@{selectedDealer.dealerName}" autodrop="true" tooltiptext="${c:l('tooltiptext_CanvasserDialog_cvsDealerName')}">
+																<comboitem self="@{each=dealers}" label="@{dealers.dealerName}" value="@{dealers.id}"/>
+															</combobox>
+														</row>
+														<row visible="false">
+															<label
+																id="label_CanvasserDialog_cvsIdexId"
+																value="${c:l('label_CanvasserDialog_cvsIdexId.value')}" />
+															<textbox readonly="true"
+																id="cvsIdexId" maxlength="50" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsName"
+																value="${c:l('label_CanvasserDialog_cvsName.value')}" />
+															<textbox
+																id="cvsName" maxlength="150" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsBirth"
+																value="${c:l('label_CanvasserDialog_cvsBirth.value')}" />
+															<datebox id="cvsBirth" width="200px" format="dd/MM/yyyy"/>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsSex"
+																value="${c:l('label_CanvasserDialog_cvsSex.value')}" />
+															<radiogroup id="cvsSex">
+																<radio label="Male" value="MALE" id="rMale" checked="true"/>
+																<radio label="Female" value="FEMALE" id="rFemale"/>
+															</radiogroup>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsPhone"
+																value="${c:l('label_CanvasserDialog_cvsPhone.value')}" />
+															<hbox>
+																<textbox id="tbPhonePrefix" readonly="true" width="20px"/>
+																<textbox
+																	id="cvsPhone" maxlength="28" width="170px" />
+															</hbox>
+														</row>
+														<row visible="false">
+															<label
+																id="label_CanvasserDialog_cvsTime"
+																value="${c:l('label_CanvasserDialog_cvsTime.value')}" />
+															<datebox id="cvsTime" width="200px" format="MM/dd/yyyy"/>
+														</row>
+														<row >
+															<label
+																id="label_CanvasserDialog_cvsType"
+																value="${c:l('label_CanvasserDialog_cvsType.value')}" />
+															<combobox id="cb_CanvasserDialog_cvsType" model="@{typeList}" selectedItem="@{selectedType}" value="@{selectedType.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_CanvasserDialog_cvsType')}" width="200px">
+																<comboitem self="@{each=cType}" label="@{cType.lookupDescription}" value="@{cType.lookupValue}"/>
+															</combobox>
+														</row>
+														<row visible="true">
+															<label
+																id="label_CanvasserDialog_cvsStatus"
+																value="${c:l('label_CanvasserDialog_cvsStatus.value')}" />
+															<combobox id="cb_CanvasserDialog_cvsStatus" model="@{statusList}" selectedItem="@{selectedStatus}" value="@{selectedStatus.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_CanvasserDialog_cvsStatus')}" width="200px">
+																<comboitem self="@{each=status}" label="@{status.lookupDescription}" value="@{status.lookupValue}"/>
+															</combobox>
+														</row>																									
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+										<panel
+											id="panel_CanvasserDialog_Address"
+											title="${c:l('panel_CanvasserDialog_Address.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+													<row>
+															<label
+																id="label_CanvasserDialog_cvsStreet"
+																value="${c:l('label_CanvasserDialog_cvsStreet.value')}" />
+															<textbox multiline="true"
+																id="cvsStreet" maxlength="200" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsVillage"
+																value="${c:l('label_CanvasserDialog_cvsVillage.value')}" />
+															<textbox 
+																id="cvsVillage" maxlength="150" width="200px"/>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsSubDistrict"
+																value="${c:l('label_CanvasserDialog_cvsSubDistrict.value')}" />
+															<textbox 
+																id="cvsSubDistrict" maxlength="150" width="200px"/>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsDistrict"
+																value="${c:l('label_CanvasserDialog_cvsDistrict.value')}" />
+															<textbox
+																id="cvsDistrict" maxlength="150" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsProvince"
+																value="${c:l('label_CanvasserDialog_cvsProvince.value')}" />
+															<combobox sclass="CbRO" id="cb_CanvasserDialog_cvsProvince" readonly="true" model="@{provinceList}" selectedItem="@{selectedProvince}" value="@{selectedProvince.lookupDescription}" autodrop="true" tooltiptext="${c:l('tooltiptext_CanvasserDialog_cvsProvince')}" width="200px">
+																<comboitem self="@{each=province}" label="@{province.lookupDescription}" value="@{province.lookupValue}"/>
+															</combobox>
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+									</columnchildren>
+
+									<columnchildren width="50%"
+										style="padding: 5px">
+										<panel
+											id="panel_CanvasserDialog_Informations"
+											title="${c:l('panel_CanvasserDialog_Informations.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsImei"
+																value="${c:l('label_CanvasserDialog_cvsImei.value')}" />
+															<textbox
+																id="cvsImei" maxlength="16" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsSalary"
+																value="${c:l('label_CanvasserDialog_cvsSalary.value')}" />
+															<longbox
+																id="cvsSalary" maxlength="50" width="200px" format="#,##0"/>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsCommission"
+																value="${c:l('label_CanvasserDialog_cvsCommission.value')}" />
+															<longbox 
+																id="cvsCommission" maxlength="50" width="200px" format="#,##0"/>
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsSn"
+																value="${c:l('label_CanvasserDialog_cvsSn.value')}" />
+															<textbox
+																id="cvsSn" maxlength="30" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsBatt1"
+																value="${c:l('label_CanvasserDialog_cvsBatt1.value')}" />
+															<textbox
+																id="cvsBatt1" maxlength="30" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsBatt2"
+																value="${c:l('label_CanvasserDialog_cvsBatt2.value')}" />
+															<textbox
+																id="cvsBatt2" maxlength="30" width="200px" />
+														</row>	
+														<row>
+															<label
+																value="${c:l('label_CanvasserDialog_joinDate.value')}" />
+															<datebox id="dbJoinDate" width="200px" format="dd/MM/yyyy"/>
+														</row>
+																									
+														<row visible="false">
+															<label
+																id="label_CanvasserDialog_cvsLongitude"
+																value="${c:l('label_CanvasserDialog_cvsLongitude.value')}" />
+															<decimalbox
+																id="cvsLongitude" maxlength="50" width="200px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_CanvasserDialog_cvsLatitude"
+																value="${c:l('label_CanvasserDialog_cvsLatitude.value')}" />
+															<decimalbox 
+																id="cvsLatitude" maxlength="50" width="200px"/>
+														</row>														
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+
+										<panel
+											id="panel_CanvasserDialog_Security"
+											title="${c:l('panel_CanvasserDialog_Security.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsLogin"
+																value="${c:l('label_CanvasserDialog_cvsLogin.value')}" />
+															<textbox
+																id="cvsLogin" maxlength="50" width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsPassword"
+																value="${c:l('label_CanvasserDialog_cvsPassword.value')}" />
+															<textbox
+																id="cvsPassword" type="password" maxlength="32"
+																width="200px" />
+														</row>
+														<row>
+															<label
+																id="label_CanvasserDialog_cvsPasswordRetype"
+																value="${c:l('label_CanvasserDialog_cvsPasswordRetype.value')}" />
+															<textbox
+																id="cvsPasswordRetype" type="password" maxlength="32"
+																width="200px" />
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+
+									</columnchildren>
+
+								</columnlayout>
+
+
+							</tabpanel>
+							
+						</tabpanels>
+					</tabbox>
+
+
+				</div>
+			</center>
+
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+
+		</borderlayout>
+
+
+	</window>
+</zk>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.xsis.security.model.Office" table="filiale">
+
+		<id name="id" type="long">
+			<column name="fil_id" />
+			<generator class="sequence">
+				<param name="sequence">FIL_ID_SEQ</param>
+			</generator>
+		</id>
+
+		<version name="version" column="VERS" type="integer" />
+
+		<property name="filNr" type="string">
+			<column name="fil_nr" length="20" not-null="true" unique="true" />
+		</property>
+		<property name="filBezeichnung" type="string">
+			<column name="fil_bezeichnung" length="50" />
+		</property>
+		<property name="filName1" type="string">
+			<column name="fil_name1" length="50" />
+		</property>
+		<property name="filName2" type="string">
+			<column name="fil_name2" length="50" />
+		</property>
+		<property name="filOrt" type="string">
+			<column name="fil_ort" length="50" />
+		</property>
+	</class>
+</hibernate-mapping>

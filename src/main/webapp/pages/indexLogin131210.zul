@@ -1,0 +1,128 @@
+<?page id="indexPage" title=" Intelligent Canvasser System " cacheable="false"
+	language="xul/html" zscriptLanguage="Java"?>
+<?meta content="text/html; charset=UTF-8" 	pageEncoding="UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window id="outerIndexWindow" apply="${indexCtrl}" border="none"
+		width="1024px" height="100%" contentStyle="overflow:auto" style="margin:0 auto;">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ } .z-loading { top: 50%
+			!important; left: 45% !important; align: center;
+			vertical-align: middle; }
+			<!-- groupbox inner content area, NO padding -->
+			.myGroupBoxContentArea .z-groupbox-cnt{ background-color:
+			white; padding: 0px }
+			
+			
+			.z-menu-inner-l, .z-menu-inner-m, .z-menu-inner-r, .z-menu-body, .z-menu, 
+			.z-menu-item-inner-l, .z-menu-item-inner-m, .z-menu-item-inner-r, .z-menu-item-body, .z-item-menu, 
+			.z-menu-space, .z-menu-item-body, .z-menu-item-cnt, .z-menu-item-space,
+			.z-menu-item {
+				background-color:#E7EBEF;
+			}
+			
+		</style>
+
+		<!-- hidden fields for storing the current desktop height and width -->
+		<intbox id="currentDesktopHeight" visible="false" />
+		<intbox id="currentDesktopWidth" visible="false" />
+		<!-- hidden field for storing the initial menu type -->
+		<checkbox id="CBtreeMenu" checked="true" visible="false" />
+		
+		<borderlayout id="borderlayoutMain" height="100%">
+			
+			<north id="borderlayoutMainNorth" border="none"
+				splittable="false">
+				
+				<div id="div1" style="background-color:#08498C;" width="100%">				
+		
+					<image style="float:left; margin-left:10px;" src="/images/xl.jpg" height="70px"/>
+				
+					<image style="float:right;margin-right:10px;" src="/images/ics2.jpg" height="70px"/>
+					
+					<div style="clear:both;" />
+				
+<!--					<div id="divDropDownMenu" width="100%" height="29px">-->
+<!--						<menubar id="mainMenuBar" height="25px"></menubar>-->
+<!--					</div>-->
+					<div id="divDropDownMenu" width="100%" height="29px" style="background-color:#E7EBEF;">
+						<div style="float:left;background-color:#E7EBEF;"><menubar id="mainMenuBar" height="25px" style="border:none;" ></menubar></div>
+						<div style="float:right;background-color:#E7EBEF;margin:0 0 0 0; padding:8px 10px 0 0;"><label height="25px" value="LOGOUT" id="lblLogout" style="cursor: pointer;"/></div>
+					</div>
+
+				</div>
+			</north>
+
+
+			<west border="none" margins="0,0,0,0" size="230px"
+				style="background-color: #D6DCDE; padding: 5px" flex="true"
+				minsize="100" splittable="true" >
+				<div id="divWest">WEST</div>
+			</west>
+
+			<!-- MODULE CONTENT AREA -->
+			<center id="center" border="none" margins="0,0,0,0"
+				flex="true" autoscroll="true"
+				style="background-color: #D6DCDE; padding: 5px">
+				<div id="divCenter">
+
+					<groupbox id="groupbox_menu" mold="3d"
+						sclass="myGroupBoxContentArea">
+						<caption
+							style="color: #000000; font-weight: bold;"
+							label="${c:l('workplace')}" />
+						<tabbox id="tabBoxIndexCenter" width="100%"
+							style="padding: 0px">
+							<tabs id="tabsIndexCenter"></tabs>
+							<tabpanels id="tabpanelsBoxIndexCenter">
+							</tabpanels>
+						</tabbox>
+					</groupbox>
+
+				</div>
+			</center>
+
+			<east border="none" margins="0,0,0,0" size="0%" autoscroll="true">
+				<div id="divEast">EAST</div>
+			</east>
+
+			<south border="none" margins="1,0,0,0" height="20px"
+				splittable="false" flex="true">
+				<div id="divSouth">
+
+					<grid id="statusBarGrid" fixedLayout="true"
+						height="20px" width="100%">
+						<columns sizable="false">
+							<column label="User:" width="10%"
+								style="background-color: #D6DCDE;" />
+							<column id="statusBarColUser" label=""
+								width="20%" style="background-color: #D6DCDE;" />
+<!--							<column label="Office-No.:" width="10%"-->
+<!--								style="background-color: #D6DCDE;" />-->
+<!--							<column id="statusBarColOfficeNo" label=""-->
+<!--								width="10%" style="background-color: #D6DCDE;" />-->
+<!--							<column id="statusBarZKVersion" width="20%"-->
+<!--								style="background-color: #D6DCDE;" />-->
+							<column id="statusBarAppVersion"
+								style="color: #FF0000; background-color: #D6DCDE;" width="20%" />
+							<!--<column id="colDate" width="20%"
+								style="background-color: #D6DCDE;" align="right" >
+								<label value="LOGOUT" id="lblLogout"/>
+							</column>-->
+						</columns>
+					</grid>
+				</div>
+
+			</south>
+		</borderlayout>
+	</window>
+
+</zk>

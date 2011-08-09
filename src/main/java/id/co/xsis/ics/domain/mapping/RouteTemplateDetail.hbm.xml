@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.RouteTemplateDetail" table="ROUTES_TEMPLATE_DETAIL">
+		
+		<id name="id" type="long">
+            <column name="TEMPLATE_DETAIL_ID" />
+            <generator class="sequence">
+				<param name="sequence">TEMPLATE_DETAIL_ID_S</param>
+			</generator>
+        </id>
+        
+        <property name="weekdays" type="long">
+        	<column name="WEEKDAYS"/>
+        </property>   
+        
+        <property name="priority" type="long">
+        	<column name="PRIORITY"/>
+        </property>   
+        
+        <many-to-one name="routeTemplate" class="com.xsis.ics.domain.RouteTemplate" 
+        		column="TEMPLATE_ID" fetch="select"/>
+             		
+        <many-to-one name="outlet" class="com.xsis.ics.domain.Outlet" 
+        		column="OUTLET_ID" fetch="select"/>
+             		
+	</class>
+</hibernate-mapping>

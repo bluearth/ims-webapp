@@ -1,0 +1,9 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="barChartWin" apply="com.valuequest.ics.webui.composer.dashboard.BarChartComposer" border="none">
+<vbox>
+	<chart id="barChart" title="Bar Chart" width="500" height="250"
+		type="bar" threeD="true" fgAlpha="128" model="@{barChartWinCpsr.catModel}" />
+</vbox>
+</window>
+</zk>

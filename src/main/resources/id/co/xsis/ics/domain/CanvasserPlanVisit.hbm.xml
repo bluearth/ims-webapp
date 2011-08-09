@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar 30, 2011 12:01:09 PM by Hibernate Tools 3.3.0.GA -->
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.CanvasserPlanVisit">
+    	<subselect>
+    		select * from canvasser_plan_visit_v
+    	</subselect>
+        <id type="long"/>        
+        <property name="visitTime" type="timestamp" >
+            <column name="VISIT_TIME" />
+        </property>
+        <property name="visitFlag" type="java.lang.String">
+            <column name="VISIT_FLAG" />
+        </property>
+        <property name="planFlag" type="java.lang.String">
+            <column name="PLAN_FLAG" />
+        </property>
+        <property name="transactionFlag" type="java.lang.String">
+            <column name="TRANSACTION_FLAG" />
+        </property>
+        <property name="visitNotes" type="java.lang.String">
+            <column name="VISIT_NOTES" />
+        </property>
+        <property name="tripLength" type="big_decimal">
+            <column name="TRIP_LENGTH" precision="22" scale="2"/>
+        </property>
+        <many-to-one name="outlet" class="com.xsis.ics.domain.Outlet" fetch="select">
+			<column name="OUTLET_ID" precision="22" scale="0" not-null="true" />
+		</many-to-one>
+		
+		<many-to-one name="canvasser" class="com.xsis.ics.domain.Canvasser" fetch="select">
+			<column name="CANVASSER_ID" />
+		</many-to-one>
+        
+    </class>
+</hibernate-mapping>

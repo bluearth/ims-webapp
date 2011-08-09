@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 24, 2010 10:34:54 AM by Hibernate Tools 3.4.0.Beta1 -->
+<hibernate-mapping>
+    <class name="com.xsis.security.model.SecUserSignin" table="SEC_USER_SIGNIN">
+        <!--<id name="id" type="java.lang.Long">
+            <column name="SIGNIN_ID" />
+            <generator class="sequence">
+            	<param name="sequence">USR_SIGNIN_ID_S</param>
+            </generator>
+        </id>
+        <property name="userId" type="java.lang.Long">
+            <column name="USER_ID" />
+        </property>
+        -->
+        <id name="userId" type="java.lang.Long">
+            <column name="USER_ID" />
+            <generator class="assigned"/>
+        </id>
+        <property name="userSession" type="java.lang.String">
+            <column name="USER_SESSION" length="50"/>
+        </property>
+        
+        <property name="userLoginName" type="java.lang.String">
+            <column name="USER_LOGINNAME" length="50"/>
+        </property>
+    </class>
+</hibernate-mapping>

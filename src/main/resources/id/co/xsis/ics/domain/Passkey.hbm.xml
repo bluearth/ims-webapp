@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2010 4:15:11 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.Passkey" table="PASSKEY">
+        <id name="passkeyId" type="long">
+            <column name="PASSKEY_ID" precision="22" scale="0" />
+            <generator class="sequence">
+            	<param name="sequence">PASSKEY_ID_S</param>
+            </generator>
+        </id>
+        <property name="generatedPasskey" type="string">
+            <column name="GENERATED_PASSKEY" length="50" not-null="true" />
+        </property>
+        <property name="effectiveDate" type="timestamp">
+            <column name="EFFECTIVE_DATE"/>
+        </property>
+        <property name="ineffectiveDate" type="timestamp">
+            <column name="INEFFECTIVE_DATE"/>
+        </property>
+        <property name="passkeyRefferenceId" type="long">
+            <column name="PASSKEY_REFERENCE_ID" precision="22" scale="0" />
+        </property>
+        <property name="passkeyRefferenceTo" type="string">
+            <column name="PASSKEY_REFERENCE_TO" length="150" />
+        </property>
+        <property name="createdBy" type="long">
+            <column name="CREATED_BY" />
+        </property>
+        <property name="creationDate" type="timestamp">
+            <column name="CREATION_DATE" />
+        </property>
+        <property name="lastUpdatedBy" type="long">
+            <column name="LAST_UPDATED_BY" />
+        </property>
+        <property name="lastUpdatedDate" type="timestamp">
+            <column name="LAST_UPDATED_DATE" />
+        </property>
+    </class>
+</hibernate-mapping>

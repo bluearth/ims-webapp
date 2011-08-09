@@ -1,0 +1,62 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="cvrRoutesTemplateListWindow" apply="${cvrRoutesTemplateListComposer}" border="none" width="100%">
+	<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+	</style>
+	
+	<panel id="cvrRoutesTemplateListPanel"
+			title="${c:l('panel_CanvasserRoutesTemplateList.title')}" border="none" />
+			
+	<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="btnNew"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_cvrRoutesTemplateList_NewTemplates.tooltiptex')}" />
+	</toolbar>
+	
+	<hbox id="hbox_RoutesTemplateList_Search" style="padding: 3px">
+			<space />
+		<label id="label_RouteTemplateList_templateList"
+				value="${c:l('label_RouteTemplateList_TemplateList')}" />
+		<textbox id="tbSearchTemplateName" width="250px"/>
+		<button id="btnRoutesTemplateListSearch"
+				image="/images/icons/search.gif"
+				label="${c:l('button_RoutesTemplateList_SearchTemplate.label')}"
+				tooltiptext="${c:l('button_RoutesTemplateList_SearchTemplate.tooltiptext')}" />
+	</hbox>
+	
+	<borderlayout id="borderLayoutRoutesTemplateList">
+
+		<north border="none" height="26px">
+			<paging id="pagingRoutesTemplateList" />
+		</north>
+
+		<center border="none">
+			<listbox id="listBoxRoutesTemplate" vflex="true" width="100%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="false">
+					<listhead sizable="true">
+						<listheader
+							id="listheaderRoutesTemplateListName"
+							sort="auto" width="30%"
+							label="${c:l('listheader_RoutestTemplateList_templateName.label')}" />
+						<listheader id="listheaderRoutesListStatus"
+							width="20%"
+							label="${c:l('listheader_RoutestTemplateList_status.label')}" />
+						<listheader id="listheaderRoutesTemplateListCreateDate"
+							width="25%"
+							label="${c:l('listheader_RoutestTemplateList_createDate.label')}" />
+						</listhead>
+			</listbox>
+
+		</center>
+		<south border="none" />
+
+	</borderlayout>
+</window>
+</zk>

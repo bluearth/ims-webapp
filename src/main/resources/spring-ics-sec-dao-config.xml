@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/util
+               http://www.springframework.org/schema/util/spring-util.xsd
+               http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+               
+    <bean id="basisDAO" abstract="true" p:hibernateTemplate-ref="hibernateTemplate"
+          class="com.xsis.base.dao.impl.BasisDAO"/>
+    <bean id="nextidviewDAO" class="com.xsis.base.dao.impl.NextIdViewPostgresDaoImpl"
+          parent="basisDAO"/>
+    <bean id="basisNextidDao" abstract="true" p:nextidviewDAO-ref="nextidviewDAO"
+          class="com.xsis.base.dao.impl.BasisNextidDaoImpl" parent="basisDAO"/>
+    <bean id="userDAO" class="com.xsis.security.dao.impl.UserDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secGroupDAO" class="com.xsis.security.dao.impl.SecGroupDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secGrouprightDAO" class="com.xsis.security.dao.impl.SecGrouprightDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secRightDAO" class="com.xsis.security.dao.impl.SecRightDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secRoleDAO" class="com.xsis.security.dao.impl.SecRoleDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secRolegroupDAO" class="com.xsis.security.dao.impl.SecRolegroupDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secUserroleDAO" class="com.xsis.security.dao.impl.SecUserroleDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="secTypDAO" class="com.xsis.security.dao.impl.SecTypDAOImpl" />
+    <bean id="officeDAO" class="com.xsis.security.dao.impl.OfficeDAOImpl"
+        parent="basisNextidDao" />
+    <bean id="languageDAO" class="com.xsis.security.dao.impl.LanguageDAOImpl" />
+    <bean id="secLookupDAO" class="com.xsis.security.dao.impl.SecLookupDAOImpl" parent="basisDAO"/>
+    <bean id="secDealerDAO" class="com.xsis.security.dao.impl.SecDealerDAOImpl" parent="basisDAO"/>
+    <bean id="secDepoDAO" class="com.xsis.security.dao.impl.SecDepoDAOImpl" parent="basisDAO"/>
+    <bean id="secSubRegionDAO" class="com.xsis.security.dao.impl.SecSubRegionDAOImpl" parent="basisDAO"/>
+    <bean id="secRegionDAO" class="com.xsis.security.dao.impl.SecRegionDAOImpl" parent="basisDAO"/>
+    <bean id="secTeritoryDAO" class="com.xsis.security.dao.impl.SecTeritoryDAOImpl" parent="basisDAO"/>
+	<bean id="secUserSigninDAO" class="com.xsis.security.dao.impl.SecUserSigninDAOImpl" parent="basisDAO"/>
+</beans>

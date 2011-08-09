@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+
+	<window id="dashBoardWindow" apply="${dashboardComposer}"
+		border="none" height="100%" width="100%" sizable="false" draggable="false" droppable="false">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+		</style>
+		<panel id="dashBoardPanel" />
+		<borderlayout id="borderLayout_dashBoard" height="900px" >
+			<center border="none">
+				<borderlayout >
+					<west size="55%" flex="true" border="none">
+						<div align="center" height="100%">
+							<iframe id="iframe" src="@{urlMap}"
+								width="100%" height="535px" style="border: 1px solid gray"
+								align="center" />
+							<separator/><!--
+							<chart id="barchart3d"
+								width="520px" height="350px"
+								type="bar" threeD="true" fgAlpha="128" model="@{catmodel}" />
+
+						--></div>
+						<!--
+							
+							<div align="center" height="750px">
+							<grid fixedLayout="true" height="750px">
+							
+							<columns>
+							<column label="Type" width="150px" />
+							<column label="Content" />
+							</columns>
+							<rows>
+							<row>
+							<label value="Outlet Name*)"
+							width="150px" />
+							<combobox id="paramOutletName" autodrop="true" autocomplete="true" buttonVisible="false">
+							<comboitem self="@{each=outlet}" value="@{outlet.id}" label="@{outlet.outletName}"/>
+							</combobox>
+							</row>
+							<row>
+							<label value="Outlet ID"
+							width="150px" />
+							<combobox id="paramOutletId" autodrop="true" autocomplete="true" buttonVisible="false">
+							<comboitem self="@{each=outlet}" value="@{outlet.id}" label="@{outlet.id}"/>
+							</combobox>
+							</row>
+							<row>
+							<label value="Location*)"
+							width="150px" />
+							<combobox id="paramLocation" autodrop="true" autocomplete="true" buttonVisible="false">
+							<comboitem self="@{each=outlet}" value="@{outlet.id}" label="@{outlet.outletLocation}"/>
+							</combobox>
+							</row>
+							<row>
+							<label value="Canvasser*)"
+							width="150px" />
+							<combobox id="paramCanvasser" autodrop="true" autocomplete="true" buttonVisible="false">
+							<comboitem self="@{each=canvasser}" value="@{canvasser.id}" label="@{canvasser.canvasserName}"/>
+							</combobox>								
+							</row>
+							<row>
+							<label value="MSISDN"
+							width="150px" />
+							<combobox id="paramMsisdn" autodrop="true" autocomplete="true" buttonVisible="false">
+							<comboitem self="@{each=outlet}" value="@{outlet.id}" label="@{outlet.outletMsisdnDompul}"/>
+							</combobox>		
+							</row>
+							<row>
+							<label value="" width="150px" />
+							<button id="btnSearch"
+							label="Search" width="125px" />
+							</row>
+							<row spans="2">
+							<separator bar="true" />
+							</row>
+							<row spans="2">
+							<rows>
+							<row><iframe id="iframe"
+							src="@{urlMap}" width="100%" height="400"
+							style="border: 1px solid gray" align="center" />
+							</row>	
+							</rows>	
+							</grid>
+							</div>
+						-->
+
+					</west>
+					<center border="none" autoscroll="true"
+						flex="true">
+						<div align="center" height="100%">
+							<tabbox >
+								<tabs>
+									<tab label="Sales"/>
+									<tab label="Stocks" />
+									<tab id="tabCanvasserKpi"
+										label="KPI" />
+								</tabs>
+								<tabpanels>
+									<tabpanel height="860px">
+									
+										<chart id="piechart3d"
+											title="Monthly Sales" width="400" type="pie" threeD="true" height="250"
+											fgAlpha="255" model="@{MonthlyPiemodel}" orient="horizontal"/>
+										<separator />
+										<chart id="barchart3d2"
+											title="Weekly Sales" width="400px" type="bar" threeD="true"
+											fgAlpha="128" model="@{catmodel2}" /><!--
+										<separator bar="true" />
+									-->
+									
+									</tabpanel>
+									<tabpanel height="860px">
+										<chart id="spflashChart"
+											width="400" height="250" type="pie" threeD="true" fgAlpha="255" model="@{SPPiemodel}" />
+										<separator height="15px"/>
+										<chart id="pvflashChart"
+											width="400" height="250" type="pie" threeD="true" fgAlpha="255" model="@{PVPieModel}" />
+									</tabpanel>
+									<tabpanel>
+										<groupbox id="gbTeritoryMont"
+											mold="3d">
+											<caption
+												label="KPI of Teritory Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackTeritoryMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherTeritoryMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartTrtMontStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartTrtMontVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<groupbox id="gbTeritoryWeek"
+											mold="3d">
+											<caption
+												label="KPI of Teritory Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackTeritoryWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherTeritoryWeek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartTrtWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartTrtWeekVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<hbox id="hboxTeritory"
+											visible="false">
+											<label value="Teritory :" />
+											<combobox id="cb_Teritory"
+												model="@{teritoryList}" readonly="true">
+												<comboitem
+													self="@{each=teritories}"
+													label="@{teritories.teritoryName}"
+													value="@{teritories.id}" />
+
+											</combobox>
+										</hbox>
+
+										<groupbox id="gbRegMont"
+											mold="3d">
+											<caption
+												label="KPI of Region Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackRegMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherRegMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartRegMontStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartRegMontVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<groupbox id="gbRegWeek"
+											mold="3d">
+											<caption
+												label="KPI of Region Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackRegWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherRegWeek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartRegWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartRegWeekVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<hbox id="hboxRegion"
+											visible="false">
+											<label value="Region :" />
+											<combobox id="cb_Region"
+												model="@{regionList}" readonly="true">
+												<comboitem
+													self="@{each=regions}" label="@{regions.regionName}"
+													value="@{regions.id}" />
+											</combobox>
+										</hbox>
+
+										<groupbox id="gbSubRegMont"
+											mold="3d">
+											<caption
+												label="KPI of Sub-Region Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackSubRegMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherSubRegMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartSubRegMontStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartSubRegMontVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<groupbox id="gbSubRegWeek"
+											mold="3d">
+											<caption
+												label="KPI of Sub-Region Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackSubRegWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherSubRegMontweek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartSubRegWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartSubRegWeekVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<hbox id="hboxSubRegion"
+											visible="false">
+											<label value="Sub-Region :" />
+											<combobox id="cb_SubRegion"
+												model="@{subRegionList}" readonly="true">
+												<comboitem
+													self="@{each=subRegions}" label="@{subRegions.name}"
+													value="@{subRegions.id}" />
+											</combobox>
+										</hbox>
+										<groupbox id="gbDepoMont"
+											mold="3d">
+											<caption
+												label="KPI of Depo Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackDepoMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherDepoMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartDepoMontStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartDepoMontVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<groupbox id="gbDepoWeek"
+											mold="3d">
+											<caption
+												label="KPI of Depo Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackDepoWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherDepoWeek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartDepoWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartDepoWeekVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<hbox id="hboxDepo"
+											visible="false">
+											<label value="Depo :" />
+											<combobox id="cb_Depo"
+												model="@{depoList}" readonly="true">
+												<comboitem
+													self="@{each=depos}" label="@{depos.depoName}"
+													value="@{depos.id}" />
+											</combobox>
+										</hbox>
+
+										<groupbox id="gbDealerMont"
+											mold="3d">
+											<caption
+												label="KPI of Dealer Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackDelaerMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherDelaerMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartDlrMontStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartDlrMontVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+										</groupbox>
+										<groupbox id="gbDealerWeek"
+											mold="3d">
+											<caption
+												label="KPI of Dealer Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackDelaerWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherDelaerWeek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartDlrWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="300"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartDlrWeekVcr" title="Voucher(Rp)" width="400"
+												height="300" type="bar" orient="horizontal" fgAlpha="255" />
+
+										</groupbox>
+										<hbox id="hboxDealer"
+											visible="false">
+											<label value="Dealer :" />
+											<combobox id="cb_Dealer"
+												model="@{dealerList}" readonly="true">
+												<comboitem
+													self="@{each=dealers}" label="@{dealers.dealerName}"
+													value="@{dealers.id}" />
+											</combobox>
+										</hbox>
+										<groupbox id="gbVisitMont"
+											mold="3d">
+											<caption
+												label="KPI of Cavasser Visit(Monthly)" />
+											<image id="imgVisitMonth" />
+										</groupbox>
+										<groupbox id="gbVisitWeek"
+											mold="3d">
+											<caption
+												label="KPI of Cavasser Visit(Weekly)" />
+											<image id="imgVisitweek" />
+										</groupbox>
+										<groupbox id="gbSalesMont"
+											mold="3d">
+											<caption
+												label="KPI of Canvasser Sales(Monthly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPackSalesMont"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVouchersalesMont"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartSalesMonStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="500"
+												type="bar" orient="horizontal" fgAlpha="255" />
+											<separator />
+											<chart
+												id="barChartSalesMonVcr" title="Voucher(Rp)" width="400"
+												height="500" type="bar" orient="horizontal" fgAlpha="255" />
+										</groupbox>
+										<groupbox id="gbSalesWeek"
+											mold="3d">
+											<caption
+												label="KPI of Canvasser Sales(Weekly)" />
+											<hbox>
+												<checkbox
+													id="cbStarterPacksalesWeek"
+													label="${c:l('checkBoxStarterPack.label')}" checked="true" />
+												<checkbox
+													id="cbVoucherSalesWeek"
+													label="${c:l('checkBoxVoucher.label')}" checked="true" />
+											</hbox>
+											<chart
+												id="barChartSalesWeekStp" style="font-size:10px"
+												title="Starter Pack Unit" width="400" height="500"
+												type="bar" orient="horizontal" />
+											<separator />
+											<chart
+												id="barChartSalesWeekVcr"  title="Voucher(Rp)" width="400" height="500"
+												type="bar" orient="horizontal" fgAlpha="255" />
+										</groupbox>
+									</tabpanel>
+								</tabpanels>
+							</tabbox>
+						</div>
+					</center>
+				</borderlayout>
+			</center>
+			<south size="40%" flex="true" splittable="true"
+				collapsible="true">
+				<div align="center">
+					<chart id="barchart3d"
+					width="1000px" height="340px" type="bar" threeD="true"
+					fgAlpha="200" model="@{catmodel}" />
+					</div>
+			</south>
+		</borderlayout>
+	</window>
+</zk>

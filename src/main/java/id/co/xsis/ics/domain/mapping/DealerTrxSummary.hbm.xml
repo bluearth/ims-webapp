@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.DealerTrxSummary" table="DEALER_TRX_SUMMARY">
+		
+		<id name="dealerId" type="long">
+			<column name="DEALER_ID" />
+		</id>
+			
+		<property name="summaryPeriodWeek" type="big_decimal">
+			<column name="SUMMARY_PERIOD_WEEK" precision="2" scale="0" />
+		</property>
+		
+		<property name="summaryPeriodYear" type="big_decimal">
+			<column name="SUMMARY_PERIOD_YEAR" precision="4" scale="0" />
+		</property>
+		
+		<property name="summaryDpAmount" type="big_decimal">
+			<column name="SUMMARY_DP_AMOUNT" precision="22" scale="0" />
+		</property>
+		
+		<property name="summaryDpTarget" type="big_decimal">
+			<column name="SUMMARY_DP_TARGET" precision="22" scale="0" />
+		</property>
+		
+		<property name="summaryPvAmount" type="big_decimal">
+			<column name="SUMMARY_PV_AMOUNT" precision="22" scale="0" />
+		</property>
+		
+		<property name="summaryPvTarget" type="big_decimal">
+			<column name="SUMMARY_PV_TARGET" precision="22" scale="0" />
+		</property>
+		
+		<property name="summarySpAmount" type="big_decimal">
+			<column name="SUMMARY_SP_AMOUNT" precision="22" scale="0" />
+		</property>
+		
+		<property name="summarySpTarget" type="big_decimal">
+			<column name="SUMMARY_SP_TARGET" precision="22" scale="0" />
+		</property>		
+		
+		<property name="effectiveVisit" type="big_decimal">
+			<column name="EFFECTIVE_VISIT" precision="22" scale="0" />
+		</property>
+		
+		<property name="effectiveCall" type="big_decimal">
+			<column name="EFFECTIVE_CALL" precision="22" scale="0" />
+		</property>
+		
+		<property name="canvasserType" type="string">
+			<column name="CANVASSER_TYPE" />
+		</property>
+		
+		<many-to-one name="dealer" column="DEALER_ID" class="com.xsis.ics.domain.Dealer" insert="false" update="false" fetch="select"/>
+	</class>
+</hibernate-mapping>

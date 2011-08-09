@@ -1,0 +1,110 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+<zk>
+<window id="outletListWindow" apply="${outletListComposer}" border="none" width="100%">
+	<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+	</style>
+	<panel id="outletListPanel"
+			title="${c:l('master.outlet.label.panel_OutletListName')}" border="none" />
+			
+	<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="btnNew"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_OutletList_NewOutlet.tooltiptext')}" />
+	</toolbar>
+	
+	<hbox id="hbox_OutletList_Search" style="padding: 3px">
+		<space />
+			<label id="label_OutletList_outName"
+				value="${c:l('label_OutletList_outName.value')}" />
+			<textbox id="tb_Outlet_Name" width="100px" />
+			<button id="button_OutletList_SearchName"
+				image="/images/icons/search.gif"
+				label="${c:l('button_OutletList_SearchName.label')}"
+				tooltiptext="${c:l('button_OutletList_SearchName.tooltiptext')}" />
+	</hbox>
+	
+		<borderlayout id="borderLayout_outletList">
+
+			<north border="none" height="26px">
+				<paging id="paging_OutletList" />
+			</north>
+
+			<center border="none">
+
+				<listbox id="listBoxOutlet" vflex="true" width="99.9%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="false">
+					<listhead sizable="true">
+						<listheader
+							id="listheader_OutletList_dealerName"
+							sort="auto" width="5%" height="20px"
+							label="${c:l('master.outlet.label.listheader_OutletList_dealerName')}" />
+						<listheader
+							id="listheader_OutletList_outletName"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletName')}" />
+						<listheader id="listheader_OutletList_outletAddressStreet"
+							sort="auto" width="10%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletAddressStreet')}" />
+						<listheader id="listheader_OutletList_outletAddressVillage" 
+							label="${c:l('master.outlet.label.listheader_OutletList_outletAddressVillage')}"
+							sort="auto" width="5%"/>
+						<listheader id="listheader_OutletList_outletAddressSubDistrict" 
+							label="${c:l('master.outlet.label.listheader_OutletList_outletAddressSubDistrict')}"
+							sort="auto" width="5%"/>
+						<listheader id="listheader_OutletList_outletAddressDistrict"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletAddressDistrict')}" />			
+						<listheader id="listheader_OutletList_outletAddressProvince"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletAddressProvince')}" />
+						<listheader id="listheader_OutletList_outletLocation" 
+							label="${c:l('master.outlet.label.listheader_OutletList_outletLocation')}"
+							sort="auto" width="10%"/>
+						<listheader id="listheader_OutletList_outletOwner"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletOwner')}" />
+						<listheader id="listheader_OutletList_outletPhone"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletPhone')}" />
+						<listheader id="listheader_OutletList_outletType" 
+							label="${c:l('master.outlet.label.listheader_OutletList_outletType')}"
+							sort="auto" width="5%"/>
+						<listheader id="listheader_OutletList_outletMsisdnDompul"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletMsisdnDompul')}" />
+						<listheader id="listheader_OutletList_outletSalesCount"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletSalesCount')}" />
+						<listheader id="listheader_OutletList_outletLevel"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletLevel')}" />
+						<listheader id="listheader_OutletList_outletSize"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletSize')}" />
+						<listheader id="listheader_OutletList_outletLongitude" 
+							label="${c:l('master.outlet.label.listheader_OutletList_outletLongitude')}"
+							sort="auto" width="5%"/>
+						<listheader id="listheader_OutletList_outletLatitude"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletLatitude')}" />
+						<listheader id="listheader_OutletList_outletStatus"
+							sort="auto" width="5%"
+							label="${c:l('master.outlet.label.listheader_OutletList_outletStatus')}" />							
+					</listhead>
+				</listbox>
+
+			</center>
+			<south border="none" />
+
+		</borderlayout>
+</window>
+</zk>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}	
+	</style>
+	
+	<window id="subRegionDialogWindow"
+		border="none"
+		apply="${subRegionDialogComposer}" closable="true" width="400px" height="250px"
+		sizable="true" sclass="pageWindowTitle">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+
+		<borderlayout id="borderlayoutSubRegion">
+
+			<north border="none" margins="0,0,0,0">
+				<grid>
+					<columns sizable="" height="20px">
+
+						<!-- CRUD Buttons -->
+						<column align="right">
+							<hbox spacing="5px" style="padding:1px"
+								align="end">
+								<button id="btnNew" height="20"
+									tooltiptext="${c:l('btnNew.tooltiptext')}" /><!--
+								 label="${c:l('btnNew.label')}"	
+					
+								--><button id="btnEdit" height="20"
+									tooltiptext="${c:l('btnEdit.tooltiptext')}" />
+								<button id="btnDelete" height="20"
+									tooltiptext="${c:l('btnDelete.tooltiptext')}" />
+								<button id="btnSave" height="20"
+									tooltiptext="${c:l('btnSave.tooltiptext')}" />
+								<button id="btnCancel" height="20"
+									tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+								<button id="btnClose" height="20"
+									tooltiptext="${c:l('btnClose.tooltiptext')}" />
+							</hbox>
+
+						</column>
+					</columns>
+				</grid>
+			</north>
+
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterSubRegion">
+
+					<tabbox id="tabBoxSubRegion" width="100%">
+						<tabs>
+							<tab id="tab_SubRegionDialog_Details"
+								label="${c:l('tab_SubRegionDialog_Details.label')}" />
+								
+						</tabs>
+						<tabpanels>
+
+							<!-- Tab Details-->
+							<tabpanel id="tabpanel_SubRegionDialog_Details"
+								height="100%" width="100%" style="border: 0px">
+
+								<columnlayout>
+									<columnchildren width="100%"
+										style="padding: 5px">
+										<panel
+											id="panel_SubRegionDialog_Status"
+											title="${c:l('panel_SubRegionDialog_AccountDetails.title')}"
+											style="margin-bottom:10px" border="normal">
+											<panelchildren>
+												<grid fixedLayout="true"
+													style="border:0px">
+													<columns>
+														<column
+															width="150px" />
+														<column
+															width="100%" />
+													</columns>
+													<rows>
+														<row>
+															<label
+																id="label_SubRegionDialog_srgCode"
+																value="${c:l('label_SubRegionDialog_srgCode.value')}" />
+															<textbox
+																id="srgCode" maxlength="50" width="150px" />
+														</row>
+														<row>
+															<label
+																id="label_SubRegionDialog_srgName"
+																value="${c:l('label_SubRegionDialog_srgName.value')}" />
+															<textbox
+																id="srgName" maxlength="150" width="150px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_SubRegionDialog_srgLongitude"
+																value="${c:l('label_SubRegionDialog_srgLongitude.value')}" />
+															<decimalbox
+																id="srgLongitude" maxlength="50" width="150px" />
+														</row>
+														<row visible="false">
+															<label
+																id="label_SubRegionDialog_srgLatitude"
+																value="${c:l('label_SubRegionDialog_srgLatitude.value')}" />
+															<decimalbox 
+																id="srgLatitude" maxlength="50" width="150px"/>
+														</row>
+														<row>
+															<separator
+																bar="true">
+															</separator>
+															<separator
+																bar="true">
+															</separator>
+														</row>
+														<row>
+															<label 
+																id="label_SubRegionDialog_srgRegionName"
+																value="${c:l('label_SubRegionDialog_srgRegionName.value')}" />
+															<combobox sclass="CbRO" id="cb_SubRegionDialog_srgRegionName" model="@{regionList}" readonly="true" selectedItem="@{selectedRegion}" value="@{selectedRegion.regionName}" autodrop="true" tooltiptext="${c:l('tooltiptext_SubRegionDialog_srgRegionName')}">
+																<comboitem self="@{each=regions}" label="@{regions.regionName}" value="@{regions.id}"/>
+															</combobox>
+															
+														</row>
+													</rows>
+												</grid>
+											</panelchildren>
+										</panel>
+									
+									</columnchildren>
+
+							</columnlayout>
+
+
+							</tabpanel>
+							
+						</tabpanels>
+					</tabbox>
+
+
+				</div>
+			</center>
+
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+
+		</borderlayout>
+
+
+	</window>
+</zk>

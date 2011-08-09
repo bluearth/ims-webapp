@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<zscript><![CDATA[
+javax.servlet.ServletRequest request = null; 
+javax.servlet.ServletResponse response = null; 
+Object obj1 = Executions.getCurrent().getNativeRequest(); 
+if(obj1 != null) request = (javax.servlet.ServletRequest)obj1; 
+
+Object obj2 =Executions.getCurrent().getNativeResponse(); 
+if(obj2 != null) response = (javax.servlet.ServletResponse)obj2; 
+
+String chart = request.getParameter("chart");
+String id   = request.getParameter("id");
+String name   = request.getParameter("name");
+
+String userType = icsDashboardHelper.getUserWorkspace().getUserType();
+if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_DEALER)){
+	id = String.valueOf(icsDashboardHelper.getUserWorkspace().getUserOwner());
+}
+
+if(chart.equals("mVisitMChart")){
+	request.setAttribute("data", icsDashboardHelper.getMonthlyVisitKPICanvasserByDealer(id,name)); 
+}else if(chart.equals("mVisitWChart")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyVisitKPICanvasserByDealer(id, name)); 
+}
+request.getRequestDispatcher("d.jsp").forward(request, response); 
+]]></zscript>
+</zk>

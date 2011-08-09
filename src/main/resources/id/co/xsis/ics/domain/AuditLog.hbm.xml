@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.AuditLog" table="ICS_AUDIT_LOG">
+        
+        <id name="id" type="long">
+            <column name="AUDITLOG_ID" precision="22" scale="0" />
+            <generator class="sequence">
+				<param name="sequence">ICS_AUDIT_LOG_SEQ</param>
+			</generator>
+        </id>
+       
+        <property name="creationDate" type="date">
+            <column name="CREATION_DATE" length="7" />
+        </property>
+       
+        <property name="createdBy" type="long">        
+            <column name="CREATED_BY" precision="22" scale="0" />
+        </property>	
+        
+        <property name="fieldChanged" type="string">
+            <column name="FIELD_CHANGED" length="500" not-null="true" />
+        </property>
+        
+        <property name="oldValue" type="string">
+            <column name="OLD_VALUE" length="1500" not-null="true" />
+        </property>
+        
+        <property name="newValue" type="string">
+            <column name="NEW_VALUE" length="1500" not-null="true" />
+        </property>
+        
+         <property name="tableName" type="string">
+            <column name="ICS_TABLE_NAME" length="150" not-null="true" />
+        </property>
+       
+	</class>
+</hibernate-mapping>

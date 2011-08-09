@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.IcsUser" table="ICS_USER">
+		<id name="id" type="long">
+			<column name="USER_ID" />
+			<generator class="sequence">
+				<param name="sequence">ICSUSER_ID_S</param>
+			</generator>
+		</id>
+
+		<property name="createdBy" type="long">
+			<column name="created_by" />
+		</property>
+
+		<property name="creationDate" type="date">
+			<column name="CREATION_DATE" />
+		</property>
+
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+
+		<property name="lastUpdatedDate" type="date">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+		<property name="userName" type="string" length="50">
+			<column name="USER_NAME" />
+		</property>
+
+		<property name="userPasswd" type="string" length="32">
+			<column name="USER_PASSWD" />
+		</property>
+
+		<property name="employeeName" type="string" length="100">
+			<column name="EMPLOYEE_NAME" />
+		</property>
+
+		<property name="role" type="string" length="50">
+			<column name="ROLE" />
+		</property>
+
+		<property name="roleRefferenceId" type="long">
+			<column name="ROLE_REFERENCE_ID" />
+		</property>
+
+		<property name="roleRefferenceTo" type="string" length="50">
+			<column name="ROLE_REFERENCE_TO" />
+		</property>
+
+		<property name="userStatus" type="string" length="50">
+			<column name="USER_STATUS" />
+		</property>
+
+	</class>
+</hibernate-mapping>

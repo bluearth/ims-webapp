@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<zscript><![CDATA[
+javax.servlet.ServletRequest request = null; 
+javax.servlet.ServletResponse response = null; 
+Object obj1 = Executions.getCurrent().getNativeRequest(); 
+if(obj1 != null) request = (javax.servlet.ServletRequest)obj1; 
+
+Object obj2 =Executions.getCurrent().getNativeResponse(); 
+if(obj2 != null) response = (javax.servlet.ServletResponse)obj2; 
+
+javax.servlet.http.HttpSession sess = (javax.servlet.http.HttpSession) Executions.getCurrent().getDesktop().getSession().getNativeSession();
+
+String chart = request.getParameter("chart");
+String data = request.getParameter("data");
+String pid   = request.getParameter("pid");
+String id   = request.getParameter("id");
+String cap   = request.getParameter("cap");
+
+Object ob = sess.getAttribute(chart); 
+if(ob==null){
+	sess.setAttribute(chart,new HashMap());
+	ob = sess.getAttribute(chart); 
+}
+HashMap curChart = (HashMap)ob;
+
+String userType = icsDashboardHelper.getUserWorkspace().getUserType();
+if(data==null){
+	curChart.remove("history");
+	if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_CHANNEL)||userType.equals(com.xsis.ics.common.Constant.USERTYPE_SUPERADMIN)){
+		data = "territory";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_VICEPRESIDENT)){
+		data = "region";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_GENERALMANAGER)){
+		data = "subregion";
+	}
+	else if (userType.equals(com.xsis.ics.common.Constant.USERTYPE_REGIONALSALESOPERATOR)) {
+		data = "depo";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_AREAMANAGER)){
+		data = "dealer";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_DEALER)){
+		data = "canvasser";
+	}
+}
+
+if(pid==null){
+	pid = String.valueOf(icsDashboardHelper.getUserWorkspace().getUserOwner());
+}
+pid 	= pid==null||pid.equals("null")?null:pid;
+id 		= id==null||id.equals("null")?null:id;
+
+try{
+	if (chart.equals("mSalesChart")) {
+		if(data.equals("territory")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlyTerritory(id, (cap==null||cap.equals("null")?"Monthly All Teritory":"Monthly Teritory "+cap) )); 
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlyRegion(pid, id, (cap==null||cap.equals("null")?"Monthly All Region":"Monthly Region "+cap) ));
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlySubRegion(pid, id, (cap==null||cap.equals("null")?"Monthly All Sub Region":"Monthly Sub Region "+cap) )); 
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlyDepo(pid, id, (cap==null||cap.equals("null")?"Monthly All Depo":"Monthly Depo "+cap) )); 
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlyDealer(pid, id, (cap==null||cap.equals("null")?"Monthly All Dealer":"Monthly Dealer "+cap) )); 
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", icsDashboardHelper.getSalesMonthlyCanvasser(pid, id, (cap==null||cap.equals("null")?"Monthly All Canvasser":"Monthly Canvasser "+cap) )); 
+			//pid	 = id!=null?id:pid;
+		}
+	}
+	
+	if (chart.equals("wSalesChart")) {
+		if(data.equals("territory")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklyTerritory(id, (cap==null||cap.equals("null")?"Weekly All Teritory":"Weekly Teritory "+cap) )); 
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklyRegion(pid, id, (cap==null||cap.equals("null")?"Weekly All Region":"Weekly Region "+cap) ));
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklySubRegion(pid, id, (cap==null||cap.equals("null")?"Weekly All Sub Region":"Weekly Sub Region "+cap) )); 
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklyDepo(pid, id, (cap==null||cap.equals("null")?"Weekly All Depo":"Weekly Depo "+cap) )); 
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklyDealer(pid, id, (cap==null||cap.equals("null")?"Weekly All Dealer":"Weekly Dealer "+cap) )); 
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", icsDashboardHelper.getMSSalesWeeklyCanvasser(pid, id, (cap==null||cap.equals("null")?"Weekly All Canvasser":"Weekly Canvasser "+cap) )); 
+			//pid	 = id!=null?id:pid;
+		}
+	}
+	
+	if (chart.equals("stockSpChartTRD")) {
+		if(data.equals("territory")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPTerritory(id, (cap==null||cap.equals("null")?"Stock SP All Teritory TRADITIONAL ":"Stock SP Teritory TRADITIONAL "+cap), "TRADITIONAL" )); 
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPRegion(pid, id, (cap==null||cap.equals("null")?"Stock SP All Region TRADITIONAL ":"Stock SP Region TRADITIONAL "+cap) , "TRADITIONAL"));
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPSubRegion(pid, id, (cap==null||cap.equals("null")?"Stock SP All Sub Region TRADITIONAL ":"Stock SP Sub Region TRADITIONAL "+cap), "TRADITIONAL" )); 
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPDepo(pid, id, (cap==null||cap.equals("null")?"Stock SP All Depo TRADITIONAL ":"Stock SP Depo TRADITIONAL "+cap), "TRADITIONAL" )); 
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPDealer(pid, id, (cap==null||cap.equals("null")?"Stock SP All Dealer TRADITIONAL ":"Stock SP Dealer TRADITIONAL "+cap), "TRADITIONAL" )); 
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPCanvasser(pid, id, (cap==null||cap.equals("null")?"Stock SP All Canvasser TRADITIONAL ":"Stock SP Canvasser TRADITIONAL "+cap), "TRADITIONAL" )); 
+			//pid	 = id!=null?id:pid;
+		}
+	}
+	
+	if (chart.equals("stockSpChartMDS")) {
+		if(data.equals("territory")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPTerritory(id, (cap==null||cap.equals("null")?"Stock SP All Teritory MDS":"Stock SP Teritory MDS "+cap), "MDS" )); 
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPRegion(pid, id, (cap==null||cap.equals("null")?"Stock SP All Region MDS":"Stock SP Region MDS "+cap) , "MDS"));
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPSubRegion(pid, id, (cap==null||cap.equals("null")?"Stock SP All Sub Region MDS":"Stock SP Sub Region MDS "+cap), "MDS" )); 
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPDepo(pid, id, (cap==null||cap.equals("null")?"Stock SP All Depo MDS":"Stock SP Depo MDS"+cap), "MDS" )); 
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPDealer(pid, id, (cap==null||cap.equals("null")?"Stock SP All Dealer MDS":"Stock SP Dealer MDS"+cap), "MDS" )); 
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", icsDashboardHelper.getStockSPCanvasser(pid, id, (cap==null||cap.equals("null")?"Stock SP All Canvasser MDS":"Stock SP Canvasser MDS"+cap), "MDS" )); 
+			//pid	 = id!=null?id:pid;
+		}
+	}
+	
+	if (chart.equals("stockPvChart")) {
+		if(data.equals("territory")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVTerritory(id, (cap==null||cap.equals("null")?"Stock PV All Teritory":"Stock PV Teritory "+cap) )); 
+			data = id!=null?"region":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("region")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVRegion(pid, id, (cap==null||cap.equals("null")?"Stock PV All Region":"Stock PV Region "+cap) ));
+			data = id!=null?"subregion":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("subregion")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVSubRegion(pid, id, (cap==null||cap.equals("null")?"Stock PV All Sub Region":"Stock PV Sub Region "+cap) )); 
+			data = id!=null?"depo":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("depo")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVDepo(pid, id, (cap==null||cap.equals("null")?"Stock PV All Depo":"Stock PV Depo "+cap) )); 
+			data = id!=null?"dealer":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("dealer")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVDealer(pid, id, (cap==null||cap.equals("null")?"Stock PV All Dealer":"Stock PV Dealer "+cap) )); 
+			data = id!=null?"canvasser":data;
+			pid	 = id!=null?id:pid;
+		}else if(data.equals("canvasser")){
+			request.setAttribute("data", icsDashboardHelper.getStockPVCanvasser(pid, id, (cap==null||cap.equals("null")?"Stock PV All Canvasser":"Stock PV Canvasser "+cap) )); 
+			//pid	 = id!=null?id:pid;
+		}
+	}
+}catch(Exception e){
+	
+}
+
+StringBuffer urlx = request.getRequestURL();
+if (request.getQueryString() != null) {
+  urlx.append('?');
+  urlx.append(request.getQueryString());
+}
+
+curChart.put("data",data);
+curChart.put("pid",pid);
+curChart.put("id",id);
+curChart.put("cap",cap);
+curChart.put("url",urlx.toString());
+
+sess.setAttribute(chart,curChart);
+
+request.getRequestDispatcher("e.jsp").forward(request, response); 
+]]></zscript>
+</zk>

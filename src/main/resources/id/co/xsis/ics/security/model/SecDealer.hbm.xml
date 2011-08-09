@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.security.model.SecDealer" table="DEALER">
+
+		<id name="id" type="long">
+			<column name="DEALER_ID" />
+			<generator class="sequence">
+				<param name="sequence">DEALER_ID_S</param>
+			</generator>
+		</id>
+
+		<property name="createdBy" type="long">
+			<column name="created_by" />
+		</property>
+
+		<property name="creationDate" type="date">
+			<column name="CREATION_DATE" />
+		</property>
+
+		<property name="lastUpdatedBy" type="long">
+			<column name="LAST_UPDATED_BY" />
+		</property>
+
+		<property name="lastUpdatedDate" type="date">
+			<column name="LAST_UPDATED_DATE" />
+		</property>
+
+		<property name="dealerName" type="string">
+			<column name="DEALER_NAME" />
+		</property>
+
+		<property name="dealerPhone" type="string">
+			<column name="DEALER_PHONE" />
+		</property>
+
+		<property name="dealerLongitude" type="big_decimal">
+			<column name="DEALER_LONGITUDE" />
+		</property>
+
+		<property name="dealerLatitude" type="big_decimal">
+			<column name="DEALER_LATITUDE" />
+		</property>
+
+		<property name="dealerStatus" type="string">
+			<column name="DEALER_STATUS" />
+		</property>
+
+		<property name="dealerCode" type="string">
+			<column name="DEALER_CODE" />
+		</property>
+
+		<property name="dealerType" type="string">
+			<column name="DEALER_TYPE" />
+		</property>
+
+		<property name="dealerIdexStartDate" type="java.util.Date">
+			<column name="DEALER_IDEX_START_DATE" />
+		</property>
+
+		<property name="dealerIdexEndDate" type="java.util.Date">
+			<column name="DEALER_IDEX_END_DATE" />
+		</property>
+
+		<property name="dealerIdexId" type="java.lang.Long">
+			<column name="DEALER_IDEX_ID" />
+		</property>	
+		
+		<many-to-one name="depo" class="com.xsis.security.model.SecDepo" lazy="false" fetch="select">
+			<column name="DEPO_ID" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

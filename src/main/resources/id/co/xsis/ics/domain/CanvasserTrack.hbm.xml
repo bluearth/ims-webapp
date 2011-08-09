@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.CanvasserTrack" table="CANVASSER_TRACK">
+		<id name="trackId" type="long">
+			<column name="TRACK_ID" />
+			<generator class="sequence">
+				<param name="sequence">CANVASSER_TRACK_ID_S</param>
+			</generator>
+		</id>
+		<property name="trackTime" type="date">
+			<column name="TRACK_TIME" length="7" />
+		</property>
+
+		<property name="trackLongitude" type="big_decimal">
+			<column name="TRACK_LONGITUDE" precision="22" scale="0" />
+		</property>
+
+		<property name="trackLatitude" type="big_decimal">
+			<column name="TRACK_LATITUDE" precision="22" scale="0" />
+		</property>
+
+		<many-to-one name="canvasser" class="com.xsis.ics.domain.Canvasser"
+			fetch="select">
+			<column name="CANVASSER_ID" precision="22" scale="0" />
+		</many-to-one>
+
+	</class>
+</hibernate-mapping>

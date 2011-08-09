@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="com.xsis.ics.domain.CanvasserRouteDetail" table="CANVASSER_ROUTE_DETAIL">
+        
+        <id name="routeDetailId" type="long">
+            <column name="ROUTE_DETAIL_ID" precision="22" scale="0" />
+            <generator class="sequence">
+				<param name="sequence">CANVASSER_ROUTE_DETAIL_ID_S</param>
+			</generator>
+        </id>
+        
+        <property name="priority" type="long">
+            <column name="PRIORITY" precision="22" scale="0" />
+        </property>
+        
+        <property name="scheduledDate" type="date">
+            <column name="ROUTE_DATE" length="7" />
+        </property>
+        
+        <many-to-one name="outlet" class="com.xsis.ics.domain.Outlet" fetch="select">
+            <column name="OUTLET_ID" precision="22" scale="0" />
+        </many-to-one>
+        
+        <many-to-one name="canvasserRoutes" class="com.xsis.ics.domain.CanvasserRoutes" fetch="select">
+            <column name="ROUTE_ID" precision="22" scale="0" />
+        </many-to-one>
+             
+    </class>
+    
+</hibernate-mapping>

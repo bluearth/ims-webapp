@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window id="depoListWindow" apply="${depoListComposer}" border="none"
+		width="100%">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+		</style>
+
+		<panel id="panel_DepoList"
+			title="${c:l('panel_DepoList.title')}" border="none" />
+		<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="button_DepoList_NewDepo"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_DepoList_NewDepo.tooltiptext')}" />
+		</toolbar>
+
+
+		<hbox id="hbox_DepoList_SearchDepos" style="padding: 3px">
+			<space />
+			<label id="label_DepoList_dpName"
+				value="${c:l('label_DepoList_dpName.value')}" />
+			<textbox id="tb_Depo_Name" width="100px" />
+			<button id="button_DepoList_SearchName"
+				image="/images/icons/search.gif"
+				label="${c:l('button_DepoList_SearchName.label')}"
+				tooltiptext="${c:l('button_DepoList_SearchName.tooltiptext')}" />
+			
+		</hbox>
+
+
+		<borderlayout id="borderLayout_depoList">
+
+			<north border="none" height="26px">
+				<paging id="paging_DepoList" />
+			</north>
+
+			<center border="none">
+
+				<listbox id="listBoxDepo" vflex="true" width="99.9%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="false">
+					<listhead sizable="true">
+						<listheader
+							id="listheader_DepoList_dpSubRegion"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DepoList_dpSubRegion.label')}" />
+						<listheader
+							id="listheader_DepoList_dpName"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DepoList_dpName.label')}" />
+					</listhead>
+				</listbox>
+
+			</center>
+			<south border="none" />
+
+		</borderlayout>
+
+	</window>
+</zk>
+
+<!-- value="Account &#10;&#13; none&#10;&#13; expired" width="85%" -->

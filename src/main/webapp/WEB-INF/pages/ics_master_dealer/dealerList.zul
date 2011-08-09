@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window id="dealerListWindow" apply="${dealerListComposer}" border="none"
+		width="100%">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+		</style>
+
+		<panel id="panel_DealerList"
+			title="${c:l('panel_DealerList.title')}" border="none" />
+		<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="button_DealerList_NewDealer"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_DealerList_NewDealer.tooltiptext')}" />
+		</toolbar>
+
+
+		<hbox id="hbox_DealerList_SearchDealers" style="padding: 3px">
+			<space />
+			<label id="label_DealerList_dlrName"
+				value="${c:l('label_DealerList_dlrName.value')}" />
+			<textbox id="tb_DealerList_dlrName" width="100px"/>
+			
+			<!--<combobox id="cb_DealerList_dlrName" model="@{dealerList}"
+				autodrop="true" autocomplete="false" buttonVisible="false">
+				<comboitem self="@{each=dealer}"
+					label="@{dealer.dealerName}" />
+			</combobox>
+			--><button id="button_DealerList_SearchName"
+				image="/images/icons/search.gif"
+				label="${c:l('button_DealerList_SearchName.label')}"
+				tooltiptext="${c:l('button_DealerList_SearchName.tooltiptext')}" />
+		</hbox>
+
+
+		<borderlayout id="borderLayout_DealerList">
+
+			<north border="none" height="26px">
+				<paging id="paging_DealerList" />
+			</north>
+
+			<center border="none">
+
+				<listbox id="listBoxDealer" vflex="true" width="99.9%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="false">
+					<listhead sizable="true">
+						<listheader
+							id="listheader_DealerList_dlrId" 
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrId.label')}" />						
+						<listheader
+							id="listheader_DealerList_dlrIdexId"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrIdexId.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrIdexCode"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrIdexCode.label')}" />						
+						<listheader
+							id="listheader_DealerList_dlrName"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrName.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrAddressStreet"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrAdrressStreet.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrPhone"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrPhone.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrDepo"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrDepo.label')}" />	
+						<listheader
+							id="listheader_DealerList_dlrCluster"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrCluster.label')}" />						
+						<listheader
+							id="listheader_DealerList_dlrSubRegion"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrSubRegion.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrRegion"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrRegion.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrTeritory"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrTeritory.label')}" />
+						<listheader
+							id="listheader_DealerList_dlrStatus"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_DealerList_dlrStatus.label')}" />
+					</listhead>
+				</listbox>
+
+			</center>
+			<south border="none" />
+
+		</borderlayout>
+
+	</window>
+</zk>
+
+<!-- value="Account &#10;&#13; none&#10;&#13; expired" width="85%" -->

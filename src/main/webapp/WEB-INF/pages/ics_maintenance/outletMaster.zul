@@ -1,0 +1,10 @@
+<zk>
+	<window style="margin-top:20px;">
+		<grid>
+			<columns>
+				<column label="Maintenance / Outlet Master"
+					align="center" />
+			</columns>
+		</grid>
+		</window>
+		</zk>

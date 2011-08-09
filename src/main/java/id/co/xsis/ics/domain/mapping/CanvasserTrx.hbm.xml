@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.CanvasserTrx" table="CANVASSER_TRX">
+
+		<id name="id" type="java.lang.Long">
+			<column name="transaction_id" />
+			<generator class="sequence">
+				<param name="sequence">CANVASSER_TRX_ID_S</param>
+			</generator>
+		</id>
+		
+		<property name="createdBy" type="java.lang.Long">
+			<column name="created_by" />
+		</property>
+		
+		<property name="creationDate" type="java.util.Date">
+			<column name="creation_date" />
+		</property>
+		
+		<property name="lastUpdatedBy" type="java.lang.Long">
+			<column name="last_updated_by" />
+		</property>
+		
+		<property name="lastUpdatedDate" type="java.util.Date">
+			<column name="last_updated_date" />
+		</property>
+		
+		<property name="transactionSp" type="big_decimal">
+			<column name="TRANSACTION_SP" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionPv10" type="big_decimal">
+			<column name="TRANSACTION_PV10" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionPv50" type="big_decimal">
+			<column name="TRANSACTION_PV50" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp" type="big_decimal">
+			<column name="TRANSACTION_DP" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp1" type="big_decimal">
+			<column name="TRANSACTION_DP1" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp5" type="big_decimal">
+			<column name="TRANSACTION_DP5" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp10" type="big_decimal">
+			<column name="TRANSACTION_DP10" precision="22" scale="0" />
+		</property>
+
+		<many-to-one name="canvasserVisit" class="com.xsis.ics.domain.CanvasserVisit" cascade="all" column="CANVASSER_VISIT_ID" />
+	</class>
+</hibernate-mapping>

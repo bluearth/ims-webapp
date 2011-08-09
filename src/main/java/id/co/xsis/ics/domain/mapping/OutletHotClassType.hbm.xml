@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.ics.domain.OutletHotClassType" table="outlet_hot_class_type_v">
+		
+		<id name="outletId" type="long">
+            <column name="outlet_id" />
+        </id>
+        
+        <property name="outletName" type="string">
+        	<column name="outlet_name"/>
+        </property>
+        
+         <property name="outletLocation" type="string">
+        	<column name="outlet_location"/>
+        </property>
+        
+        <property name="outletOwner" type="string">
+        	<column name="outlet_owner"/>
+        </property>
+        
+        <property name="outletPhone" type="string">
+        	<column name="outlet_phone"/>
+        </property>
+        
+        <property name="outletType" type="string">
+        	<column name="outlet_type"/>
+        </property>
+        
+        <property name="outletLongitude" type="big_decimal">
+            <column name="outlet_longitude" />
+        </property>
+        
+        <property name="outletLatitude" type="big_decimal">
+            <column name="outlet_latitude" />
+        </property>
+        
+        <property name="outletSalesCount" type="long">
+            <column name="outlet_sales_count" />
+        </property>
+        
+		<property name="outletIdexId" type="long">
+        	<column name="OUTLET_IDEX_ID"/>
+        </property>
+        
+         <property name="outletMsisdnDompul" type="string">
+        	<column name="outlet_MSISDN_Dompul"/>
+        </property> 
+        
+        <property name="outletStatus" type="string">
+        	<column name="OUTLET_STATUS"/>
+        </property>
+        
+        <property name="outletLevel" type="string">
+        	<column name="OUTLET_LEVEL"/>
+        </property>        
+        
+		<property name="outletOwnerIdCard" type="string">
+        	<column name="OUTLET_OWNER_ID_CARD"/>
+        </property>    
+        
+        <property name="outletHotClass" type="string" length="50">
+        	<column name="OUTLET_HOT_CLASS"/>
+        </property> 
+        
+         <property name="outletMallName" type="string">
+        	<column name="OUTLET_MALL_NAME"/>
+        </property>
+        
+          <property name="outletMallFloor" type="string">
+        	<column name="OUTLET_MALL_FLOOR"/>
+        </property>
+        
+         <property name="outletMallCategory" type="string">
+        	<column name="OUTLET_MALL_CATEGORY"/>
+        </property>
+                
+        <many-to-one name="address" class="com.xsis.ics.domain.Address" 
+        		column="outlet_address" fetch="select" cascade="all"/>
+		
+        <many-to-one name="dealer"  class="com.xsis.ics.domain.Dealer" 
+        		column="DEALER_ID" fetch="select"/>
+           
+        <many-to-one name="canvasser" class="com.xsis.ics.domain.Canvasser" column="canvasser_id" fetch="select"/>
+	
+       
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.security.model.SecUser" table="sec_user">
+
+		<id name="id" type="long">
+			<column name="usr_id" />
+			<generator class="sequence">
+				<param name="sequence">USR_ID_SEQ</param>
+			</generator>
+		</id>
+
+		<version name="version" column="VERS" type="integer" />
+
+
+		<property name="usrLoginname" type="string">
+			<column name="usr_loginname" length="50" not-null="true"
+				unique="true" />
+		</property>
+		<property name="usrPassword" type="string">
+			<column name="usr_password" length="50" not-null="true" />
+		</property>
+		<property name="usrLastname" type="string">
+			<column name="usr_lastname" length="50" />
+		</property>
+		<property name="usrFirstname" type="string">
+			<column name="usr_firstname" length="50" />
+		</property>
+		<property name="usrEmail" type="string">
+			<column name="usr_email" length="200" />
+		</property>
+		<property name="usrLocale" type="string">
+			<column name="usr_locale" length="200" />
+		</property>
+		<property name="usrEnabled" type="boolean">
+			<column name="usr_enabled" not-null="true"/>
+		</property>
+		<property name="usrAccountnonexpired" type="boolean">
+			<column name="usr_accountnonexpired" not-null="true"/>
+		</property>
+		<property name="usrCredentialsnonexpired" type="boolean">
+			<column name="usr_credentialsnonexpired" not-null="true"/>
+		</property>
+		<property name="usrAccountnonlocked" type="boolean">
+			<column name="usr_accountnonlocked" not-null="true" />
+		</property>
+		<property name="usrToken" type="string">
+			<column name="usr_token" length="20" />
+		</property>
+		<set name="secUserroles" inverse="true" cascade="all">
+			<key>
+				<column name="usr_id" />
+			</key>
+			<one-to-many class="com.xsis.security.model.SecUserrole" />
+		</set>
+		<property name="usrStatus" type="string">
+			<column name="USR_STATUS" length="50" />
+		</property>
+		<property name="createdBy" type="long">
+        	<column name="CREATED_BY"/>
+        </property>
+        
+        <property name="creationDate" type="date">
+        	<column name="CREATION_DATE"/>
+        </property>
+       
+        <property name="lastUpdatedBy" type="long">
+        	<column name="LAST_UPDATED_BY"/>
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+        	<column name="LAST_UPDATED_DATE"/>
+        </property>
+        
+        <property name="userType" type="string">
+        	<column name="USR_TYPE" length="30"/>
+        </property>
+        
+        <property name="userOwner" type="long">
+        	<column name="USR_OWNER"/>
+        </property>
+		
+		<property name="userPhone" type="string">
+        	<column name="USR_PHONE"/>
+        </property>
+		
+	</class>
+</hibernate-mapping>

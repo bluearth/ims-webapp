@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:w="http://www.zkoss.org/2005/zk/client" 
+	xmlns:n="http://www.zkoss.org/2005/zk/native"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<zscript><![CDATA[
+javax.servlet.ServletRequest request = null; 
+javax.servlet.ServletResponse response = null; 
+Object obj1 = Executions.getCurrent().getNativeRequest(); 
+if(obj1 != null) request = (javax.servlet.ServletRequest)obj1; 
+
+Object obj2 =Executions.getCurrent().getNativeResponse(); 
+if(obj2 != null) response = (javax.servlet.ServletResponse)obj2; 
+
+String data = request.getParameter("data");
+String pid   = request.getParameter("pid");
+String cap   = request.getParameter("cap");
+
+String userType = icsDashboardHelper.getUserWorkspace().getUserType();
+if(data==null){
+	//userType.equals(com.xsis.ics.common.Constant.USERTYPE_CHANNEL <-- always null
+
+	if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_VICEPRESIDENT)){
+		data = "region";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_GENERALMANAGER)){
+		data = "subregion";
+	}
+	else if (userType.equals(com.xsis.ics.common.Constant.USERTYPE_REGIONALSALESOPERATOR)) {
+		data = "depo";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_AREAMANAGER)){
+		data = "dealer";
+	}
+	else if(userType.equals(com.xsis.ics.common.Constant.USERTYPE_DEALER)){
+		data = "canvasser";
+	}
+}
+
+
+if(data==null){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPITerritory()); 
+}else if(data.equals("region")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPIRegionByTeritory(pid, cap)); 
+}else if(data.equals("subregion")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPISubRegionByRegion(pid, cap)); 
+}else if(data.equals("depo")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPIDepoBySubRegion(pid, cap)); 
+}else if(data.equals("dealer")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPIDealerByDepo(pid, cap)); 
+}else if(data.equals("canvasser")){
+	request.setAttribute("data", icsDashboardHelper.getWeeklyPVKPICanvasserByDealer(pid, cap)); 
+}
+request.getRequestDispatcher("d.jsp").forward(request, response); 
+]]></zscript>
+</zk>

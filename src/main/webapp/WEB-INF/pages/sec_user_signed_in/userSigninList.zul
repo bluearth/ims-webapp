@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+<window id="userSigninWindow" apply="${userSigninComposer}" border="none" width="100%">
+	<style>
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+		padding on right and left */ }
+	</style>
+
+	<panel id="panel_UserSigninList"
+		title="${c:l('panel_UserSiginList.title')}" border="none" />
+
+	<toolbar>
+		<button id="btnRefresh"
+			image="/images/icons/refresh2_yellow_16x16.gif"
+			tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+		<separator orient="vertical" />
+		<button id="button_Unlocked_User"
+			label="${c:l('button_Unlocked_User_title') }"
+			tooltiptext="${c:l('button_Unlocked_User.tooltiptext')}" />
+		<separator orient="vertical" />
+	</toolbar>
+	
+	<hbox>
+		<label value="Login name: "/>
+		<textbox id="tbLoginName" width="175px"/>
+		<button id="btnSearch" label="SEARCH"/>
+	</hbox>
+		
+	<borderlayout id="borderLayoutUserSigninList">
+
+	<north border="none" height="26px">
+		<paging id="pagingUserSigninList" />
+	</north>
+
+	<center border="none">
+		<listbox id="lbUserSigninList" vflex="true" width="99.9%"
+				height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+				multiple="true" checkmark="true">
+				<listhead sizable="true">
+					<listheader id="listheaderUserLoginname"
+						width="99%"
+						label="${c:l('listheader_UserSignedinList_User_Loginname.label')}" />
+				</listhead>
+		</listbox>
+	</center>
+		<south border="none" />
+
+	</borderlayout>
+	
+</window>
+</zk>

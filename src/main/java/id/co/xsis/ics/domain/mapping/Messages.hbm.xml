@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 9, 2010 4:15:11 PM by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.Messages" table="MESSAGES">
+         <id name="id" type="java.lang.Long">
+            <column name="MESSAGES_ID" />
+            <generator class="sequence">
+				<param name="sequence">MESSAGES_ID_S</param>
+			</generator>
+        </id>
+        <property name="createdBy" type="java.lang.Long">
+        	<column name="created_by"/>
+        </property>
+        <property name="creationDate" type="java.util.Date">
+        	<column name="creation_date"/>
+        </property>
+        <property name="lastUpdatedBy" type="java.lang.Long">
+        	<column name="last_updated_by"/>
+        </property>
+        <property name="lastUpdatedDate" type="java.util.Date">
+        	<column name="last_updated_date"/>
+        </property>
+        <property name="messageType" type="string">
+            <column name="MESSAGE_TYPE" length="50" not-null="true" />
+        </property>
+        <property name="messageFlag" type="string">
+            <column name="MESSAGE_FLAG" length="1" not-null="true" />
+        </property>
+        <property name="messageName" type="string">
+            <column name="MESSAGE_NAME" length="150" not-null="true" />
+        </property>
+        <property name="messageValue" type="string">
+            <column name="MESSAGE_VALUE" length="300" />
+        </property>
+    </class>
+</hibernate-mapping>

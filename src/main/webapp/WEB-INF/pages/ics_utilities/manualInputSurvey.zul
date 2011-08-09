@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}
+		.Db .z-datebox-readonly, .z-datebox-text-disd {	
+			background: white;
+		}
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+		padding on right and left */ }
+		
+		.z-paging-inp{width:50px;}
+	</style>
+	
+	<window id="manualInputSurveyWindow" apply="${manualInputSurveyComposer}">
+
+		<toolbar>
+		<button id="btnSave" height="20"
+		image="/images/icons/btn_save2_16x16.gif"
+			tooltiptext="${c:l('btnSave.tooltiptext')}" />
+		<separator orient="vertical" />
+		<button id="btnCancel" height="20"
+		image="/images/icons/btn_cancel2_16x16.gif"
+			tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+	</toolbar>
+	
+	
+	<panel id="panelAssign"
+		title="Survey"
+		style="margin-bottom:10px" border="normal">
+		<panelchildren>
+			<groupbox mold="3d" width="100%">
+				<grid fixedLayout="true">
+					<columns>
+						<column width="300px" />
+						<column width="100%" />
+					</columns>
+					<rows>
+							<row>
+							<label
+								value="Survey Name" />
+								<textbox id="surveyName" width="200px"/>
+							</row>	
+						<row>
+							<label value="Canvasser" />
+							<bandbox id="canvasserName" width="200px">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="canvasserNameSearch" width="275px"/>
+							    		<button id="canvasserNameButton" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="canvasserNameList" width="348px">
+							        <listhead>
+								        <listheader label="Id" width="10%" />
+									    <listheader label="Name" width="65%" />
+									    <listheader label="Type" width="25%"/>
+							        </listhead>
+							        </listbox>							        
+							        <paging id="canvasserNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+						</row>
+						<row>
+							<label
+								value="Survey Date" />
+							<hbox>
+								<datebox sclass="Db" id="surveyDate" width="200px" format="dd/MM/yyyy"/>
+								<label value="(DD/MM/YYYY)" />
+							</hbox>
+						</row>
+						
+						<row>
+							<label value="${c:l('utilities.manualInput.label.visitTime')}"/>
+							<hbox>
+							<combobox sclass="Db" id="cbHHDates" autodrop="true" width="50px"
+								tooltiptext="" readonly="false" model="@{hhList}">
+								<comboitem self="@{each=hhs}"
+									label="@{hhs}" value="@{hhs}" />
+							</combobox>
+							<label value=" : " />
+							<combobox sclass="Db" id="cbMMDates" autodrop="true" width="50px"
+								tooltiptext="" readonly="false" model="@{mmAndSSList}">
+								<comboitem self="@{each=mms}"
+									label="@{mms}" value="@{mms}" />
+							</combobox>
+							<label value=" : " />
+							<combobox sclass="Db" id="cbSSDates" autodrop="true" width="50px"
+								tooltiptext="" readonly="false" model="@{mmAndSSList}">
+								<comboitem self="@{each=sss}"
+									label="@{sss}" value="@{sss}" />
+							</combobox>
+							<label value="(HH:MM:SS)" />
+							</hbox>
+						</row>
+						
+						<row>
+							<label value="Outlet" />
+							<bandbox id="outletName" width="200px">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="outletNameSearch" width="275px"/>
+							    		<button id="outletNameButton" label="SEARCH"/>
+							    	</hbox>						       
+							        <listbox id="outletNameList" width="348px">
+							        <listhead>
+							        	<listheader label="Id" width="15%"/>
+							        	<listheader label="Name" width="55%"/>
+							        	<listheader label="Msisdn" width="30%"/>
+							        </listhead>
+							        </listbox>							        
+							        <paging id="outletNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+
+						</row>
+
+					</rows>
+				</grid>
+			</groupbox>
+		</panelchildren>
+	</panel>
+	<panel id="panel_SurveyQuestionPanel"
+			title="Survey Questions"
+			style="margin-bottom:10px" border="normal">
+			<panelchildren>
+				<groupbox mold="3d" width="100%">
+					<grid id="grid_SurveyQuestions" fixedLayout="true" style="border:0px">
+						<columns>
+							<column width="300px" />
+							<column width="100%" />
+						</columns>
+					</grid>
+				</groupbox>
+			</panelchildren>
+		</panel>
+		
+</window>
+</zk>
+<!--
+	
+	End by Uke
+-->

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<window id="canvasserListWindow" apply="${canvasserListCtrl}" border="none"
+		width="100%">
+
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+		</style>
+
+		<panel id="panel_CanvasserList"
+			title="${c:l('panel_CanvasserList.title')}" border="none" />
+		<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="button_CanvasserList_NewCanvasser"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_CanvasserList_NewCanvasser.tooltiptext')}" />
+		</toolbar>
+
+
+		<hbox id="hbox_CanvasserList_SearchCanvassers" style="padding: 3px">
+			<space />
+			<label id="label_CanvasserList_cvsName"
+				value="${c:l('label_CanvasserList_cvsName.value')}" />
+			<textbox id="tb_Canvasser_Name" width="100px" />
+			<button id="button_CanvasserList_SearchName"
+				image="/images/icons/search.gif"
+				label="${c:l('button_CanvasserList_SearchName.label')}"
+				tooltiptext="${c:l('button_CanvasserList_SearchName.tooltiptext')}" />
+			
+		</hbox>
+
+
+		<borderlayout id="borderLayout_canvasserList">
+
+			<north border="none" height="26px">
+				<paging id="paging_CanvasserList" />
+			</north>
+
+			<center border="none">
+
+				<listbox id="listBoxCanvasser" vflex="true" width="99.9%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="true" >
+					<listhead sizable="true" >
+						<listheader
+							id="listheader_CanvasserList_cvsDealer"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsDealer.label')}" />
+						<listheader
+							id="listheader_CanvasserList_cvsName"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsName.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsPhone"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsPhone.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsStreet"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsStreet.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsdateOfBirth"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsdateOfBirth.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsSex"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsSex.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsSalary"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsSalary.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsCommission"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsCommission.label')}" />
+							
+							<!--
+						<listheader 
+							id="listheader_CanvasserList_cvsTarget"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_CanvasserList_cvsTarget.label')}" />
+						--><listheader 
+							id="listheader_CanvasserList_cvsImei"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsImei.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsSN"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsSN.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsBatt1"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsBatt1.label')}" />
+						<listheader 
+							id="listheader_CanvasserList_cvsBatt2"
+							image="/images/icons/create_doc.gif" sort="auto" width="auto"
+							label="${c:l('listheader_CanvasserList_cvsBatt2.label')}" />
+						<!--<listheader 
+							id="listheader_CanvasserList_cvsTime"
+							image="/images/icons/create_doc.gif" sort="auto" width="15%"
+							label="${c:l('listheader_CanvasserList_cvsTime.label')}" />
+		
+					--></listhead>
+				</listbox>
+
+			</center>
+			<south border="none" />
+
+		</borderlayout>
+
+	</window>
+</zk>
+
+<!-- value="Account &#10;&#13; none&#10;&#13; expired" width="85%" -->

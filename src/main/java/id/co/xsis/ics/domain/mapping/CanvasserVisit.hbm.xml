@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+	<class name="com.xsis.ics.domain.CanvasserVisit" table="CANVASSER_VISIT">
+		
+		<id name="id" type="long">
+			<column name="CANVASSER_VISIT_ID" />
+			<generator class="sequence">
+				<param name="sequence">CANVASSER_VISIT_ID_S</param>
+			</generator>
+		</id>
+		
+		<property name="createdBy" type="long">
+        	<column name="created_by"/>
+        </property>
+       
+        <property name="creationDate" type="timestamp">
+        	<column name="CREATION_DATE"/>
+        </property>
+        
+        <property name="lastUpdatedBy" type="long">
+        	<column name="LAST_UPDATED_BY"/>
+        </property>
+       
+        <property name="lastUpdatedDate" type="timestamp">
+        	<column name="LAST_UPDATED_DATE"/>
+        </property>		
+        
+		<property name="visitTime" type="timestamp">
+			<column name="VISIT_TIME" />
+		</property>
+		
+		<property name="tripLength" type="big_decimal">
+			<column name="TRIP_LENGTH" precision="22" scale="0" />
+		</property>
+		
+		<property name="visitFlag" type="string">
+			<column name="VISIT_FLAG" length="1" />
+		</property>
+		
+		<property name="visitNotes" type="string">
+			<column name="VISIT_NOTES" length="250" />
+		</property>
+		
+		<property name="transactionFlag" type="string">
+			<column name="TRANSACTION_FLAG" length="1" />
+		</property>		
+		
+		<property name="transactionSp" type="long">
+			<column name="TRANSACTION_SP" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp" type="long">
+			<column name="TRANSACTION_DP" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp1" type="long">
+			<column name="TRANSACTION_DP1" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp5" type="long">
+			<column name="TRANSACTION_DP5" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionDp10" type="long">
+			<column name="TRANSACTION_DP10" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionPv10" type="long">
+			<column name="TRANSACTION_PV10" precision="22" scale="0" />
+		</property>
+		
+		<property name="transactionPv50" type="long">
+			<column name="TRANSACTION_PV50" precision="22" scale="0" />
+		</property>
+		
+        <property name="stockSpXL" type="long">
+            <column name="STOCK_SP_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockSpIsatMtr" type="long">
+            <column name="STOCK_SP_ISAT_MTR" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockSpTselSmp" type="long">
+            <column name="STOCK_SP_TSEL_SMP" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockSpIsatIm3" type="long">
+            <column name="STOCK_SP_ISAT_IM3" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockSpTselAs" type="long">
+            <column name="STOCK_SP_TSEL_AS" precision="22" scale="0" />
+        </property>
+        <property name="stockSpOther" type="long">
+            <column name="STOCK_SP_OTHERS" length="200" />
+        </property>
+        
+        <property name="stockPv10XL" type="long">
+            <column name="STOCK_PV10_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockPv50XL" type="long">
+            <column name="STOCK_PV50_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockPvIsat" type="long">
+            <column name="STOCK_PV_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockPvTsel" type="long">
+            <column name="STOCK_PV_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="stockPvOther" type="long">
+            <column name="STOCK_PV_OTHERS" length="200" />
+        </property>
+        
+        <property name="brandingPaintedXL" type="string">
+            <column name="BRANDING_PAINTED_XL" />
+        </property>
+        
+        <property name="numOfPosterXL" type="long">
+            <column name="NUM_OF_POSTER_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfPosterTsel" type="long">
+            <column name="NUM_OF_POSTER_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfPosterIsat" type="long">
+            <column name="NUM_OF_POSTER_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindXL" type="long">
+            <column name="NUM_OF_SHOPBLIND_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindTsel" type="long">
+            <column name="NUM_OF_SHOPBLIND_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindIsat" type="long">
+            <column name="NUM_OF_SHOPBLIND_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfFlyerTsel" type="long">
+            <column name="NUM_OF_FLYER_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfFlyerXL" type="long">
+            <column name="NUM_OF_FLYER_XL" precision="22" scale="0" />
+        </property>
+       
+        <property name="numOfFlyerIsat" type="long">
+            <column name="NUM_OF_FLYER_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxXL" type="long">
+            <column name="NUM_OF_NEONBOX_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxTsel" type="long">
+            <column name="NUM_OF_NEONBOX_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxIsat" type="long">
+            <column name="NUM_OF_NEONBOX_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="brandingOther" type="long">
+            <column name="BRANDING_OTHERS" precision="22" scale="0" />
+        </property>
+        
+        <property name="questionnaire1" type="string">
+            <column name="QUESTIONNAIRE_1" />
+        </property>
+        
+        <property name="questionnaire2" type="string">
+            <column name="QUESTIONNAIRE_2" />
+        </property>
+        
+        <property name="questionnaire3" type="string">
+            <column name="QUESTIONNAIRE_3" />
+        </property>
+        
+        <property name="questionnaire4" type="string">
+            <column name="QUESTIONNAIRE_4" />
+        </property>
+        
+        <property name="questionnaire5" type="string">
+            <column name="QUESTIONNAIRE_5" />
+        </property>
+        
+        <property name="questionnaire6" type="string">
+            <column name="QUESTIONNAIRE_6" />
+        </property>
+        
+        <property name="questionnaire7" type="string">
+            <column name="QUESTIONNAIRE_7" />
+        </property>
+        
+        <property name="questionnaire8" type="string">
+            <column name="QUESTIONNAIRE_8" />
+        </property>
+        
+        <property name="questionnaire9" type="string">
+            <column name="QUESTIONNAIRE_9" />
+        </property>
+        
+        <property name="questionnaire10" type="string">
+            <column name="QUESTIONNAIRE_10" />
+        </property>
+        
+        <property name="answer1" type="string">
+            <column name="ANSWER_1" />
+        </property>
+        
+        <property name="answer2" type="string">
+            <column name="ANSWER_2" />
+        </property>
+        
+        <property name="answer3" type="string">
+            <column name="ANSWER_3" />
+        </property>
+        
+        <property name="answer4" type="string">
+            <column name="ANSWER_4" />
+        </property>
+        
+        <property name="answer5" type="string">
+            <column name="ANSWER_5" />
+        </property>
+        
+        <property name="answer6" type="string">
+            <column name="ANSWER_6" />
+        </property>
+        
+        <property name="answer7" type="string">
+            <column name="ANSWER_7" />
+        </property>
+        
+        <property name="answer8" type="string">
+            <column name="ANSWER_8" />
+        </property>
+        
+        <property name="answer9" type="string">
+            <column name="ANSWER_9" />
+        </property>
+        
+        <property name="answer10" type="string">
+            <column name="ANSWER_10" />
+        </property>
+        
+        <property name="transactionKPI" type="string">
+            <column name="TRANSACTION_KPI_FLAG" />
+        </property>
+        
+		<property name="systemOrigin" type="string">
+            <column name="SYSTEM_ORIGIN" />
+        </property>
+        
+        
+        <many-to-one name="outlet" class="com.xsis.ics.domain.Outlet" fetch="select">
+			<column name="OUTLET_ID" precision="22" scale="0" not-null="true" />
+		</many-to-one>
+		
+		<many-to-one name="canvasser" class="com.xsis.ics.domain.Canvasser" fetch="select">
+			<column name="CANVASSER_ID" />
+		</many-to-one>
+		
+		<set name="surveyResults" inverse="true" table="SURVEY_RESULT" fetch="select" cascade="all,delete-orphan">
+			<key>
+				<column name="CANVASSER_VISIT_ID" />
+			</key>
+			<one-to-many class="com.xsis.ics.domain.SurveyResult"/>
+		</set>
+        
+	</class>
+	
+</hibernate-mapping>

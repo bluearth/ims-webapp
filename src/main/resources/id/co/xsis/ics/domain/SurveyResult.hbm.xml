@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.SurveyResult" table="SURVEY_RESULT">
+        <composite-id>
+        	<key-many-to-one name="visit" class="com.xsis.ics.domain.CanvasserVisit" >
+        		<column name="CANVASSER_VISIT_ID" />
+        	</key-many-to-one>
+        	<key-many-to-one name="survey" class="com.xsis.ics.domain.Survey" >
+        		<column name="SURVEY_ID"/>
+        	</key-many-to-one>
+        	<key-property name="questionNo" type="integer">
+        		<column name="QUESTION_NO"></column>
+        	</key-property>
+        </composite-id>    
+        
+        <property name="result" type="string">
+            <column name="RESULT" length="50" />
+        </property>
+                
+        
+        <one-to-one name="surveyDetail" class="com.xsis.ics.domain.SurveyDetail" fetch="select" cascade="all">
+            <formula>survey_id</formula>
+            <formula>question_no</formula>
+        </one-to-one>
+                    
+    </class>
+</hibernate-mapping>

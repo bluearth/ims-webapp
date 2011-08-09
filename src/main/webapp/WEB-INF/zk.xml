@@ -6,6 +6,19 @@
 		<log-base>org.zkoss</log-base>
 	</log>
 
+	<!-- Optional -->
+	<!--
+		<desktop-config> <theme-provider-class>zkthemer.ThemeProvider
+		</theme-provider-class> </desktop-config>
+	-->
+	<!-- Optional for testing -->
+	<!--
+		<listener> <description> Serialization Listener for
+		debugging</description>
+		<listener-class>de.forsthaus.util.MySerializationListener
+		</listener-class> </listener>
+	-->
+
 
 	<!-- ====================================================== -->
 	<!--          running a zk application in a CLUSTER         -->
@@ -20,11 +33,11 @@
 	<!--                       Optional                         -->
 	<!--      collect statistical data of the running app.      -->
 	<!-- ====================================================== -->
-<!-- 	<listener> -->
-<!-- 		<description> Monitor the statistic</description> -->
-<!-- 		<listener-class>com.valuequest.ics.statistic.Statistic -->
-<!-- 		</listener-class> -->
-<!-- 	</listener> -->
+	<listener>
+		<description> Monitor the statistic</description>
+		<listener-class>com.valuequest.ics.statistic.Statistic
+		</listener-class>
+	</listener>
 
 	<!-- ====================================================== -->
 	<!--                 Device configurations                  -->
@@ -99,3 +112,4 @@
 <!--		<value>/WEB-INF/i3-label_en_US.properties</value>-->
 <!--	</library-property>	-->
 </zk>
+

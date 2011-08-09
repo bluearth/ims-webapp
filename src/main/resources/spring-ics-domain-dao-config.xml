@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/util
+               http://www.springframework.org/schema/util/spring-util.xsd
+               http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+               
+	<bean id="baseDAO" abstract="true" p:hibernateTemplate-ref="hibernateTemplate"
+          class="com.xsis.ics.dao.common.BaseDao">
+<!--    	<constructor-arg index="0" ref="sessionFactory" />-->
+    </bean>
+          
+	<bean id="canvasserDao" class="com.xsis.ics.dao.impl.CanvasserDaoImpl" parent="baseDAO"/>
+	<bean id="dealerDao" class="com.xsis.ics.dao.impl.DealerDaoImpl" parent="baseDAO"/>
+	<bean id="depoDao" class="com.xsis.ics.dao.impl.DepoDaoImpl" parent="baseDAO"/>
+	<bean id="outletDao" class="com.xsis.ics.dao.impl.OutletDaoImpl" parent="baseDAO"/>
+	<bean id="teritoryDao" class="com.xsis.ics.dao.impl.TeritoryDaoImpl" parent="baseDAO"/>
+	<bean id="subRegionDao" class="com.xsis.ics.dao.impl.SubRegionDaoImpl" parent="baseDAO"/>
+	<bean id="regionDao" class="com.xsis.ics.dao.impl.RegionDaoImpl" parent="baseDAO"/>
+	
+	<bean id="canvasserTrxSummaryDao" class="com.xsis.ics.dao.impl.CanvasserTrxSummaryImpl" parent="baseDAO"/>	
+	<bean id="canvasserRoutesDao" class="com.xsis.ics.dao.impl.CanvasserRoutesDaoImpl" parent="baseDAO" 
+			p:routeDetailDao-ref="canvasserRouteDetailDao"/>
+	<bean id="canvasserRouteDetailDao" class="com.xsis.ics.dao.impl.CanvasserRouteDetailDaoImpl" parent="baseDAO"/>
+	<bean id="routeTemplateDao" class="com.xsis.ics.dao.impl.RouteTemplateDaoImpl" parent="baseDAO"/>
+	<bean id="stockDashboardDao" class="com.xsis.ics.dao.impl.StockDashboardDaoImpl" parent="baseDAO"/>
+
+	<bean id="canvasserVisitDao" class="com.xsis.ics.dao.impl.CanvasserVisitDaoImpl" parent="baseDAO"/>
+	<bean id="surveyResultDao" class="com.xsis.ics.dao.impl.SurveyResultDaoImpl" parent="baseDAO"/>
+	<bean id="salesDashboardDao" class="com.xsis.ics.dao.impl.SalesDashboardDaoImpl" parent="baseDAO"/>
+	
+	<bean id="lookupDao" class="com.xsis.ics.dao.impl.LookupDaoImpl" parent="baseDAO"/>
+
+	<bean id="dealerTargetDao" class="com.xsis.ics.dao.impl.DealerTargetDaoImpl" parent="baseDAO"/>
+	
+	<bean id="routeTemplateDetailDao" class="com.xsis.ics.dao.impl.RouteTemplateDetailDaoImpl" parent="baseDAO"/>
+	<bean id="dealerTrxSummaryDao" class="com.xsis.ics.dao.impl.DealerTrxSummaryDaoImpl" parent="baseDAO"/>
+	<bean id="depoTrxSummarryDao" class="com.xsis.ics.dao.impl.DepoTrxSummaryDaoImpl" parent="baseDAO"/>
+	<bean id="regionTrxSummaryDao" class="com.xsis.ics.dao.impl.RegionTrxSummaryDaoImpl" parent="baseDAO"/>
+	<bean id="subRegionTrxSummaryDao" class="com.xsis.ics.dao.impl.SubRegionTrxSummaryDaoImpl" parent="baseDAO"/>
+	<bean id="territoryTrxSummaryDao" class="com.xsis.ics.dao.impl.TerritoryTrxSummaryDaoImpl" parent="baseDAO"/>
+	<bean id="canvasserTargetDao" class="com.xsis.ics.dao.impl.CanvasserTargetDaoImpl" parent="baseDAO"/>
+	<bean id="parameterDao" class="com.xsis.ics.dao.impl.ParameterDaoImpl" parent="baseDAO"/>
+	<bean id="secUserClusterMappingDao" class="com.xsis.ics.dao.impl.SecUserClusterMappingDaoImpl" parent="baseDAO"/>
+	
+	<!-- start of Report Dao -->
+	
+	<bean id="routeMasterPlanReportDao" class="com.xsis.ics.report.dao.impl.RouteMasterPlanReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="canvasserVisitReportDao" class="com.xsis.ics.report.dao.impl.CanvasserVisitReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="surveyResultReportDao" class="com.xsis.ics.report.dao.impl.SurveyResultReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="transactionReportDao" class="com.xsis.ics.report.dao.impl.TransactionReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="stockAvailabilityReportDao" class="com.xsis.ics.report.dao.impl.StockAvailabilityReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="dealerDashboardReportDao" class="com.xsis.ics.report.dao.impl.DealerDashboardReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="AMDashboardReportDao" class="com.xsis.ics.report.dao.impl.AMDashboardReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="RSOMDashboardReportDao" class="com.xsis.ics.report.dao.impl.RSOMDashboardReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="GMDashboardReportDao" class="com.xsis.ics.report.dao.impl.GMDashboardReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="dealerMasterReportDao" class="com.xsis.ics.report.dao.impl.DealerMasterReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="canvasserMasterReportDao" class="com.xsis.ics.report.dao.impl.CanvasserMasterReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="outletMasterReportDao" class="com.xsis.ics.report.dao.impl.OutletMasterReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="transactionMasterReportDao" class="com.xsis.ics.report.dao.impl.TransactionMasterReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="brandingReportDao" class="com.xsis.ics.report.dao.impl.BrandingReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="canvasserProductivityReportDao" class="com.xsis.ics.report.dao.impl.CanvasserProductivityReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="canvasserSummaryPerformanceReportDao" class="com.xsis.ics.report.dao.impl.CanvasserSummaryPerformanceReportDaoImpl" parent="baseDAO"/>
+	
+	<bean id="weeklyCanvasserSpreadingReportDao" class="com.xsis.ics.report.dao.impl.WeeklyCanvasserSpreadingReportDaoImpl" parent="baseDAO"/>
+	
+	
+	<!-- end of Report Dao -->
+
+	
+	<bean id="passKeyDao" class="com.xsis.ics.dao.impl.PassKeyDaoImpl" parent="baseDAO"/>
+	
+	<bean id="icsUserDao" class="com.xsis.ics.dao.impl.UserICSDaoImpl" parent="baseDAO"/>
+	<bean id="surveyDetailDao" class="com.xsis.ics.dao.impl.SurveyDetailDaoImpl" parent="baseDAO"/>
+	<bean id="surveyDao" class="com.xsis.ics.dao.impl.SurveyDaoImpl" parent="baseDAO"
+		p:surveyDetailDao-ref="surveyDetailDao"
+	/>
+	
+
+</beans>

@@ -1,0 +1,32 @@
+<?page id="loginZul" title="LOGIN"?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style>
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+		padding on right and left */
+		<!-- background image -->
+		background-image:
+		url(${c:encodeURL('/images/templates/test/Grey_T_R.jpg')});
+		background-repeat:repeat-x; }
+
+		<!-- cut the vertical borders in the rows -->
+		tr.z-row td.z-row-inner { border-right: 0px #CCC; }
+
+		<!-- nicer looking -->
+		.z-window-modal-cnt-noborder {background: none}
+		.z-window-modal-cl-noborder {background: none}
+
+		.z-groupbox-body { background-color : white}
+	</style>
+
+	<window id="logoutwindow" border="none" width="350px"
+	apply="com.valuequest.ics.webui.logout.LogoutDialogCtrl">
+	</window>
+</zk>
+		

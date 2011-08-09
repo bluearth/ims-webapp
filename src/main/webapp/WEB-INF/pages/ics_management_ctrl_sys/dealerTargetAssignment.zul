@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+	<style dynamic="true">	
+		.CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+			width: 200px;
+		}
+		.Db .z-datebox-readonly, .z-datebox-text-disd {	
+			background: white;
+			width: 200px;
+		}
+	</style>
+	
+	<window id="dealerTargetAssignWindow" apply="${dealerTargetAssignWindowComposer}">
+	
+	<style>
+		body { padding: 0 0; /* 0 padding on top and bottom and 0
+		padding on right and left */ }
+	</style>
+
+	<toolbar>
+		<button id="btnSave" height="20"
+		image="/images/icons/btn_save2_16x16.gif"
+			tooltiptext="${c:l('btnSave.tooltiptext')}" />
+		<separator orient="vertical" />
+		<button id="btnCancel" height="20"
+		image="/images/icons/btn_cancel2_16x16.gif"
+			tooltiptext="${c:l('btnCancel.tooltiptext')}" />
+	</toolbar>		
+
+	<groupbox mold="3d" width="100%">
+		<grid fixedLayout="true">
+			<columns>
+				<column width="300px" />
+				<column width="100%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.teritoryName')}" />
+					<combobox sclass="CbRO" id="cbTeritory" model="@{teritoryList}" selectedItem="@{selectedTerritory}" value="@{selectedTerritory.teritoryName}" autodrop="true" >
+						<comboitem self="@{each=teritories}" label="@{teritories.teritoryName}" value="@{teritories.id}" />
+					</combobox>
+				</row>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.regionName')}" />
+					<combobox sclass="CbRO" id="cbRegion" model="@{regionList}" selectedItem="@{selectedRegion}" value="@{selectedRegion.regionName}" autodrop="true" >
+						<comboitem self="@{each=regions}" label="@{regions.regionName}" value="@{regions.id}" />
+					</combobox>
+				</row>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.subRegionName')}" />
+					<combobox sclass="CbRO" id="cbSubRegion" model="@{subRegionList}" selectedItem="@{selectedSubRegion}" value="@{selectedSubRegion.name}" autodrop="true" >
+						<comboitem self="@{each=subRegions}" label="@{subRegions.name}" value="@{subRegions.id}" />
+					</combobox>
+				</row>
+				<!--<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.areaName')}" />
+					<combobox id="cbArea" >
+						<comboitem self="@{each=areas}" label="@{areas.areaName}" value="@{areas.id}" />
+					</combobox>
+				</row>
+				--><row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.depoName')}" />
+					<combobox sclass="CbRO" id="cbDepo" model="@{depoList}" selectedItem="@{selectedDepo}" value="@{selectedDepo.depoName}" autodrop="true">
+						<comboitem self="@{each=depos}" label="@{depos.depoName}" value="@{depos.id}" />
+					</combobox>
+				</row>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.dealer')}" />
+					<combobox sclass="CbRO" id="cbDealer" model="@{dealerList}" selectedItem="@{selectedDealer}" value="@{selectedDealer.dealerName}" autodrop="true" tooltiptext="">
+						<comboitem self="@{each=dealers}" label="@{dealers.dealerName}" value="@{dealers.id}" />
+					</combobox>
+				</row>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.dealerCluster')}" />
+					<label id="lblDealerName"/>
+				</row>	
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.Month')}" />
+					<!--<combobox id="cbMonth" autodrop="true" tooltiptext="">
+						<comboitem label="January" value="01"/>
+						<comboitem label="February" value="02"/>
+						<comboitem label="March" value="03"/>
+						<comboitem label="April" value="04"/>
+						<comboitem label="May" value="05"/>
+						<comboitem label="June" value="06"/>
+						<comboitem label="July" value="07"/>
+						<comboitem label="August" value="08"/>
+						<comboitem label="September" value="09"/>
+						<comboitem label="October" value="10"/>
+						<comboitem label="November" value="11"/>
+						<comboitem label="December" value="12"/>
+					</combobox>
+				-->
+						<datebox sclass="Db" id="dbMonth" width="150px" format="MMMM-yyyy" readonly="true" tooltiptext="${c:l('management.controlSystem.dealerTargetAssignment.tooltiptext.Month')}"/><!--
+				
+				<combobox id="cbMonth" readonly="false">
+							<comboitem id="cbItemMonth" self="@{each=monthEnum }" value="@{monthEnum}" label="@{monthEnum}"/>
+						</combobox>
+				
+				--></row>	
+			</rows>
+		</grid>
+	</groupbox>
+	<panel id="panelTarget" title="${c:l('management.controlSystem.dealerTargetAssignment.title.Target')}" width="100%" height="250px">
+		<panelchildren>
+		<groupbox mold="3d" width="100%">
+			<grid fixedLayout="true">
+			<columns>
+				<column width="300px"/>
+				<column width="100%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.targetDP')}" />
+					<longbox id="lbDP" width="200px" format="#,##0"/>
+				</row>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.targetPV')}" />
+					<longbox id="lbPV" width="200px" format="#,##0"/>
+				</row>				
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.targetSP')}" />
+					<longbox id="lbSP" width="200px" format="#,##0"/>
+				</row>			
+			</rows>
+			</grid>
+		</groupbox>
+		</panelchildren>
+	</panel>
+	</window>
+</zk>

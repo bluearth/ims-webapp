@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	
+	<window id="areaManagementWindow"  style="" apply="${areaManagementComposer}" border="none" sizable="true" sclass="pageWindowTitle">
+		
+		<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+
+			.pageWindowTitle .z-window-embedded-header {color: #FF0000;
+			font-weight:bold; }
+
+		</style>
+		<panel id="areaManagementPanel"
+			title="${c:l('areaManagement.panel.title')}" border="none" />
+		
+		<toolbar>
+			<button id="btnSave"
+				image="/images/icons/btn_save2_16x16.gif"
+				tooltiptext="${c:l('btnSave.tooltiptext')}" />
+		</toolbar>
+		
+		<borderlayout id="borderlayoutAreaManagement">
+			<north border="none" margins="0,0,0,0">
+				<grid fixedLayout="true" style="border:0px">
+					<columns>
+						<column width="300px" />
+						<column	width="100%" />
+					</columns>
+					<rows>
+						<row>
+							<label value="Select hierarchy that will be edited : "/>
+							<combobox id="cbHierarchy">
+								<comboitem value="1" label="Region"/>
+								<comboitem value="2" label="Sub-region"/>
+								<comboitem value="3" label="Depo"/>
+								<comboitem value="4" label="Dealer"/>
+								<comboitem value="5" label="Outlet"/>
+							</combobox>	
+						</row>
+					</rows>
+				</grid>
+			</north>
+			<center border="none" margins="0,0,0,0">
+				<div id="divCenterAreaMgt">
+									<panel id="panelAreaMgt"	
+										style="margin-bottom:10px" border="normal" width="100%">
+									<panelchildren>
+										<grid fixedLayout="true" style="border:0px">
+										<columns>
+											<column width="100px" />
+											<column	width="200px" />
+											<column	width="100px" />
+											<column	width="200px" />
+										</columns>
+										<rows>
+											<row id="rowTerritory">
+												<label value="Select Territory" />
+												<combobox id="cbTerritoryOri" autodrop="true" >
+													<comboitem self="@{each=teritory}" value="@{teritory.id}" label="@{teritory.teritoryName}"/>
+												</combobox>
+												<label id="labelTerritoryDest" value="Select Territory" visible="false"/>
+												<combobox id="cbTerritoryDest" autodrop="true" visible="false">
+													<comboitem self="@{each=teritory}" value="@{teritory.id}" label="@{teritory.teritoryName}"/>
+												</combobox>
+											</row>
+											<row id="rowRegion">
+												<label value="Select Region" />
+												<combobox id="cbRegionOri" autodrop="true" >
+													<comboitem self="@{each=region}" value="@{region.id}" label="@{region.regionName}"/>
+												</combobox>
+												<label id="labelRegionDest" value="Select Region" visible="false"/>
+												<combobox id="cbRegionDest" autodrop="true" visible="false">
+													<comboitem self="@{each=region}" value="@{region.id}" label="@{region.regionName}"/>
+												</combobox>
+											</row>
+											<row id="rowSubRegion">
+												<label value="Select Subregion" />
+												<combobox id="cbSubregionOri" autodrop="true" >
+													<comboitem self="@{each=subRegion}" value="@{subRegion.id}" label="@{subRegion.name}"/>
+												</combobox>
+												<label id="labelSubRegionDest" value="Select Subregion" visible="false"/>
+												<combobox id="cbSubregionDest" autodrop="true" visible="false">
+													<comboitem self="@{each=subRegion}" value="@{subRegion.id}" label="@{subRegion.name}"/>
+												</combobox>
+											</row>
+											<row id="rowDepo">
+												<label value="Select Depo" />
+												<combobox id="cbDepoOri" autodrop="true">
+													<comboitem self="@{each=depo}" value="@{depo.id}" label="@{depo.depoName}"/>
+												</combobox>
+												<label id="labelDepoDest" value="Select Depo" visible="false"/>
+												<combobox id="cbDepoDest" autodrop="true" visible="false">
+													<comboitem self="@{each=depo}" value="@{depo.id}" label="@{depo.depoName}"/>
+												</combobox>
+											</row>
+											<row id="rowDealer">
+												<label value="Select Dealer"/>
+												<combobox id="cbDealerOri" autodrop="true">
+													<comboitem self="@{each=dealer}" value="@{dealer.id}" label="@{dealer.dealerName}"/>
+												</combobox>
+												<label id="labelDealerDest" value="Select Dealer" visible="false"/>
+												<combobox id="cbDealerDest" autodrop="true" visible="false">
+													<comboitem self="@{each=dealer}" value="@{dealer.id}" label="@{dealer.dealerName}"/>
+												</combobox>
+											</row>
+											<row spans="4" align="center">
+											<label id="labelListOrigin" style="bold;"/>
+											</row>
+											
+											<row spans="4" align="center">
+												<columnlayout>
+													<columnchildren width="30%">
+														<panel title="ORIGIN:" id="panelOrigin">
+															<panelchildren>
+																<listbox id="lbAreaOrigins" multiple="true"
+																	height="300px" oddRowSclass="non-odd" fixedLayout="true"
+																	checkmark="true">																
+														        </listbox>
+																<paging id="pagingLbAreaOrigins"/>
+															</panelchildren>
+														</panel>
+													</columnchildren>
+													<columnchildren width="20%">
+														<panel>
+															<panelchildren
+																style="margin: 70px 34px;">
+																<image id="arrowRight" sclass="pointer"
+																	   src="/images/arrowRight.png"
+																	   tooltiptext="Move to Destinations" height="30px" width="30px" />
+															</panelchildren>
+														</panel>
+													</columnchildren>
+													<columnchildren width="30%">
+														<panel title="DESTINATION:"
+															height="">
+															<panelchildren>
+																<listbox id="lbDestination" multiple="true"
+																	height="300px" oddRowSclass="non-odd" fixedLayout="true"
+																	checkmark="true">																
+																</listbox>
+																<paging id="pagingLbAreaDest"/>
+															</panelchildren>
+														</panel>
+													</columnchildren>
+												</columnlayout>
+											</row>
+										</rows>
+									</grid>
+									</panelchildren>
+							</panel>
+				</div>
+			</center>
+			
+			<east border="none"></east>
+			<west border="none"></west>
+			<south border="none"></south>
+		</borderlayout>
+	</window>
+</zk>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.Branding" table="BRANDING">
+        
+        <id name="id" type="long">
+            <column name="BRANDING_ID" precision="22" scale="0" />
+            <generator class="sequence">
+				<param name="sequence">BRANDING_ID_S</param>
+			</generator>
+        </id>
+        
+         <property name="creationDate" type="date">
+            <column name="CREATION_DATE" length="7" />
+        </property>
+        
+        <property name="createdBy" type="big_decimal">
+            <column name="CREATED_BY" precision="22" scale="0" />
+        </property>
+        
+        <property name="lastUpdatedDate" type="date">
+            <column name="LAST_UPDATED_DATE" length="7" />
+        </property>
+        
+        <property name="lastUpdatedBy" type="big_decimal">
+            <column name="LAST_UPDATED_BY" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfFlyerXL" type="long">
+            <column name="NUM_OF_FLYER_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfPosterXL" type="long">
+            <column name="NUM_OF_POSTER_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindXL" type="long">
+            <column name="NUM_OF_SHOPBLIND_XL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxXL" type="long">
+            <column name="NUM_OF_NEONBOX_XL" precision="22" scale="0" />
+        </property>
+       
+        <property name="brandingPaintedXL" type="string">
+            <column name="BRANDING_PAINTED_XL" length="2" />
+        </property>
+        
+        <property name="numOfFlyerIsat" type="long">
+            <column name="NUM_OF_FLYER_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfPosterIsat" type="long">
+            <column name="NUM_OF_POSTER_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindIsat" type="long">
+            <column name="NUM_OF_SHOPBLIND_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxIsat" type="long">
+            <column name="NUM_OF_NEONBOX_ISAT" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfFlyerTSel" type="long">
+            <column name="NUM_OF_FLYER_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfPosterTSel" type="long">
+            <column name="NUM_OF_POSTER_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfShopBlindTsel" type="long">
+            <column name="NUM_OF_SHOPBLIND_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="numOfNeonBoxTsel" type="long">
+            <column name="NUM_OF_NEONBOX_TSEL" precision="22" scale="0" />
+        </property>
+        
+        <property name="brandingLain" type="string">
+            <column name="BRANDING_LAIN" length="200" />
+        </property>
+        
+        <many-to-one name="canvasserVisit" class="com.xsis.ics.domain.CanvasserVisit" cascade="all" column="CANVASSER_VISIT_ID"/>
+        
+    </class>
+</hibernate-mapping>

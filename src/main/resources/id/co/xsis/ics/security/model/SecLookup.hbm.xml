@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.security.model.SecLookup" table="ICS_LOOKUP">
+    	
+    	<id name="id" type="long">
+            <column name="LOOKUP_ID" />
+            <generator class="sequence">
+				<param name="sequence">LOOKUP_ID_S</param>
+			</generator>
+        </id>
+       
+        <property name="createdBy" type="long">
+        	<column name="CREATED_BY"/>
+        </property>
+        
+        <property name="creationDate" type="date">
+        	<column name="CREATION_DATE"/>
+        </property>
+       
+        <property name="lastUpdatedBy" type="long">
+        	<column name="LAST_UPDATED_BY"/>
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+        	<column name="LAST_UPDATED_DATE"/>
+        </property>
+        
+        <property name="lookupType" type="string">
+            <column name="LOOKUP_TYPE" />
+        </property>
+        <property name="lookupValue" type="string">
+            <column name="LOOKUP_VALUE" />
+        </property>
+        <property name="lookupDescription" type="string">
+            <column name="LOOKUP_DESCRIPTION" />
+        </property>
+        <property name="lookupActiveFlag" type="string">
+            <column name="ACTIVE_FLAG" />
+        </property>
+   </class>
+</hibernate-mapping>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+<window id="canvasserTargetDetailWindow" title="Canvasser Target" border="none" 
+		apply="${canvasserTargetDetailComposer}" closable="true" 
+		width="600px" height="60%"
+		sizable="true" sclass="pageWindowTitle">
+		<toolbar>
+		<button id="btnCalculate" height="20"
+		label="Calculate"
+			tooltiptext="assign this target" />
+	</toolbar>	
+		
+	<grid fixedLayout="true">
+			<columns>
+				<column width="40%"/>
+				<column width="60%" />
+			</columns>
+			<rows>
+				<row>
+					<label value="${c:l('management.controlSystem.dealerTargetAssignment.label.canvasserName')}" />
+					<label id="lbCanvasserName" />
+				</row>					
+			</rows>
+	</grid>
+	<separator bar="true"/>
+	<grid fixedLayout="true">
+			<columns>
+				<column width="40%" label="Product"/>
+				<column width="30%" label="Reload"/>
+				<column width="30%" label="Starter Pack"/>
+			</columns>
+			<rows>
+				<row>
+					<label value="% Contribution Canvasser to Total Dealer Sales" />
+					<decimalbox id="decBoxPercentReload" width="90%" format="#,###.##"/>
+					<decimalbox id="decBoxPercentSP" width="90%" format="#,###.##"/>
+				</row>	
+				<row>
+					<label value="DP monthly canvasser target (RP)" />
+					<decimalbox id="decBoxDPmonthly" width="90%" readonly="true" format="#,###"/>
+				</row>
+				<row>
+					<label value="DP weekly canvasser target (RP)" />
+					<decimalbox id="decBoxDPweekly" width="90%" readonly="true" format="#,###"/>
+				</row>	
+				<row>
+					<label value="PV monthly canvasser target (RP)" />
+					<decimalbox id="decBoxPVmonthly" width="90%" readonly="true" format="#,###"/>
+				</row>	
+				<row>
+					<label value="PV weekly canvasser target (RP)" />
+					<decimalbox id="decBoxPVweekly" width="90%" readonly="true" format="#,###"/>
+				</row>	
+				<row>
+					<label value="SP monthly canvasser target (Pcs)" />
+					<label value="" />
+					<decimalbox id="decBoxSPmonthly" width="90%" readonly="true" format="#,###"/>
+				</row>	
+				<row>
+					<label value="SP weekly canvasser target (Pcs)" />
+					<label value="" />
+					<decimalbox id="decBoxSPweekly" width="90%" readonly="true" format="#,###"/>
+				</row>					
+			</rows>
+	</grid>
+</window>
+</zk>

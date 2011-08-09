@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.xsis.ics.domain.Notifications" table="NOTIFICATIONS">
+        
+        <id name="id" type="long">
+            <column name="NOTIFICATION_ID" precision="22" scale="0" />
+            <generator class="sequence">
+				<param name="sequence">NOTIFICATION_ID_S</param>
+			</generator>
+        </id>
+       
+        <property name="creationDate" type="date">
+            <column name="CREATION_DATE" length="7" />
+        </property>
+       
+        <property name="createdBy" type="long">        
+            <column name="CREATED_BY" precision="22" scale="0" />
+        </property>
+       
+        <property name="lastUpdatedDate" type="date">
+            <column name="LAST_UPDATED_DATE" length="7" />
+        </property>
+        
+        <property name="lastUpdatedBy" type="long">
+            <column name="LAST_UPDATED_BY" precision="22" scale="0" />
+        </property>
+        
+        <property name="type" type="string">
+            <column name="NOTIFICATION_TYPE" length="50" not-null="true" />
+        </property>
+        
+        <property name="destination" type="string">
+            <column name="NOTIFICATION_DESTINATION" length="150" not-null="true" />
+        </property>
+        
+        <property name="message" type="string">
+            <column name="NOTIFICATION_MESSAGE" length="500" not-null="true" />
+        </property>
+        
+        <property name="status" type="string">
+            <column name="NOTIFICATION_STATUS" length="50" not-null="true" />
+        </property>
+
+ 	</class>
+ </hibernate-mapping>

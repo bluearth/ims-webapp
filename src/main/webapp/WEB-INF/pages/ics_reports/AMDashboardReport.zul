@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?> 
+
+<zk xmlns="http://www.zkoss.org/2005/zul"
+	xmlns:h="http://www.w3.org/1999/xhtml"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+	
+	<style dynamic="true">	
+		.center {display:block; margin:0 auto; width:100%; }		
+		.div-table{display:table; margin:0 auto; padding-top:5px;}
+	    .div-table-row{display:table-row;}
+	    .div-table-col{display:table-cell; padding-top: 1px; padding-right:5px;}
+	    .z-paging-inp{width:50px;}
+	    .CbRO .z-combobox-readonly, .z-combobox-text-disd {	
+			background: white;
+		}
+		.dbDate .z-datebox-readonly, .z-datebox-text-disd {	
+			background: white;
+		}
+	</style>
+	
+	<window id="AMDashboardReportWindow" apply="${AMDashboardReportComposer}" border="none" width="100%">
+		<grid> 
+			<columns>
+				<column label="Reports / Area Manager (AM) Dashboard" align="center" />
+			</columns>
+		</grid>
+		<div style="height:460px;width:100%;">				
+			<div class="div-table">
+			    <div class="div-table-row">
+				<div class="div-table-col">Territory</div>
+					<div class="div-table-col" width="200px"><combobox sclass="CbRO" id="territory" model="@{territorys}" selectedItem="@{selectedTerritorys}" style="width:158px;" /></div>
+					
+			   		
+					
+					<div class="div-table-col">Dealer</div>					
+					<div class="div-table-col">
+						<bandbox id="dealerName">
+							<bandpopup height="100%" width="450px">
+								<hbox>
+							    	<textbox id="dealerNameSearch" width="375px"/>
+							    	<button id="dealerNameButton">SEARCH</button>
+							    </hbox>	
+								<listbox id="dealerNameList" width="450px" model="@{dealerNames}">
+									<listhead>
+										<listheader label="Idex Code" width="15%" />
+										<listheader label="Name" width="60%" />
+										<listheader label="Cluster" width="25%"/>
+									</listhead>
+								</listbox>	
+							    <paging id="dealerNamePaging" pageSize="20" />
+							</bandpopup>
+						</bandbox>	
+					</div>
+					
+					<div class="div-table-col">Month</div>
+					<div class="div-table-col"><combobox sclass="CbRO" id="month" model="@{months}" selectedItem="@{selectedMonths}" style="width:158px;" /></div>
+					
+				</div>
+				<div class="div-table-row">
+					
+					<div class="div-table-col">Region</div>
+					<div class="div-table-col" width="200px"><combobox sclass="CbRO" id="region" model="@{regions}" selectedItem="@{selectedRegions}" style="width:158px;" /></div>
+					
+					
+					
+					
+					
+					<div class="div-table-col">Canvasser</div>
+					<div class="div-table-col">					
+							<bandbox id="canvasserName">
+							    <bandpopup height="100%" width="350px">	
+							    	<hbox>
+							    		<textbox id="canvasserNameSearch" width="275px"/>
+							    		<button id="canvasserNameButton">SEARCH</button>
+							    	</hbox>
+							    	<listbox id="canvasserNameList"
+							    		width="348px" model="@{canvasserNames}">
+							    		<listhead>
+							    			<listheader label="Id"
+							    				width="10%" />
+							    			<listheader label="Name"
+							    				width="65%" />
+							    				<listheader label="Type"
+							    				width="25%"/>
+							    		</listhead>
+							    	</listbox>
+							    	<paging id="canvasserNamePaging" pageSize="20"/>
+							    </bandpopup>							 
+							</bandbox>
+						</div>
+					
+					
+					<div class="div-table-col">Start Week</div>
+					<div class="div-table-col"><combobox sclass="CbRO" id="startWeek" model="@{startWeeks}" selectedItem="@{selectedStartWeeks}" style="width:158px;" /></div>
+				</div>
+				<div class="div-table-row">
+					
+					<div class="div-table-col">Sub-Region</div>
+					<div class="div-table-col"><combobox sclass="CbRO" id="subRegion" model="@{subRegions}" selectedItem="@{selectedSubRegions}" style="width:158px;" /></div>
+					
+					<div class="div-table-col">Canvasser Type</div>
+					<div class="div-table-col">
+						<combobox id="canvasserTypes" model="@{canvasserTypes}">
+							<comboitem self="@{each=lookup}" label="@{lookup.lookupDescription}" value="@{lookup.lookupValue}" />							
+						</combobox>
+					</div>
+					<div class="div-table-col">End Week</div>
+					<div class="div-table-col"><combobox sclass="CbRO" id="endWeek" model="@{endWeeks}" selectedItem="@{selectedEndWeeks}" style="width:158px;" /></div>
+				</div>
+				<div class="div-table-row">
+					
+					<!-- empat -->
+					
+					
+					
+					<div class="div-table-col">Depo</div>
+					<div class="div-table-col"><combobox sclass="CbRO" id="depo" model="@{depos}" selectedItem="@{selectedDepos}" style="width:158px;" /></div>
+					
+					
+				</div>	
+			</div>
+			<div class="div-table">
+				<div class="div-table-row">						
+					<div class="div-table-col"><button id="btnSubmit" label="Submit" width="100px"/></div>					
+					<div class="div-table-col"><button id="btnPrint" label="Print" width="100px" visible="false"/></div>
+					<div class="div-table-col"><button id="btnPdf" label="Export Pdf" width="100px"/></div>	
+					<div class="div-table-col"><button id="btnExcel" label="Export Excel" width="100px"/></div>
+					<div class="div-table-col"><button id="btnClear" label="Clear" width="100px"/></div>							
+				</div>
+			</div>			
+			<div style="clear:both;"/>
+			<div style="border:#9DA3A8 solid 1px; margin-top:2px; margin-bottom:2px; width:100%; display:block;"/>
+			<div style="clear:both;"/>
+			<div style="overflow:auto">
+				<box id="reportBoxContent"/>
+			</div>			
+		</div>
+	</window>
+	
+</zk>

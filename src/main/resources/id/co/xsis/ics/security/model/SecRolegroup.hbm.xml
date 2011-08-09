@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xsis.security.model.SecRolegroup" table="sec_rolegroup">
+
+		<id name="id" type="long">
+			<column name="rlg_id" />
+			<generator class="sequence">
+				<param name="sequence">RLG_ID_SEQ</param>
+			</generator>
+		</id>
+
+		<version name="version" column="VERS" type="integer" />
+
+		<many-to-one name="secRole" class="com.xsis.security.model.SecRole"
+			fetch="select">
+			<column name="rol_id" />
+		</many-to-one>
+		<many-to-one name="secGroup" class="com.xsis.security.model.SecGroup"
+			fetch="select">
+			<column name="grp_id" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

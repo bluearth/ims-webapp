@@ -1,0 +1,75 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window id="cvrRoutesListWindow" apply="${cvrRoutesListComposer}" border="none" width="100%">
+	<style>
+			body { padding: 0 0; /* 0 padding on top and bottom and 0
+			padding on right and left */ }
+	</style>
+	
+	<panel id="cvrRoutesListPanel"
+			title="${c:l('panel_CanvasserRoutesList.title')}" border="none" />
+			
+	<toolbar>
+			<button id="btnRefresh"
+				image="/images/icons/refresh2_yellow_16x16.gif"
+				tooltiptext="${c:l('btnRefresh.tooltiptext')}" />
+			<separator orient="vertical" />
+			<button id="btnNew"
+				image="/images/icons/btn_new2_16x16.gif"
+				tooltiptext="${c:l('button_cvrRoutesList_NewRoutes.tooltiptext')}" />
+			<button id="btnTemplate"
+				image="/images/icons/btn_new_template.gif"
+				tooltiptext="${c:l('button_cvrRoutesList_NewRoutesFromTemplate.tooltiptext')}" />
+			<button id="btnCsv"
+				image="/images/icons/icon_csv2.gif"
+				tooltiptext="${c:l('button_cvrRoutesList_NewRoutesFromCsv.tooltiptext')}" />
+	</toolbar>
+	
+	<hbox id="hbox_RoutesList_Search" style="padding: 3px">
+			<space />
+		<label id="label_RouteList_canvasserList"
+				value="${c:l('label_RouteList_canvasserList')}" />
+<!--		<combobox id="cbCanvassers" model="@{canvasserList}" autodrop="true" >-->
+<!--			<comboitem self="@{each=canvasser}" value="@{canvasser.id}" label="@{canvasser.canvasserName}"/>-->
+<!--		</combobox>-->
+		<textbox id="tbSearchCanvasserName" width="250px"/>
+		<button id="btnRoutesListSearchCanvasser"
+				image="/images/icons/search.gif"
+				label="${c:l('button_RoutesList_SearchCanvasser.label')}"
+				tooltiptext="${c:l('button_RoutesList_SearchCanvasser.tooltiptext')}" />
+	</hbox>
+	
+	<borderlayout id="borderLayoutRoutesList">
+
+		<north border="none" height="26px">
+			<paging id="pagingRoutesList" />
+		</north>
+
+		<center border="none">
+			<listbox id="listBoxRoutes" vflex="true" width="99.9%"
+					height="100%" tooltiptext="${c:l('listbox.tooltiptext')}"
+					multiple="false">
+					<listhead sizable="true">
+						<listheader
+							id="listheaderRoutesListCanvasserName"
+							sort="auto" width="30%"
+							label="${c:l('listheader_RoutesList_canvasserName.label')}" />
+						<listheader
+							id="listheaderRoutestListCanvasserType"
+							width="30%"
+							label="${c:l('listheader_CanvasserRoutesList_canvasserType.label')}" />
+						<listheader id="listheaderRoutesListDate"
+							width="20%"
+							label="${c:l('listheader_CanvasserRoutesList_cvsEfeectiveDate.label')}" />
+						<listheader id="listheaderRoutesListIneffectiveDate"
+							width="20%"
+							label="${c:l('listheader_CanvasserRoutesList_cvsInefeectiveDate.label')}" />
+					</listhead>
+			</listbox>
+
+		</center>
+		<south border="none" />
+
+	</borderlayout>
+</window>
+</zk>
