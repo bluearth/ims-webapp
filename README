@@ -1,0 +1,17 @@
+
+Intelligent Merchandiser System
+
+Internal project at ValueQuest
+
+=Requirements
+
+==Development
+* Java 1.6 SDK
+* Maven 2
+* Git client to clone the code
+
+==Runtime
+* Java Runtime Environtment 1.6
+* Servlet 2.5 compliant web server (tested with Tomcat 6.0)
+* Oracle database
+
