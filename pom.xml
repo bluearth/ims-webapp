@@ -58,7 +58,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-security</artifactId>
+			<artifactId>spring-security-core</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
@@ -71,11 +71,6 @@
 			<artifactId>spring-test</artifactId>
 			<version>3.0.5.RELEASE</version>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>3.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -138,6 +133,12 @@
 			<id>Internal repository</id>
 			<url>http://192.168.1.6:8082/archiva/repository/internal/</url>
 		</repository>
+
+		<repository>
+			<id>JBoss community repository</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+		</repository>
+
 				
 	</repositories>
 
