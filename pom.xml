@@ -5,6 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- About this project -->
+	<name>Intelligent Merchandiser System</name>
 	<groupId>id.co.xsis.ims</groupId>
 	<artifactId>ims-webapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -57,7 +58,7 @@
 			<version>3.0.5.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
+			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
@@ -77,6 +78,7 @@
 			<artifactId>spring-tx</artifactId>
 			<version>3.0.5.RELEASE</version>
 		</dependency>
+		
 
 		<!-- Hibernate 3 -->
 		<dependency>
@@ -118,9 +120,6 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.4</version>
 		</dependency>
-
-
-
 	</dependencies>
 
 	<repositories>
@@ -128,25 +127,37 @@
 			<id>ZK EE Evaluation</id>
 			<url>http://mavensync.zkoss.org/zk/ee-eval</url>
 		</repository>
-		
-		<repository>
-			<id>Internal repository</id>
-			<url>http://192.168.1.6:8082/archiva/repository/internal/</url>
-		</repository>
+
+<!-- 		<repository> -->
+<!-- 			<id>Internal repository</id> -->
+<!-- 			<url>http://192.168.1.6:8082/archiva/repository/internal/</url> -->
+<!-- 		</repository> -->
 
 		<repository>
 			<id>JBoss community repository</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public-jboss/</url>
 		</repository>
 
-				
+		<repository>
+			<id>Spring Framework Maven</id>
+			<url>http://maven.springframework.org/release/</url>
+		</repository>
+
 	</repositories>
 
-	
-	
-	
-	
 	<build>
+		<finalName>ims</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 
